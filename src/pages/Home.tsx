@@ -19,12 +19,20 @@ const Home: React.FC = () => {
     ];
 
     return (
-        <Layout>
-            <Sider className="h-100vh">
-                <SideBar />
+        <Layout className="h-full">
+            <Sider className="h-100vh overflow-y-auto">
+                <div className=" ">
+                    <div className="text-center h-16">
+                        <img className="h-full" src={require('../assets/img/Logo_MTA_new.png')} alt="mta" />
+                    </div>
+                    <div className="bg-main-color h-10 w-full"></div>
+                </div>
+                <div>
+                    <SideBar />
+                </div>
             </Sider>
-            <Layout>
-                <Header className="h-20 bg-main-color text-white leading-header">
+            <Layout className="h-100vh">
+                <Header className="h-16 bg-main-color text-white">
                     <Row className="justify-between">
                         <Col>
                             <h1>Header</h1>

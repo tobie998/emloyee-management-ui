@@ -42,10 +42,15 @@ h1 {
     background-color: #b5f5ec !important;
 }
 
-.ant-input {
+/* .ant-input {
     height: 48px;
-}
+} */
 
 .ant-input-group-addon {
     display: none !important;
 }
+
+/* .ant-card-body {
+    overflow-y: auto;
+    height: inherit;
+} */

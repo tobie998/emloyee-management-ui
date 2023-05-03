@@ -7,12 +7,11 @@ module.exports = {
                 'main-color': '#006D75',
             },
             width: {
-                'sidebar': '21.875%',
+                sidebar: '21.875%',
             },
             lineHeight: {
-                'header': '80px',
-              }
-        
+                header: '80px',
+            },
         },
     },
     plugins: [],

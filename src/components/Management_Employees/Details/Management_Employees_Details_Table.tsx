@@ -1,187 +1,195 @@
+import React from 'react';
 import { Space } from 'antd';
 import Table, { ColumnsType } from 'antd/es/table';
-import React from 'react';
+import { InfoCircleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
     name: string;
     age: number;
-    address: string;
-    role: string;
-    phone: number;
+    sex: string;
+    academicRank: string;
+    degree: string;
+    workingRole: string;
+    currentRole: string;
+    personalAddress: string;
+    personalPhone: string;
+    officialPhone: string;
+    mobile: string;
+    unit: string;
 }
 
-const columns: ColumnsType<DataType> = [
-    {
-        title: 'Key',
-        key: 'key',
-        width: '70px',
-        dataIndex: 'key',
-    },
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        width: '120px',
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-        width: '80px',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Role',
-        key: 'role',
-        dataIndex: 'role',
-        width: '120px',
-    },
-    {
-        title: 'Phone',
-        key: 'phone',
-        dataIndex: 'phone',
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <a>Invite {record.name}</a>
-                <a>Delete</a>
-            </Space>
-        ),
-    },
-];
+interface Props {
+    onInfo: any;
+    onEdit: any;
+}
 
-const data: DataType[] = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '4',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '5',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '6',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '7',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '8',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '9',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '10',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '11',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '12',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '13',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '14',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-    {
-        key: '15',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        role: 'Employee',
-        phone: 123456789,
-    },
-];
+const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
+    const columns: ColumnsType<DataType> = [
+        {
+            title: 'STT',
+            key: 'key',
+            width: '70px',
+            dataIndex: 'key',
+        },
+        {
+            title: 'Họ và tên',
+            dataIndex: 'name',
+            key: 'name',
+            width: '120px',
+        },
+        {
+            title: 'Năm sinh',
+            dataIndex: 'age',
+            key: 'age',
+            width: '100px',
+        },
+        {
+            title: 'Giới tính',
+            dataIndex: 'sex',
+            key: 'sex',
+            width: '100px',
+        },
+        {
+            title: 'Học hàm',
+            key: 'academicRank',
+            dataIndex: 'academicRank',
+            width: '120px',
+        },
+        {
+            title: 'Học vị',
+            key: 'degree',
+            dataIndex: 'degree',
+            width: '120px',
+        },
+        {
+            title: 'Chức danh giảng dạy/nghiên cứu',
+            key: 'workingRole',
+            dataIndex: 'workingRole',
+            width: '250px',
+        },
+        {
+            title: 'Địa chỉ nhà riêng',
+            key: 'personalAddress',
+            dataIndex: 'personalAddress',
+            width: '150px',
+        },
+        {
+            title: 'Điện thoại nhà riêng',
+            key: 'personalPhone',
+            dataIndex: 'personalPhone',
+            width: '180px',
+        },
+        {
+            title: 'Điện thoại cơ quan',
+            key: 'officialPhone',
+            dataIndex: 'officialPhone',
+            width: '180px',
+        },
+        {
+            title: 'Mobile',
+            key: 'mobile',
+            dataIndex: 'mobile',
+            width: '120px',
+        },
+        {
+            title: 'Tên đơn vị',
+            key: 'unit',
+            dataIndex: 'unit',
+            width: '100px',
+        },
+        {
+            title: '',
+            key: 'action',
+            fixed: 'right',
+            width: '100px',
+            render: (_, record) => (
+                <Space size="middle">
+                    <InfoCircleOutlined className="text-main-color text-2xl" onClick={() => props.onInfo(record)} />
+                    <EditOutlined className="text-main-color text-2xl" onClick={() => props.onEdit(record)} />
+                </Space>
+            ),
+        },
+    ];
 
-const Management_Employees_Details_Table: React.FC = () => {
+    const data: DataType[] = [
+        {
+            key: '1',
+            name: 'John Brown',
+            age: 32,
+            sex: 'Nam',
+            academicRank: 'Phó giáo sư',
+            degree: 'Tiến sĩ',
+            workingRole: 'GVC',
+            currentRole: 'Giảng viên',
+            personalAddress: 'Hà Nội',
+            personalPhone: '123456',
+            officialPhone: '1234567',
+            mobile: '0358482888',
+            unit: 'Đơn vị 1',
+        },
+        {
+            key: '2',
+            name: 'John Brown',
+            age: 32,
+            sex: 'Nam',
+            academicRank: 'Phó giáo sư',
+            degree: 'Tiến sĩ',
+            workingRole: 'GVC',
+            currentRole: 'Giảng viên',
+            personalAddress: 'Hà Nội',
+            personalPhone: '123456',
+            officialPhone: '1234567',
+            mobile: '0358482888',
+            unit: 'Đơn vị 1',
+        },
+        {
+            key: '3',
+            name: 'John Brown',
+            age: 32,
+            sex: 'Nam',
+            academicRank: 'Phó giáo sư',
+            degree: 'Tiến sĩ',
+            workingRole: 'GVC',
+            currentRole: 'Giảng viên',
+            personalAddress: 'Hà Nội',
+            personalPhone: '123456',
+            officialPhone: '1234567',
+            mobile: '0358482888',
+            unit: 'Đơn vị 1',
+        },
+        {
+            key: '4',
+            name: 'John Brown',
+            age: 32,
+            sex: 'Nam',
+            academicRank: 'Phó giáo sư',
+            degree: 'Tiến sĩ',
+            workingRole: 'GVC',
+            currentRole: 'Giảng viên',
+            personalAddress: 'Hà Nội',
+            personalPhone: '123456',
+            officialPhone: '1234567',
+            mobile: '0358482888',
+            unit: 'Đơn vị 1',
+        },
+        {
+            key: '5',
+            name: 'John Brown',
+            age: 32,
+            sex: 'Nam',
+            academicRank: 'Phó giáo sư',
+            degree: 'Tiến sĩ',
+            workingRole: 'GVC',
+            currentRole: 'Giảng viên',
+            personalAddress: 'Hà Nội',
+            personalPhone: '123456',
+            officialPhone: '1234567',
+            mobile: '0358482888',
+            unit: 'Đơn vị 1',
+        },
+    ];
+
     return <Table columns={columns} dataSource={data} scroll={{ y: 200 }} />;
 };
 

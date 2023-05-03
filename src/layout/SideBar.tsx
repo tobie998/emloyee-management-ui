@@ -37,10 +37,8 @@ const SideBar: React.FC = () => {
 
     return (
         <div>
-            <div className="text-center h-20">
-                <img className="h-full" src={require('../assets/img/Logo_MTA_new.png')} alt="mta" />
-            </div>
-            <div className="bg-main-color h-10 w-full"></div>
+            
+
             <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline" items={menuItem} />
         </div>
     );
