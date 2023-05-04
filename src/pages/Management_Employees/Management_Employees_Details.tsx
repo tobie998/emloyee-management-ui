@@ -21,7 +21,7 @@ const Management_EmployeesDetails: React.FC = () => {
 
     const handleAdd = () => {
         console.log('add');
-        setIsChildInputOpen((previous) => !previous);
+        setIsChildInputOpen(true);
     };
 
     const onSearch = (value: string) => console.log(value);
@@ -32,6 +32,14 @@ const Management_EmployeesDetails: React.FC = () => {
 
     const handleInfo = (record: any) => {
         console.log('info', record);
+    };
+
+    const handleClickCancel = () => {
+        setIsChildInputOpen(false);
+    };
+
+    const handleClickOk = () => {
+        setIsChildInputOpen(false);
     };
 
     return (
@@ -70,7 +78,11 @@ const Management_EmployeesDetails: React.FC = () => {
                 </Col>
             </Row>
 
-            {isChildInputOpen ? <Management_Employees_Details_ChildInput /> : ''}
+            {isChildInputOpen ? (
+                <Management_Employees_Details_ChildInput onClickCancel={handleClickCancel} onClickOK={handleClickOk} />
+            ) : (
+                ''
+            )}
         </div>
     );
 };
