@@ -9,6 +9,8 @@ import { researchCategoryList } from '../../../constant/dummy';
 import Input_Number from '../../common/Input_Number';
 import Button_Normal from '../../common/Button_Normal';
 import Dialog_Warning from '../../common/Dialog_Warning';
+import Management_Employees_Details_TrainingProcess from './Details_Dialog/Management_Employees_Details_TrainingProcess';
+import Management_Employees_Details_EnglishKnowledge from './Details_Dialog/Management_Employees_Details_EnglishKnowledge';
 
 interface Props {
     onClickOK: any;
@@ -23,10 +25,31 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
     const [researchCategory, setResearchCategory] = useState('');
 
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
+    const [isOpenLearningProcess, setIsOpenLearningProcess] = useState(false);
+    const [isOpenEnglishKnowledge, setIsOpenEnglishKnowledge] = useState(false);
+    const [isOpenWorkingProcess, setIsOpenWorkingProcess] = useState(false);
+    const [isOpenAward, setIsOpenAward] = useState(false);
+    const [isOpenReward, setIsOpenReward] = useState(false);
+    const [isOpenPunishment, setIsOpenPunishment] = useState(false);
+    const [isOpenPublicResearch, setIsOpenPublicResearch] = useState(false);
+    const [isOpenGivenDegree, setIsOpenGivenDegree] = useState(false);
+    const [isOpenGuidedResearchers, setIsOpenGuidedResearchers] = useState(false);
+    const [isOpenPracticalResearch, setIsOpenPracticalResearch] = useState(false);
+    const [isOpenResearchAssessment, setIsOpenResearchAssessment] = useState(false);
+    const [isOpenResearchJoinedProject, setIsOpenResearchJoinedProject] = useState(false);
 
     const handleOpenLearningProcess = () => {
         console.log('open');
+        setIsOpenLearningProcess(true);
     };
+
+    // const handleOpenEnglishKnowledge = () => {
+    //     setIsOpenEnglishKnowledge(true);
+    // };
+
+    // const handleOpenWorkingProcess = () => {
+    //     setIsOpenWorkingProcess(true);
+    // };
 
     const handleDelete = () => {
         console.log('delete');
@@ -54,6 +77,14 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
 
         props.onClickOK();
     };
+
+    // const handleCancelDetailDialog = () => {
+    //     console.log('cancel detail dialog');
+    // };
+
+    // const handleOkDetailDialog = () => {
+    //     console.log('ok detail dialog');
+    // };
 
     return (
         <Overlay>
@@ -187,34 +218,6 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
 
                 <Divider className="min-w-[25%] w-3/12 mb-5" style={{ margin: '16px auto', fontSize: '12px' }} />
 
-                <Row gutter={[32, 0]} className="mb-5">
-                    <Col span={6}>
-                        <Input_Select
-                            label="Chức danh giảng dạy, nghiên cứu"
-                            onChange={(value: string) => {
-                                console.log(value);
-                                setResearchCategory(value);
-                            }}
-                            onBlur={() => console.log('onBlur')}
-                            options={researchCategoryList}
-                        />
-                    </Col>
-
-                    <Col span={6}>
-                        <Input_Select
-                            label="Chức vụ hiện nay"
-                            onChange={(value: string) => {
-                                console.log(value);
-                                setResearchCategory(value);
-                            }}
-                            onBlur={() => console.log('onBlur')}
-                            options={researchCategoryList}
-                        />
-                    </Col>
-                </Row>
-
-                <Divider className="min-w-[25%] w-3/12 mb-5" style={{ margin: '16px auto', fontSize: '12px' }} />
-
                 <Row gutter={[32, 32]} className="mb-5">
                     <Col span={6}>
                         <Input_Text
@@ -335,62 +338,70 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
                     </Col>
 
                     <Col span={4}>
-                        <Button_Normal label="Trình độ ngoại ngữ" onClick={handleOpenLearningProcess}></Button_Normal>
+                        <Button_Normal
+                            label="Trình độ ngoại ngữ"
+                            onClick={() => setIsOpenEnglishKnowledge(true)}
+                        ></Button_Normal>
                     </Col>
 
                     <Col span={4}>
-                        <Button_Normal label="Quá trình công tác" onClick={handleOpenLearningProcess}></Button_Normal>
+                        <Button_Normal
+                            label="Quá trình công tác"
+                            onClick={() => setIsOpenWorkingProcess(true)}
+                        ></Button_Normal>
                     </Col>
 
                     <Col span={4}>
-                        <Button_Normal label="Quá trình đào tạo" onClick={handleOpenLearningProcess}></Button_Normal>
+                        <Button_Normal label="Giải thưởng" onClick={() => setIsOpenAward(true)}></Button_Normal>
                     </Col>
 
                     <Col span={4}>
-                        <Button_Normal label="Giải thưởng" onClick={handleOpenLearningProcess}></Button_Normal>
+                        <Button_Normal label="Khen thưởng" onClick={() => setIsOpenReward(true)}></Button_Normal>
                     </Col>
 
-                    <Col span={4}></Col>
+                    <Col span={4}>
+                        <Button_Normal label="Kỷ luật" onClick={() => setIsOpenPunishment(true)}></Button_Normal>
+                    </Col>
 
                     <Col md={20} lg={16} xl={12}>
                         <Button_Normal
                             label="Công trình KH&CN chủ yếu được công bố, sách chuyên khảo"
-                            onClick={handleOpenLearningProcess}
+                            onClick={() => setIsOpenPublicResearch(true)}
                         ></Button_Normal>
                     </Col>
 
                     <Col md={12} lg={8} xl={6}>
                         <Button_Normal
                             label="Số lượng văn bằng đã được cấp"
-                            onClick={handleOpenLearningProcess}
+                            onClick={() => setIsOpenGivenDegree(true)}
                         ></Button_Normal>
                     </Col>
 
                     <Col md={20} lg={8} xl={6}>
                         <Button_Normal
                             label="NCS đã hướng dẫn thành công"
-                            onClick={handleOpenLearningProcess}
+                            onClick={() => setIsOpenGuidedResearchers(true)}
                         ></Button_Normal>
                     </Col>
 
                     <Col md={20} lg={16} xl={8}>
                         <Button_Normal
                             label="Số lượng công trình, kết quả nghiên cứu đã áp dụng trong thực tiễn"
-                            onClick={handleOpenLearningProcess}
+                            onClick={() => setIsOpenPracticalResearch(true)}
                         ></Button_Normal>
                     </Col>
 
                     <Col md={20} lg={12} xl={8}>
                         <Button_Normal
                             label="Kinh nghiệm về quản lý, đánh giá KH&CN"
-                            onClick={handleOpenLearningProcess}
+                            onClick={() => setIsOpenResearchAssessment(true)}
                         ></Button_Normal>
                     </Col>
 
                     <Col md={20} lg={12} xl={8}>
                         <Button_Normal
                             label="Đề tài, dự án, nhiệm vụ KH&CN đã chủ trì hoặc tham gia"
-                            onClick={handleOpenLearningProcess}
+                            onClick={() => setIsOpenResearchJoinedProject(true)}
                         ></Button_Normal>
                     </Col>
                 </Row>
@@ -400,6 +411,32 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
                         messageContent="Bạn muốn thêm mới?"
                         onCancel={handleCancelWarningDialog}
                         onClickOk={handleClickOk}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenLearningProcess ? (
+                    <Management_Employees_Details_TrainingProcess
+                        dialogTitle="Quá trình đào tạo"
+                        onCancel={() => setIsOpenLearningProcess(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenLearningProcess(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenEnglishKnowledge ? (
+                    <Management_Employees_Details_EnglishKnowledge
+                        dialogTitle="Trình độ ngoại ngữ"
+                        onCancel={() => setIsOpenEnglishKnowledge(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenEnglishKnowledge(false);
+                        }}
                     />
                 ) : (
                     ''

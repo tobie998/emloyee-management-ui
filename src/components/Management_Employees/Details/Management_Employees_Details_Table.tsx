@@ -1,7 +1,7 @@
 import React from 'react';
 import { Space } from 'antd';
 import Table, { ColumnsType } from 'antd/es/table';
-import { InfoCircleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
