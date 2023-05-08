@@ -36,7 +36,7 @@ interface childInputProps {
     childInputItem: any;
 }
 
-const EnglishKnowledge_ChildInput: React.FC<childInputProps> = (props: childInputProps) => {
+const WorkingProcess_ChildInput: React.FC<childInputProps> = (props: childInputProps) => {
     const { mode, childInputItem } = props;
     console.log(childInputItem);
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
@@ -171,7 +171,7 @@ const EnglishKnowledge_ChildInput: React.FC<childInputProps> = (props: childInpu
     );
 };
 
-const Management_Employees_Details_EnglishKnowledge: React.FC<Props> = (props: Props) => {
+const Management_Employees_Details_WorkingProcess: React.FC<Props> = (props: Props) => {
     const { dialogTitle } = props;
     const [isOpenChildInput, setIsOpenChildInput] = useState(false);
     const [childInputItem, setChildInputItem] = useState({});
@@ -359,7 +359,7 @@ const Management_Employees_Details_EnglishKnowledge: React.FC<Props> = (props: P
                 </Row>
 
                 {isOpenChildInput ? (
-                    <EnglishKnowledge_ChildInput
+                    <WorkingProcess_ChildInput
                         mode="add"
                         childInputItem={childInputItem}
                         onClickCancel={() => {
@@ -377,4 +377,4 @@ const Management_Employees_Details_EnglishKnowledge: React.FC<Props> = (props: P
     );
 };
 
-export default Management_Employees_Details_EnglishKnowledge;
+export default Management_Employees_Details_WorkingProcess;

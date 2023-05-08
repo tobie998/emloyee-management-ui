@@ -16,10 +16,11 @@ import Dialog_Warning from '../../../common/Dialog_Warning';
 interface DataType {
     key: number;
     employeeID: string;
-    givenDegreeID: string;
-    givenDegreeName: string;
-    givenDegreeContent: string;
-    givenDegreeDate: string;
+    researchOwnedProjectID: string;
+    researchOwnedProjectName: string;
+    startTime: string;
+    endTime: string;
+    status: string;
 }
 
 interface Props {
@@ -35,7 +36,7 @@ interface childInputProps {
     childInputItem: any;
 }
 
-const GivenDegree_ChildInput: React.FC<childInputProps> = (props: childInputProps) => {
+const ResearchOwnedProject_ChildInput: React.FC<childInputProps> = (props: childInputProps) => {
     const { mode, childInputItem } = props;
     console.log(childInputItem);
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
@@ -59,7 +60,7 @@ const GivenDegree_ChildInput: React.FC<childInputProps> = (props: childInputProp
     return (
         <div className="absolute w-full h-full top-0 left-0 flex justify-center items-center z-50 ">
             <Card
-                title={`Văn bằng đã cấp [${mode}]`}
+                title={`Đề tài dự án KH&CN chủ trì [${mode}]`}
                 headStyle={{ background: '#006D75', color: 'white' }}
                 style={{ background: '#fff', width: '100%', height: 'fit-content', border: 'none' }}
                 className="shadow-xl"
@@ -102,7 +103,7 @@ const GivenDegree_ChildInput: React.FC<childInputProps> = (props: childInputProp
 
                     <Col span={8}>
                         <Input_Select
-                            label="Mã văn bằng"
+                            label="Mã đề tài"
                             onChange={(value: string) => {
                                 console.log(value);
                                 setResearchCategory(value);
@@ -114,18 +115,7 @@ const GivenDegree_ChildInput: React.FC<childInputProps> = (props: childInputProp
 
                     <Col span={8}>
                         <Input_Text
-                            label="Tên văn bằng"
-                            value={`employeeName`}
-                            onChange={() => {
-                                console.log('abcd');
-                            }}
-                            onBlur={() => console.log('onBlur')}
-                        />
-                    </Col>
-
-                    <Col span={8}>
-                        <Input_Text
-                            label="Nội dung văn bằng"
+                            label="Tên đề tài"
                             value={`employeeName`}
                             onChange={() => {
                                 console.log('abcd');
@@ -136,8 +126,27 @@ const GivenDegree_ChildInput: React.FC<childInputProps> = (props: childInputProp
 
                     <Col span={8}>
                         <Input_DatePicker
-                            label="Năm cấp"
+                            label="Thời gian bắt đầu"
                             onChange={(date: any, dateString: any) => console.log(date, dateString)}
+                            onBlur={() => console.log('onBlur')}
+                        />
+                    </Col>
+
+                    <Col span={8}>
+                        <Input_DatePicker
+                            label="Thời gian kết thúc"
+                            onChange={(date: any, dateString: any) => console.log(date, dateString)}
+                            onBlur={() => console.log('onBlur')}
+                        />
+                    </Col>
+
+                    <Col span={8}>
+                        <Input_Text
+                            label="Tình trạng"
+                            value={`employeeName`}
+                            onChange={() => {
+                                console.log('abcd');
+                            }}
                             onBlur={() => console.log('onBlur')}
                         />
                     </Col>
@@ -160,7 +169,7 @@ const GivenDegree_ChildInput: React.FC<childInputProps> = (props: childInputProp
     );
 };
 
-const Management_Employees_Details_GivenDegree: React.FC<Props> = (props: Props) => {
+const Management_Employees_Details_ResearchOwnedProject: React.FC<Props> = (props: Props) => {
     const { dialogTitle } = props;
     const [isOpenChildInput, setIsOpenChildInput] = useState(false);
     const [childInputItem, setChildInputItem] = useState({});
@@ -179,27 +188,33 @@ const Management_Employees_Details_GivenDegree: React.FC<Props> = (props: Props)
             width: '120px',
         },
         {
-            title: 'Mã văn bằng',
-            dataIndex: 'givenDegreeID',
-            key: 'givenDegreeID',
+            title: 'Mã đề tài KH&CN chủ trì',
+            dataIndex: 'researchOwnedProjectID',
+            key: 'researchOwnedProjectID',
             width: '150px',
         },
         {
-            title: 'Tên văn bằng',
-            key: 'givenDegreeName',
-            dataIndex: 'givenDegreeName',
+            title: 'Tên đề tài KH&CN',
+            key: 'researchOwnedProjectName',
+            dataIndex: 'researchOwnedProjectName',
             width: '100px',
         },
         {
-            title: 'Nội dung văn bằng',
-            key: 'givenDegreeContent',
-            dataIndex: 'givenDegreeContent',
-            width: '100px',
+            title: 'Thời gian bắt đầu',
+            key: 'startTime',
+            dataIndex: 'startTime',
+            width: '150px',
         },
         {
-            title: 'Năm cấp',
-            key: 'givenDegreeDate',
-            dataIndex: 'givenDegreeDate',
+            title: 'Thời gian kết thúc',
+            key: 'endTime',
+            dataIndex: 'endTime',
+            width: '150px',
+        },
+        {
+            title: 'Tình trạng',
+            key: 'status',
+            dataIndex: 'status',
             width: '150px',
         },
         {
@@ -232,42 +247,47 @@ const Management_Employees_Details_GivenDegree: React.FC<Props> = (props: Props)
         {
             key: 1,
             employeeID: 'CB0001',
-            givenDegreeID: 'VB0001',
-            givenDegreeName: 'Văn bằng 1',
-            givenDegreeContent: 'abcde',
-            givenDegreeDate: '2023-05-08',
+            researchOwnedProjectID: 'DTTG0001',
+            researchOwnedProjectName: 'Đề tài tham gia 1',
+            startTime: '2023-05-01',
+            endTime: '2023-05-08',
+            status: 'Hoàn thành',
         },
         {
             key: 2,
             employeeID: 'CB0002',
-            givenDegreeID: 'VB0001',
-            givenDegreeName: 'Văn bằng 1',
-            givenDegreeContent: 'abcde',
-            givenDegreeDate: '2023-05-08',
+            researchOwnedProjectID: 'DTTG0001',
+            researchOwnedProjectName: 'Đề tài tham gia 1',
+            startTime: '2023-05-01',
+            endTime: '2023-05-08',
+            status: 'Hoàn thành',
         },
         {
             key: 3,
             employeeID: 'CB0003',
-            givenDegreeID: 'VB0001',
-            givenDegreeName: 'Văn bằng 1',
-            givenDegreeContent: 'abcde',
-            givenDegreeDate: '2023-05-08',
+            researchOwnedProjectID: 'DTTG0001',
+            researchOwnedProjectName: 'Đề tài tham gia 1',
+            startTime: '2023-05-01',
+            endTime: '2023-05-08',
+            status: 'Hoàn thành',
         },
         {
             key: 4,
             employeeID: 'CB0004',
-            givenDegreeID: 'VB0001',
-            givenDegreeName: 'Văn bằng 1',
-            givenDegreeContent: 'abcde',
-            givenDegreeDate: '2023-05-08',
+            researchOwnedProjectID: 'DTTG0001',
+            researchOwnedProjectName: 'Đề tài tham gia 1',
+            startTime: '2023-05-01',
+            endTime: '2023-05-08',
+            status: 'Hoàn thành',
         },
         {
             key: 5,
             employeeID: 'CB0005',
-            givenDegreeID: 'VB0001',
-            givenDegreeName: 'Văn bằng 1',
-            givenDegreeContent: 'abcde',
-            givenDegreeDate: '2023-05-08',
+            researchOwnedProjectID: 'DTTG0001',
+            researchOwnedProjectName: 'Đề tài tham gia 1',
+            startTime: '2023-05-01',
+            endTime: '2023-05-08',
+            status: 'Hoàn thành',
         },
     ];
 
@@ -337,7 +357,7 @@ const Management_Employees_Details_GivenDegree: React.FC<Props> = (props: Props)
                 </Row>
 
                 {isOpenChildInput ? (
-                    <GivenDegree_ChildInput
+                    <ResearchOwnedProject_ChildInput
                         mode="add"
                         childInputItem={childInputItem}
                         onClickCancel={() => {
@@ -355,4 +375,4 @@ const Management_Employees_Details_GivenDegree: React.FC<Props> = (props: Props)
     );
 };
 
-export default Management_Employees_Details_GivenDegree;
+export default Management_Employees_Details_ResearchOwnedProject;
