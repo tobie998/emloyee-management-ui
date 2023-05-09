@@ -11,6 +11,19 @@ import Button_Normal from '../../common/Button_Normal';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import Management_Employees_Details_TrainingProcess from './Details_Dialog/Management_Employees_Details_TrainingProcess';
 import Management_Employees_Details_EnglishKnowledge from './Details_Dialog/Management_Employees_Details_EnglishKnowledge';
+import Management_Employees_Details_WorkingProcess from './Details_Dialog/Management_Employees_Details_WorkingProcess';
+import Management_Employees_Details_Award from './Details_Dialog/Management_Employees_Details_Award';
+import Management_Employees_Details_Reward from './Details_Dialog/Management_Employees_Details_Reward';
+import Management_Employees_Details_Punishment from './Details_Dialog/Management_Employees_Details_Punishment';
+import Management_Employees_Details_PublicResearch from './Details_Dialog/Management_Employees_Details_PublicResearch';
+import Management_Employees_Details_GivenDegree from './Details_Dialog/Management_Employees_Details_GivenDegree';
+import Management_Employees_Details_GuidedResearchers from './Details_Dialog/Management_Employees_Details_GuidedResearchers';
+import Management_Employees_Details_PracticalResearch from './Details_Dialog/Management_Employees_Details_PracticalResearch';
+import Management_Employees_Details_ResearchAssessment from './Details_Dialog/Management_Employees_Details_ResearchAssessment';
+import Management_Employees_Details_ResearchJoinedProject from './Details_Dialog/Management_Employees_Details_ResearchJoinedProject';
+import Management_Employees_Details_ResearchOwnedProject from './Details_Dialog/Management_Employees_Details_ResearchOwnedProject';
+import Management_Employees_Details_TeachingRole from './Details_Dialog/Management_Employees_Details_TeachingRole';
+import Management_Employees_Details_WorkingRole from './Details_Dialog/Management_Employees_Details_WorkingRole';
 
 interface Props {
     onClickOK: any;
@@ -37,6 +50,9 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
     const [isOpenPracticalResearch, setIsOpenPracticalResearch] = useState(false);
     const [isOpenResearchAssessment, setIsOpenResearchAssessment] = useState(false);
     const [isOpenResearchJoinedProject, setIsOpenResearchJoinedProject] = useState(false);
+    const [isOpenResearchOwnedProject, setIsOpenResearchOwnedProject] = useState(false);
+    const [isOpenTeachingRole, setIsOpenTeachingRole] = useState(false);
+    const [isOpenWorkingRole, setIsOpenWorkingRole] = useState(false);
 
     const handleOpenLearningProcess = () => {
         console.log('open');
@@ -400,9 +416,24 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
 
                     <Col md={20} lg={12} xl={8}>
                         <Button_Normal
-                            label="Đề tài, dự án, nhiệm vụ KH&CN đã chủ trì hoặc tham gia"
+                            label="Đề tài, dự án, nhiệm vụ KH&CN đã tham gia"
                             onClick={() => setIsOpenResearchJoinedProject(true)}
                         ></Button_Normal>
+                    </Col>
+
+                    <Col md={20} lg={12} xl={8}>
+                        <Button_Normal
+                            label="Đề tài, dự án, nhiệm vụ KH&CN đã chủ trì"
+                            onClick={() => setIsOpenResearchOwnedProject(true)}
+                        ></Button_Normal>
+                    </Col>
+
+                    <Col span={4}>
+                        <Button_Normal label="Chức danh" onClick={() => setIsOpenTeachingRole(true)}></Button_Normal>
+                    </Col>
+
+                    <Col span={4}>
+                        <Button_Normal label="Chức vụ" onClick={() => setIsOpenWorkingRole(true)}></Button_Normal>
                     </Col>
                 </Row>
 
@@ -436,6 +467,175 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
                         onClickOk={() => {
                             console.log('data');
                             setIsOpenEnglishKnowledge(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenWorkingProcess ? (
+                    <Management_Employees_Details_WorkingProcess
+                        dialogTitle="Quá trình công tác"
+                        onCancel={() => setIsOpenWorkingProcess(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenWorkingProcess(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenAward ? (
+                    <Management_Employees_Details_Award
+                        dialogTitle="Quá trình công tác"
+                        onCancel={() => setIsOpenAward(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenAward(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenReward ? (
+                    <Management_Employees_Details_Reward
+                        dialogTitle="Khen thưởng"
+                        onCancel={() => setIsOpenReward(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenReward(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenPunishment ? (
+                    <Management_Employees_Details_Punishment
+                        dialogTitle="Kỷ luật"
+                        onCancel={() => setIsOpenPunishment(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenPunishment(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenPublicResearch ? (
+                    <Management_Employees_Details_PublicResearch
+                        dialogTitle="Công trình KH&CN chủ yếu được công bố"
+                        onCancel={() => setIsOpenPublicResearch(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenPublicResearch(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenGivenDegree ? (
+                    <Management_Employees_Details_GivenDegree
+                        dialogTitle="Văn bằng đã cấp"
+                        onCancel={() => setIsOpenGivenDegree(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenGivenDegree(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenGuidedResearchers ? (
+                    <Management_Employees_Details_GuidedResearchers
+                        dialogTitle="NCS đã hướng dẫn"
+                        onCancel={() => setIsOpenGuidedResearchers(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenGuidedResearchers(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenPracticalResearch ? (
+                    <Management_Employees_Details_PracticalResearch
+                        dialogTitle="Công trình, kết quả nghiên cứu đã áp dụng"
+                        onCancel={() => setIsOpenPracticalResearch(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenPracticalResearch(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenResearchAssessment ? (
+                    <Management_Employees_Details_ResearchAssessment
+                        dialogTitle="Kinh nghiệm về quản lý, đánh giá KH&CN"
+                        onCancel={() => setIsOpenResearchAssessment(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenResearchAssessment(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenResearchJoinedProject ? (
+                    <Management_Employees_Details_ResearchJoinedProject
+                        dialogTitle="Đề tài, dự án, nhiệm vụ KH&CN tham gia"
+                        onCancel={() => setIsOpenResearchJoinedProject(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenResearchJoinedProject(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenResearchOwnedProject ? (
+                    <Management_Employees_Details_ResearchOwnedProject
+                        dialogTitle="Đề tài, dự án, nhiệm vụ KH&CN chủ trì"
+                        onCancel={() => setIsOpenResearchOwnedProject(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenResearchOwnedProject(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenTeachingRole ? (
+                    <Management_Employees_Details_TeachingRole
+                        dialogTitle="Chức danh"
+                        onCancel={() => setIsOpenTeachingRole(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenTeachingRole(false);
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
+
+                {isOpenWorkingRole ? (
+                    <Management_Employees_Details_WorkingRole
+                        dialogTitle="Chức danh"
+                        onCancel={() => setIsOpenWorkingRole(false)}
+                        onClickOk={() => {
+                            console.log('data');
+                            setIsOpenWorkingRole(false);
                         }}
                     />
                 ) : (
