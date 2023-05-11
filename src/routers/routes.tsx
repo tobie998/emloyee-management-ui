@@ -17,6 +17,22 @@ const router = createBrowserRouter([
                 path: 'employees-detail',
                 element: <Management_EmployeesDetails />,
             },
+            {
+                path: 'employees-detail',
+                element: <Management_EmployeesDetails />,
+            },
+            {
+                path: 'employees-detail',
+                element: <Management_EmployeesDetails />,
+            },
+            {
+                path: 'employees-detail',
+                element: <Management_EmployeesDetails />,
+            },
+            {
+                path: 'employees-detail',
+                element: <Management_EmployeesDetails />,
+            },
             { path: 'education' },
             { path: 'research-employee', element: <Management_ResearchEmployee /> },
         ],

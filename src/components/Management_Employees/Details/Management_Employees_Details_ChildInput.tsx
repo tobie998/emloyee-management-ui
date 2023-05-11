@@ -10,7 +10,7 @@ import Input_Number from '../../common/Input_Number';
 import Button_Normal from '../../common/Button_Normal';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import Management_Employees_Details_TrainingProcess from './Details_Dialog/Management_Employees_Details_TrainingProcess';
-import Management_Employees_Details_EnglishKnowledge from './Details_Dialog/Management_Employees_Details_EnglishKnowledge';
+import Management_Employees_Details_EnglishKnowledge from './Details_Dialog/Management_Employees_Details_LanguageKnowledge';
 import Management_Employees_Details_WorkingProcess from './Details_Dialog/Management_Employees_Details_WorkingProcess';
 import Management_Employees_Details_Award from './Details_Dialog/Management_Employees_Details_Award';
 import Management_Employees_Details_Reward from './Details_Dialog/Management_Employees_Details_Reward';

@@ -11,14 +11,19 @@ const SideBar: React.FC = () => {
             key: 1,
             children: [
                 { label: <Link to="/employees-detail">Thông tin cán bộ</Link>, key: 11 },
-                { label: <Link to="/employees-role">Chức vụ</Link>, key: 12 },
-                { label: <Link to="/employees-role-name">Chúc danh</Link>, key: 13 },
+                { label: <Link to="/employees-working-role">Chức vụ</Link>, key: 12 },
+                { label: <Link to="/employees-teaching-role">Chúc danh</Link>, key: 13 },
                 { label: <Link to="/employees-unit">Đơn vị</Link>, key: 14 },
-                { label: <Link to="/employees-certificate">Văn bằng</Link>, key: 15 },
+                { label: <Link to="/employees-given-degree">Văn bằng</Link>, key: 15 },
                 { label: <Link to="/employees-training-process">Quá trình đào tạo</Link>, key: 16 },
-                { label: <Link to="/employees-research-experience">Kinh nghiệm KH&CN</Link>, key: 17 },
-                { label: <Link to="/employees-research-category">Lĩnh vực nghiên cứu KH</Link>, key: 18 },
-                { label: <Link to="/employees-foreign-language">Trình độ ngoại ngữ</Link>, key: 19 },
+                { label: <Link to="/employees-research-assessment">Kinh nghiệm KH&CN</Link>, key: 18 },
+                { label: <Link to="/employees-research-category">Lĩnh vực nghiên cứu KH</Link>, key: 19 },
+                { label: <Link to="/employees-research-major">Chuyên ngành KH&CN</Link>, key: 20 },
+                { label: <Link to="/employees-english-knowledge">Trình độ ngoại ngữ</Link>, key: 21 },
+                { label: <Link to="/employees-award">Giải thưởng</Link>, key: 22 },
+                { label: <Link to="/employees-reward">Khen thưởng</Link>, key: 23 },
+                { label: <Link to="/employees-punishment">Kỷ luật</Link>, key: 24 },
+                { label: <Link to="/employees-research-project">Kỷ luật</Link>, key: 24 },
             ],
         },
         {
@@ -37,8 +42,6 @@ const SideBar: React.FC = () => {
 
     return (
         <div>
-            
-
             <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline" items={menuItem} />
         </div>
     );
