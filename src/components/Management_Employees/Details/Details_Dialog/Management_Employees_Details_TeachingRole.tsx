@@ -10,7 +10,6 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 import Input_Select from '../../../common/Input_Select';
 import { researchCategoryList } from '../../../../constant/dummy';
 import Input_Text from '../../../common/Input_Text';
-import Input_DatePicker from '../../../common/Input_DatePicker';
 import Dialog_Warning from '../../../common/Dialog_Warning';
 
 interface DataType {

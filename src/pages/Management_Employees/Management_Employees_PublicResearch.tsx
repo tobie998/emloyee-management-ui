@@ -5,10 +5,10 @@ import Button_Clear from '../../components/common/Button_Clear';
 import Search from 'antd/es/input/Search';
 import Button_Add from '../../components/common/Button_Add';
 import { SearchOutlined } from '@ant-design/icons';
-import Management_Employees_LanguageKnowledge_Table from '../../components/Management_Employees/Language_Knowledge/Management_Employees_LanguageKnowledge_Table';
-import Management_Employees_LanguageKnowledge_ChildInput from '../../components/Management_Employees/Language_Knowledge/Management_Employees_LanguageKnowledge_ChildInput';
+import Management_Employees_PublicResearch_Table from '../../components/Management_Employees/Public_Research/Management_Employees_PublicResearch_Table';
+import Management_Employees_PublicResearch_ChildInput from '../../components/Management_Employees/Public_Research/Management_Employees_PublicResearch_ChildInput';
 
-const Management_Employees_LanguageKnowledge = () => {
+const Management_Employees_PublicResearch = () => {
     const [isChildInputOpen, setIsChildInputOpen] = useState(false);
     const handleReset = () => {
         console.log('reset');
@@ -40,6 +40,7 @@ const Management_Employees_LanguageKnowledge = () => {
     const handleClickOk = () => {
         setIsChildInputOpen(false);
     };
+
     return (
         <div>
             <Row gutter={[8, 0]} className="mb-10">
@@ -69,7 +70,7 @@ const Management_Employees_LanguageKnowledge = () => {
 
             <Row>
                 <Col span={24}>
-                    <Management_Employees_LanguageKnowledge_Table
+                    <Management_Employees_PublicResearch_Table
                         onEdit={handleEdit}
                         onInfo={(event: any) => handleInfo(event)}
                     />
@@ -77,7 +78,7 @@ const Management_Employees_LanguageKnowledge = () => {
             </Row>
 
             {isChildInputOpen ? (
-                <Management_Employees_LanguageKnowledge_ChildInput
+                <Management_Employees_PublicResearch_ChildInput
                     onClickCancel={handleClickCancel}
                     onClickOK={handleClickOk}
                 />
@@ -88,4 +89,4 @@ const Management_Employees_LanguageKnowledge = () => {
     );
 };
 
-export default Management_Employees_LanguageKnowledge;
+export default Management_Employees_PublicResearch;

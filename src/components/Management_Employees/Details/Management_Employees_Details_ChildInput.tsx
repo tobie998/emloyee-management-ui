@@ -234,7 +234,7 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
 
                 <Divider className="min-w-[25%] w-3/12 mb-5" style={{ margin: '16px auto', fontSize: '12px' }} />
 
-                <Row gutter={[32, 32]} className="mb-5">
+                <Row gutter={[32, 32]} className="mb-8">
                     <Col span={6}>
                         <Input_Text
                             label="Địa chỉ nhà riêng"
@@ -281,16 +281,10 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
                             onBlur={() => console.log('onBlur')}
                         />
                     </Col>
-                </Row>
 
-                <Divider className="min-w-[25%] w-3/12 mb-5" style={{ margin: '16px auto', fontSize: '12px' }}>
-                    Đơn vị công tác
-                </Divider>
-
-                <Row gutter={[32, 32]} className="mb-8">
                     <Col span={6}>
                         <Input_Select
-                            label="Tên đơn vị"
+                            label="Mã đơn vị"
                             onChange={(value: string) => {
                                 console.log(value);
                                 setResearchCategory(value);
@@ -299,8 +293,15 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
                             options={researchCategoryList}
                         />
                     </Col>
+                </Row>
 
-                    <Col span={6}>
+                {/* <Divider className="min-w-[25%] w-3/12 mb-5" style={{ margin: '16px auto', fontSize: '12px' }}>
+                    Đơn vị công tác
+                </Divider>
+
+                <Row gutter={[32, 32]} className="mb-8"> */}
+
+                {/* <Col span={6}>
                         <Input_Text
                             label="Tên người đứng đầu"
                             value={degree}
@@ -345,8 +346,8 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
                             onChange={(e: any) => setDegree(e.target.value)}
                             onBlur={() => console.log('onBlur')}
                         />
-                    </Col>
-                </Row>
+                    </Col> */}
+                {/* </Row> */}
 
                 <Row gutter={[32, 32]} className="mb-5">
                     <Col span={4}>

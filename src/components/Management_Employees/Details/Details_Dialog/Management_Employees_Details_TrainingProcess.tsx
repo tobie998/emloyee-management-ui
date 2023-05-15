@@ -16,9 +16,9 @@ import Dialog_Warning from '../../../common/Dialog_Warning';
 interface DataType {
     key: number;
     employeeID: string;
-    learningProcessID: string;
-    learningProcessName: string;
-    learningProcessPlace: string;
+    trainingProcessID: string;
+    trainingProcessName: string;
+    trainingProcessPlace: string;
     major: string;
     graduatedYear: number;
 }
@@ -191,20 +191,20 @@ const Management_Employees_Details_TrainingProcess: React.FC<Props> = (props: Pr
         },
         {
             title: 'Mã bậc đào tạo',
-            dataIndex: 'learningProcessID',
-            key: 'learningProcessID',
+            dataIndex: 'trainingProcessID',
+            key: 'trainingProcessID',
             width: '150px',
         },
         {
             title: 'Bậc đào tạo',
-            dataIndex: 'learningProcessName',
-            key: 'learningProcessName',
+            dataIndex: 'trainingProcessName',
+            key: 'trainingProcessName',
             width: '120px',
         },
         {
             title: 'Nơi đào tạo',
-            key: 'learningProcessPlace',
-            dataIndex: 'learningProcessPlace',
+            key: 'trainingProcessPlace',
+            dataIndex: 'trainingProcessPlace',
             width: '120px',
         },
         {
@@ -249,45 +249,45 @@ const Management_Employees_Details_TrainingProcess: React.FC<Props> = (props: Pr
         {
             key: 1,
             employeeID: 'CB0001',
-            learningProcessID: 'DT0001',
-            learningProcessName: 'Thạc sỹ',
-            learningProcessPlace: 'Hà Nội',
+            trainingProcessID: 'DT0001',
+            trainingProcessName: 'Thạc sỹ',
+            trainingProcessPlace: 'Hà Nội',
             major: 'CNTT',
             graduatedYear: 2021,
         },
         {
             key: 2,
             employeeID: 'CB0002',
-            learningProcessID: 'DT0001',
-            learningProcessName: 'Thạc sỹ',
-            learningProcessPlace: 'Hà Nội',
+            trainingProcessID: 'DT0001',
+            trainingProcessName: 'Thạc sỹ',
+            trainingProcessPlace: 'Hà Nội',
             major: 'CNTT',
             graduatedYear: 2021,
         },
         {
             key: 3,
             employeeID: 'CB0003',
-            learningProcessID: 'DT0001',
-            learningProcessName: 'Thạc sỹ',
-            learningProcessPlace: 'Hà Nội',
+            trainingProcessID: 'DT0001',
+            trainingProcessName: 'Thạc sỹ',
+            trainingProcessPlace: 'Hà Nội',
             major: 'CNTT',
             graduatedYear: 2021,
         },
         {
             key: 4,
             employeeID: 'CB0004',
-            learningProcessID: 'DT0001',
-            learningProcessName: 'Thạc sỹ',
-            learningProcessPlace: 'Hà Nội',
+            trainingProcessID: 'DT0001',
+            trainingProcessName: 'Thạc sỹ',
+            trainingProcessPlace: 'Hà Nội',
             major: 'CNTT',
             graduatedYear: 2021,
         },
         {
             key: 5,
             employeeID: 'CB0005',
-            learningProcessID: 'DT0001',
-            learningProcessName: 'Thạc sỹ',
-            learningProcessPlace: 'Hà Nội',
+            trainingProcessID: 'DT0001',
+            trainingProcessName: 'Thạc sỹ',
+            trainingProcessPlace: 'Hà Nội',
             major: 'CNTT',
             graduatedYear: 2021,
         },
