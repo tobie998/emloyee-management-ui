@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, Col, Input, Layout, Row } from 'antd';
 import { UserOutlined, LockOutlined, EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
+import { login } from '../store/auth/authSlice';
 
 interface UserInfo {
     username: string;
@@ -13,8 +15,9 @@ const Login: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         const userInfo: UserInfo = {
             username,
             password,
@@ -24,9 +27,13 @@ const Login: React.FC = () => {
         console.log(Object.keys(userInfo).length);
 
         if (userInfo.username && userInfo.password) {
-            navigate('/');
-        } else {
-            navigate('/login');
+            const res = await dispatch(login(userInfo));
+            console.log(res);
+            const token = res.payload.token;
+            if (token) {
+                sessionStorage.setItem('token', token);
+                navigate('/');
+            }
         }
     };
 
