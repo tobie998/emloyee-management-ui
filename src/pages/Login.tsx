@@ -16,6 +16,7 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    // const selector = useSelector();
 
     const handleLogin = async () => {
         const userInfo: UserInfo = {
@@ -23,17 +24,11 @@ const Login: React.FC = () => {
             password,
         };
 
-        console.log(userInfo);
-        console.log(Object.keys(userInfo).length);
-
         if (userInfo.username && userInfo.password) {
-            const res = await dispatch(login(userInfo));
+            const res = await dispatch(login({ userInfo, navigate }));
             console.log(res);
-            const token = res.payload.token;
-            if (token) {
-                sessionStorage.setItem('token', token);
-                navigate('/');
-            }
+        } else {
+            window.prompt('Tên đăng nhập hoặc mật khẩu không đúng');
         }
     };
 

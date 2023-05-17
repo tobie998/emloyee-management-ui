@@ -16,6 +16,9 @@ import Management_Employees_Unit from '../pages/Management_Employees/Management_
 import Management_Employees_WorkingRole from '../pages/Management_Employees/Management_Employees_WorkingRole';
 import Management_Employees_PublicResearch from '../pages/Management_Employees/Management_Employees_PublicResearch';
 import Management_ResearchEmployee from '../pages/Management_Research/Management_Research_Employee';
+
+import { handleHomeLoader } from '../pages/Home';
+
 const Login = lazy(() => import('../pages/Login'));
 const Home = lazy(() => import('../pages/Home'));
 const router = createBrowserRouter([
@@ -26,6 +29,7 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Home />,
+        loader: handleHomeLoader,
         children: [
             {
                 path: 'employees-award',

@@ -4,7 +4,8 @@ import { UserOutlined, SmileOutlined } from '@ant-design/icons';
 import Sider from 'antd/es/layout/Sider';
 import { Content, Header } from 'antd/es/layout/layout';
 import SideBar from '../layout/SideBar';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, redirect, useNavigate } from 'react-router-dom';
+import ProtectRoute from '../layout/ProtectRoute';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -50,7 +51,9 @@ const Home: React.FC = () => {
                     </Row>
                 </Header>
                 <Content className="m-8">
-                    <Outlet />
+                    <ProtectRoute>
+                        <Outlet />
+                    </ProtectRoute>
                 </Content>
             </Layout>
         </Layout>
@@ -58,3 +61,13 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+export const handleHomeLoader = () => {
+    const token = sessionStorage.getItem('Token');
+    console.log(token);
+    if (!token) {
+        return redirect('/login');
+    } else {
+        return null;
+    }
+};

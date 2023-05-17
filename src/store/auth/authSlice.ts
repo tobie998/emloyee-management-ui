@@ -2,11 +2,17 @@ import axios from '../../plugins/axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AUTH_API } from '../../constant/api';
 
-export const login: any = createAsyncThunk('auth/login', async (formValue: any) => {
+export const login: any = createAsyncThunk('auth/login', async ({ userInfo, navigate }: any) => {
     try {
-        const response = await axios.post(AUTH_API, formValue);
-        console.log(response);
-        // navigate("/dashboard");
+        const response = await axios.post(AUTH_API, userInfo);
+
+        const token = response.data.token;
+        if (token) {
+            sessionStorage.setItem('Token', token);
+            navigate('/');
+        } else {
+            navigate('/login');
+        }
         return response.data;
     } catch (err) {
         console.log('13', err);
@@ -16,6 +22,7 @@ export const login: any = createAsyncThunk('auth/login', async (formValue: any) 
 
 interface Auth {
     user: string;
+    token: string;
     role: string;
     error: string;
     loading: boolean;
@@ -23,6 +30,7 @@ interface Auth {
 
 const initialState: Auth = {
     user: '',
+    token: '',
     role: '',
     error: '',
     loading: false,
@@ -39,7 +47,9 @@ const authSlice = createSlice({
         [login.fulfilled]: (state, action) => {
             state.loading = false;
             localStorage.setItem('profile', JSON.stringify({ ...action.payload }));
-            state.user = action.payload;
+            state.user = action.payload.user;
+            state.token = action.payload.token;
+            state.role = action.payload.role;
         },
         [login.rejected]: (state, action) => {
             state.loading = false;
