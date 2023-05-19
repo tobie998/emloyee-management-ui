@@ -3,18 +3,19 @@ import { Space } from 'antd';
 import Table, { ColumnsType } from 'antd/es/table';
 import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
-interface DataType {
+export interface DataType {
     key: string;
-    name: string;
-    age: number;
-    sex: string;
-    academicRank: string;
-    degree: string;
-    workingRole: string;
-    currentRole: string;
-    personalAddress: string;
-    personalPhone: string;
-    officialPhone: string;
+    macanbo: string;
+    hoten: string;
+    namsinh: number;
+    gioitinh: string;
+    hocham: string;
+    hocvi: string;
+    namhocvi: string;
+    namhocham: string;
+    diachinharieng: string;
+    dienthoainharieng: string;
+    dienthoaicoquan: string;
     mobile: string;
     unit: string;
 }
@@ -22,9 +23,11 @@ interface DataType {
 interface Props {
     onInfo: any;
     onEdit: any;
+    data: DataType[];
 }
 
 const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
+    const { data } = props;
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
@@ -33,57 +36,57 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
             dataIndex: 'key',
         },
         {
+            title: 'Mã cán bộ',
+            key: 'macanbo',
+            dataIndex: 'macanbo',
+            width: '150px',
+        },
+        {
             title: 'Họ và tên',
-            dataIndex: 'name',
-            key: 'name',
-            width: '120px',
+            dataIndex: 'hoten',
+            key: 'hoten',
+            width: '150px',
         },
         {
             title: 'Năm sinh',
-            dataIndex: 'age',
-            key: 'age',
+            dataIndex: 'namsinh',
+            key: 'namsinh',
             width: '100px',
         },
         {
             title: 'Giới tính',
-            dataIndex: 'sex',
-            key: 'sex',
+            dataIndex: 'gioitinh',
+            key: 'gioitinh',
             width: '100px',
         },
         {
             title: 'Học hàm',
-            key: 'academicRank',
-            dataIndex: 'academicRank',
+            key: 'hocham',
+            dataIndex: 'hocham',
             width: '120px',
         },
         {
             title: 'Học vị',
-            key: 'degree',
+            key: 'hocvi',
             dataIndex: 'degree',
             width: '120px',
         },
         {
-            title: 'Chức danh giảng dạy/nghiên cứu',
-            key: 'workingRole',
-            dataIndex: 'workingRole',
-            width: '250px',
-        },
-        {
             title: 'Địa chỉ nhà riêng',
-            key: 'personalAddress',
-            dataIndex: 'personalAddress',
+            key: 'diachinharieng',
+            dataIndex: 'diachinharieng',
             width: '150px',
         },
         {
             title: 'Điện thoại nhà riêng',
-            key: 'personalPhone',
-            dataIndex: 'personalPhone',
+            key: 'dienthoainharieng',
+            dataIndex: 'dienthoainharieng',
             width: '180px',
         },
         {
             title: 'Điện thoại cơ quan',
-            key: 'officialPhone',
-            dataIndex: 'officialPhone',
+            key: 'dienthoaicoquan',
+            dataIndex: 'dienthoaicoquan',
             width: '180px',
         },
         {
@@ -112,83 +115,83 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
         },
     ];
 
-    const data: DataType[] = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            sex: 'Nam',
-            academicRank: 'Phó giáo sư',
-            degree: 'Tiến sĩ',
-            workingRole: 'GVC',
-            currentRole: 'Giảng viên',
-            personalAddress: 'Hà Nội',
-            personalPhone: '123456',
-            officialPhone: '1234567',
-            mobile: '0358482888',
-            unit: 'Đơn vị 1',
-        },
-        {
-            key: '2',
-            name: 'John Brown',
-            age: 32,
-            sex: 'Nam',
-            academicRank: 'Phó giáo sư',
-            degree: 'Tiến sĩ',
-            workingRole: 'GVC',
-            currentRole: 'Giảng viên',
-            personalAddress: 'Hà Nội',
-            personalPhone: '123456',
-            officialPhone: '1234567',
-            mobile: '0358482888',
-            unit: 'Đơn vị 1',
-        },
-        {
-            key: '3',
-            name: 'John Brown',
-            age: 32,
-            sex: 'Nam',
-            academicRank: 'Phó giáo sư',
-            degree: 'Tiến sĩ',
-            workingRole: 'GVC',
-            currentRole: 'Giảng viên',
-            personalAddress: 'Hà Nội',
-            personalPhone: '123456',
-            officialPhone: '1234567',
-            mobile: '0358482888',
-            unit: 'Đơn vị 1',
-        },
-        {
-            key: '4',
-            name: 'John Brown',
-            age: 32,
-            sex: 'Nam',
-            academicRank: 'Phó giáo sư',
-            degree: 'Tiến sĩ',
-            workingRole: 'GVC',
-            currentRole: 'Giảng viên',
-            personalAddress: 'Hà Nội',
-            personalPhone: '123456',
-            officialPhone: '1234567',
-            mobile: '0358482888',
-            unit: 'Đơn vị 1',
-        },
-        {
-            key: '5',
-            name: 'John Brown',
-            age: 32,
-            sex: 'Nam',
-            academicRank: 'Phó giáo sư',
-            degree: 'Tiến sĩ',
-            workingRole: 'GVC',
-            currentRole: 'Giảng viên',
-            personalAddress: 'Hà Nội',
-            personalPhone: '123456',
-            officialPhone: '1234567',
-            mobile: '0358482888',
-            unit: 'Đơn vị 1',
-        },
-    ];
+    // const data: DataType[] = [
+    //     {
+    //         key: '1',
+    //         name: 'John Brown',
+    //         age: 32,
+    //         sex: 'Nam',
+    //         academicRank: 'Phó giáo sư',
+    //         degree: 'Tiến sĩ',
+    //         workingRole: 'GVC',
+    //         currentRole: 'Giảng viên',
+    //         personalAddress: 'Hà Nội',
+    //         personalPhone: '123456',
+    //         officialPhone: '1234567',
+    //         mobile: '0358482888',
+    //         unit: 'Đơn vị 1',
+    //     },
+    //     {
+    //         key: '2',
+    //         name: 'John Brown',
+    //         age: 32,
+    //         sex: 'Nam',
+    //         academicRank: 'Phó giáo sư',
+    //         degree: 'Tiến sĩ',
+    //         workingRole: 'GVC',
+    //         currentRole: 'Giảng viên',
+    //         personalAddress: 'Hà Nội',
+    //         personalPhone: '123456',
+    //         officialPhone: '1234567',
+    //         mobile: '0358482888',
+    //         unit: 'Đơn vị 1',
+    //     },
+    //     {
+    //         key: '3',
+    //         name: 'John Brown',
+    //         age: 32,
+    //         sex: 'Nam',
+    //         academicRank: 'Phó giáo sư',
+    //         degree: 'Tiến sĩ',
+    //         workingRole: 'GVC',
+    //         currentRole: 'Giảng viên',
+    //         personalAddress: 'Hà Nội',
+    //         personalPhone: '123456',
+    //         officialPhone: '1234567',
+    //         mobile: '0358482888',
+    //         unit: 'Đơn vị 1',
+    //     },
+    //     {
+    //         key: '4',
+    //         name: 'John Brown',
+    //         age: 32,
+    //         sex: 'Nam',
+    //         academicRank: 'Phó giáo sư',
+    //         degree: 'Tiến sĩ',
+    //         workingRole: 'GVC',
+    //         currentRole: 'Giảng viên',
+    //         personalAddress: 'Hà Nội',
+    //         personalPhone: '123456',
+    //         officialPhone: '1234567',
+    //         mobile: '0358482888',
+    //         unit: 'Đơn vị 1',
+    //     },
+    //     {
+    //         key: '5',
+    //         name: 'John Brown',
+    //         age: 32,
+    //         sex: 'Nam',
+    //         academicRank: 'Phó giáo sư',
+    //         degree: 'Tiến sĩ',
+    //         workingRole: 'GVC',
+    //         currentRole: 'Giảng viên',
+    //         personalAddress: 'Hà Nội',
+    //         personalPhone: '123456',
+    //         officialPhone: '1234567',
+    //         mobile: '0358482888',
+    //         unit: 'Đơn vị 1',
+    //     },
+    // ];
 
     return <Table columns={columns} dataSource={data} scroll={{ y: 200 }} />;
 };

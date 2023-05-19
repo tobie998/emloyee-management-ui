@@ -25,17 +25,25 @@ import Management_Employees_Details_ResearchOwnedProject from './Details_Dialog/
 import Management_Employees_Details_TeachingRole from './Details_Dialog/Management_Employees_Details_TeachingRole';
 import Management_Employees_Details_WorkingRole from './Details_Dialog/Management_Employees_Details_WorkingRole';
 
+import { DataType } from './Management_Employees_Details_Table';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
+    childInputItem: any;
+    mode: string;
 }
 
 const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) => {
-    const [employeeName, setEmployeeName] = useState('');
-    const [employeeSex, setEmployeeSex] = useState('');
+    const { childInputItem, mode } = props;
+    console.log(childInputItem);
+    const [employeeName, setEmployeeName] = useState(mode !== 'add' ? childInputItem.hoten : '');
+    const [employeeSex, setEmployeeSex] = useState(mode !== 'add' ? childInputItem.gioitinh : '');
+    const [employeeDOB, setEmployeeDOB] = useState(mode !== 'add' ? childInputItem.namsinh : '');
     const [academicRank, setAcademicRank] = useState('');
+    const [academicRankYear, setAcademicRankYear] = useState(mode !== 'add' ? childInputItem.namhocham : '');
     const [degree, setDegree] = useState('');
     const [researchCategory, setResearchCategory] = useState('');
+    const [titleText, setTitleText] = useState('');
 
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
     const [isOpenLearningProcess, setIsOpenLearningProcess] = useState(false);
@@ -102,10 +110,26 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
     //     console.log('ok detail dialog');
     // };
 
+    useEffect(() => {
+        switch (mode) {
+            case 'add':
+                setTitleText('Thêm mới');
+                break;
+            case 'edit':
+                setTitleText('Sửa');
+                break;
+            case 'info':
+                setTitleText('Thông tin');
+                break;
+            default:
+                break;
+        }
+    }, [mode]);
+
     return (
         <Overlay>
             <Card
-                title="Thông tin cán bộ [Thêm mới]"
+                title={`Thông tin cán bộ [${titleText}]`}
                 headStyle={{ background: '#006D75', color: 'white' }}
                 bodyStyle={{ overflowY: 'auto', height: 'inherit' }}
                 style={{ background: '#fff', width: '80%', height: '85%', border: 'none' }}
@@ -148,7 +172,9 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
                     <Col span={6}>
                         <Input_DatePicker
                             label="Năm sinh"
-                            onChange={(date: any, dateString: any) => console.log(date, dateString)}
+                            value={employeeDOB}
+                            picker="year"
+                            onChange={(date: any, dateString: any) => setEmployeeDOB(date)}
                             onBlur={() => console.log('onBlur')}
                         />
                     </Col>
@@ -159,8 +185,8 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
                             value={employeeSex}
                             onChange={(e: RadioChangeEvent) => setEmployeeSex(e.target.value)}
                             radioValue={[
-                                { name: 'Name', value: 'male' },
-                                { name: 'Nữ', value: 'female' },
+                                { name: 'Name', value: 'nam' },
+                                { name: 'Nữ', value: 'nữ' },
                             ]}
                         />
                     </Col>
@@ -178,7 +204,9 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
 
                     <Col span={6}>
                         <Input_DatePicker
-                            label="Năm được phong"
+                            label="Năm học hàm"
+                            value={academicRankYear}
+                            picker="year"
                             onChange={(date: any, dateString: any) => console.log(date, dateString)}
                             onBlur={() => console.log('onBlur')}
                         />
@@ -196,6 +224,8 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
                     <Col span={6}>
                         <Input_DatePicker
                             label="Năm đạt học vị"
+                            value={academicRankYear}
+                            picker="year"
                             onChange={(date: any, dateString: any) => console.log(date, dateString)}
                             onBlur={() => console.log('onBlur')}
                         />

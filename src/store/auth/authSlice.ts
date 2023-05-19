@@ -1,10 +1,10 @@
 import axios from '../../plugins/axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { AUTH_API } from '../../constant/api';
+import { API_AUTH } from '../../constant/api';
 
 export const login: any = createAsyncThunk('auth/login', async ({ userInfo, navigate }: any) => {
     try {
-        const response = await axios.post(AUTH_API, userInfo);
+        const response = await axios.post(API_AUTH, userInfo);
 
         const token = response.data.token;
         if (token) {
@@ -45,8 +45,8 @@ const authSlice = createSlice({
             state.loading = true;
         },
         [login.fulfilled]: (state, action) => {
+            console.log(action);
             state.loading = false;
-            localStorage.setItem('profile', JSON.stringify({ ...action.payload }));
             state.user = action.payload.user;
             state.token = action.payload.token;
             state.role = action.payload.role;

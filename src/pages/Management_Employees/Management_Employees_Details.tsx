@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button_Reset from '../../components/common/Button_Reset';
 import Button_Clear from '../../components/common/Button_Clear';
 import Search from 'antd/es/input/Search';
@@ -7,12 +7,27 @@ import Button_Add from '../../components/common/Button_Add';
 import { SearchOutlined } from '@ant-design/icons';
 import Management_Employees_Details_Table from '../../components/Management_Employees/Details/Management_Employees_Details_Table';
 import Management_Employees_Details_ChildInput from '../../components/Management_Employees/Details/Management_Employees_Details_ChildInput';
+import { useDispatch, useSelector } from 'react-redux';
+import { getEmployee } from '../../store/employees/details/detailSlice';
 
 const Management_EmployeesDetails: React.FC = () => {
     const [isChildInputOpen, setIsChildInputOpen] = useState(false);
+    const [data, setData] = useState([]);
+    const dispatch = useDispatch();
+    const employeeList = useSelector((state: any) => state.employee);
+    const [childInputItem, setChildInputItem] = useState({});
+    const [childMode, setChildMode] = useState('add');
+
+    useEffect(() => {
+        const dataTable = employeeList.employeeDetailList.map((item: any, index: any) => {
+            return { ...item, key: index + 1, gioitinh: item.gioitinh ? 'nam' : 'nữ' };
+        });
+        setData(dataTable);
+    }, [employeeList]);
 
     const handleReset = () => {
         console.log('reset');
+        getEmployeeList();
     };
 
     const handleClear = () => {
@@ -21,6 +36,7 @@ const Management_EmployeesDetails: React.FC = () => {
 
     const handleAdd = () => {
         console.log('add');
+        setChildMode('add');
         setIsChildInputOpen(true);
     };
 
@@ -28,10 +44,16 @@ const Management_EmployeesDetails: React.FC = () => {
 
     const handleEdit = (record: any) => {
         console.log('edit', record);
+        setChildInputItem(record);
+        setChildMode('edit');
+        setIsChildInputOpen(true);
     };
 
     const handleInfo = (record: any) => {
         console.log('info', record);
+        setChildInputItem(record);
+        setChildMode('info');
+        setIsChildInputOpen(true);
     };
 
     const handleClickCancel = () => {
@@ -40,6 +62,10 @@ const Management_EmployeesDetails: React.FC = () => {
 
     const handleClickOk = () => {
         setIsChildInputOpen(false);
+    };
+
+    const getEmployeeList = () => {
+        dispatch(getEmployee());
     };
 
     return (
@@ -72,6 +98,7 @@ const Management_EmployeesDetails: React.FC = () => {
             <Row>
                 <Col span={24}>
                     <Management_Employees_Details_Table
+                        data={data}
                         onEdit={handleEdit}
                         onInfo={(event: any) => handleInfo(event)}
                     />
@@ -79,7 +106,12 @@ const Management_EmployeesDetails: React.FC = () => {
             </Row>
 
             {isChildInputOpen ? (
-                <Management_Employees_Details_ChildInput onClickCancel={handleClickCancel} onClickOK={handleClickOk} />
+                <Management_Employees_Details_ChildInput
+                    onClickCancel={handleClickCancel}
+                    onClickOK={handleClickOk}
+                    mode={childMode}
+                    childInputItem={childInputItem}
+                />
             ) : (
                 ''
             )}
