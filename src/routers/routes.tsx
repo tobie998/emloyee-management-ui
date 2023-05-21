@@ -18,6 +18,8 @@ import Management_Employees_PublicResearch from '../pages/Management_Employees/M
 import Management_ResearchEmployee from '../pages/Management_Research/Management_Research_Employee';
 
 import { handleHomeLoader } from '../pages/Home';
+import Management_Employees_Employee from '../pages/Management_Employees/Management_Employees_Employee';
+import Management_Employees_Details from '../pages/Management_Employees/Management_Employees_Details';
 
 const Login = lazy(() => import('../pages/Login'));
 const Home = lazy(() => import('../pages/Home'));
@@ -37,7 +39,11 @@ const router = createBrowserRouter([
             },
             {
                 path: 'employees-detail',
-                element: <Management_EmployeesDetails />,
+                element: <Management_Employees_Details />,
+            },
+            {
+                path: 'employees-employee',
+                element: <Management_Employees_Employee />,
             },
             {
                 path: 'employees-given-degree',

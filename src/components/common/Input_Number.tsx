@@ -2,14 +2,15 @@ import { Input, InputNumber } from 'antd';
 import React from 'react';
 
 interface Props {
-    value: string;
+    value: number;
     label: string;
     onChange: any;
     onBlur: any;
+    disabled?: boolean;
 }
 
 const Input_Number: React.FC<Props> = (props: Props) => {
-    const { value, label } = props;
+    const { value, label, disabled } = props;
 
     return (
         <div className="flex flex-col">
@@ -22,6 +23,7 @@ const Input_Number: React.FC<Props> = (props: Props) => {
                 value={value}
                 onChange={props.onChange}
                 onBlur={props.onBlur}
+                disabled={disabled}
             />
         </div>
     );

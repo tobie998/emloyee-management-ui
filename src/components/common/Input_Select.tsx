@@ -6,17 +6,24 @@ interface Props {
     label: string;
     onChange: any;
     onBlur: any;
+    disabled?: boolean;
 }
 
 const Input_Select: React.FC<Props> = (props: Props) => {
-    const { label, options } = props;
+    const { label, options, disabled } = props;
 
     return (
         <div>
             <label htmlFor="select" className={`text-main-color text-base`}>
                 {label}
             </label>
-            <Select defaultValue="" style={{ width: '100%' }} onChange={props.onChange} options={options} />
+            <Select
+                defaultValue=""
+                style={{ width: '100%' }}
+                onChange={props.onChange}
+                options={options}
+                disabled={disabled}
+            />
         </div>
     );
 };

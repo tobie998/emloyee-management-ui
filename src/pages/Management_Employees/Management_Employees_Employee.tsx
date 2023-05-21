@@ -5,12 +5,12 @@ import Button_Clear from '../../components/common/Button_Clear';
 import Search from 'antd/es/input/Search';
 import Button_Add from '../../components/common/Button_Add';
 import { SearchOutlined } from '@ant-design/icons';
-import Management_Employees_Details_Table from '../../components/Management_Employees/Details/Management_Employees_Details_Table';
-import Management_Employees_Details_ChildInput from '../../components/Management_Employees/Details/Management_Employees_Details_ChildInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployee } from '../../store/employees/employee/employeeSlice';
+import Management_Employees_Employee_Table from '../../components/Management_Employees/Employee/Management_Employees_Employee_Table';
+import Management_Employees_Employee_ChildInput from '../../components/Management_Employees/Employee/Management_Employees_Employee_ChildInput';
 
-const Management_Employees_Details: React.FC = () => {
+const Management_Employees_Employee: React.FC = () => {
     const [isChildInputOpen, setIsChildInputOpen] = useState(false);
     const [data, setData] = useState([]);
     const dispatch = useDispatch();
@@ -38,6 +38,12 @@ const Management_Employees_Details: React.FC = () => {
         console.log('clear');
     };
 
+    const handleAdd = () => {
+        console.log('add');
+        setChildMode('add');
+        setIsChildInputOpen(true);
+    };
+
     const onSearch = (value: string) => console.log(value);
 
     const handleEdit = (record: any) => {
@@ -60,6 +66,7 @@ const Management_Employees_Details: React.FC = () => {
 
     const handleClickOk = () => {
         setIsChildInputOpen(false);
+        getEmployeeList();
     };
 
     const getEmployeeList = () => {
@@ -87,11 +94,15 @@ const Management_Employees_Details: React.FC = () => {
                         className="w-full"
                     />
                 </Col>
+
+                <Col span={1}>
+                    <Button_Add onClick={handleAdd} />
+                </Col>
             </Row>
 
             <Row>
                 <Col span={24}>
-                    <Management_Employees_Details_Table
+                    <Management_Employees_Employee_Table
                         data={data}
                         onEdit={handleEdit}
                         onInfo={(event: any) => handleInfo(event)}
@@ -100,7 +111,7 @@ const Management_Employees_Details: React.FC = () => {
             </Row>
 
             {isChildInputOpen ? (
-                <Management_Employees_Details_ChildInput
+                <Management_Employees_Employee_ChildInput
                     onClickCancel={handleClickCancel}
                     onClickOK={handleClickOk}
                     mode={childMode}
@@ -113,4 +124,4 @@ const Management_Employees_Details: React.FC = () => {
     );
 };
 
-export default Management_Employees_Details;
+export default Management_Employees_Employee;

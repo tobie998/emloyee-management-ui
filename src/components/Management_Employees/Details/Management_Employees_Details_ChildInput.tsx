@@ -25,7 +25,7 @@ import Management_Employees_Details_ResearchOwnedProject from './Details_Dialog/
 import Management_Employees_Details_TeachingRole from './Details_Dialog/Management_Employees_Details_TeachingRole';
 import Management_Employees_Details_WorkingRole from './Details_Dialog/Management_Employees_Details_WorkingRole';
 
-import { DataType } from './Management_Employees_Details_Table';
+// import { DataType } from './Management_Employees_Details_Table';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
@@ -35,13 +35,13 @@ interface Props {
 
 const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) => {
     const { childInputItem, mode } = props;
-    console.log(childInputItem);
-    const [employeeName, setEmployeeName] = useState(mode !== 'add' ? childInputItem.hoten : '');
-    const [employeeSex, setEmployeeSex] = useState(mode !== 'add' ? childInputItem.gioitinh : '');
-    const [employeeDOB, setEmployeeDOB] = useState(mode !== 'add' ? childInputItem.namsinh : '');
-    const [academicRank, setAcademicRank] = useState('');
+    
+    const [employeeName, setEmployeeName] = useState(childInputItem.hoten);
+    const [employeeSex, setEmployeeSex] = useState(childInputItem.gioitinh);
+    const [employeeDOB, setEmployeeDOB] = useState(childInputItem.namsinh);
+    const [academicRank, setAcademicRank] = useState(childInputItem.hocham);
     const [academicRankYear, setAcademicRankYear] = useState(mode !== 'add' ? childInputItem.namhocham : '');
-    const [degree, setDegree] = useState('');
+    const [degree, setDegree] = useState(childInputItem.hocvi);
     const [researchCategory, setResearchCategory] = useState('');
     const [titleText, setTitleText] = useState('');
 

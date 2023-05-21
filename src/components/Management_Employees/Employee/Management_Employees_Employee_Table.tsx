@@ -17,7 +17,8 @@ export interface DataType {
     dienthoainharieng: string;
     dienthoaicoquan: string;
     mobile: string;
-    unit: string;
+    email: string;
+    madonvi: string;
 }
 
 interface Props {
@@ -96,9 +97,15 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
             width: '120px',
         },
         {
+            title: 'Email',
+            key: 'email',
+            dataIndex: 'email',
+            width: '200px',
+        },
+        {
             title: 'Tên đơn vị',
-            key: 'unit',
-            dataIndex: 'unit',
+            key: 'madonvi',
+            dataIndex: 'madonvi',
             width: '100px',
         },
         {
