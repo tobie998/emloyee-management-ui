@@ -6,10 +6,12 @@ import Input_Text from '../../common/Input_Text';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import Input_Select from '../../common/Input_Select';
 import { researchCategoryList } from '../../../constant/dummy';
-
+import { MODE } from '../../../constant/constant';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
+    childInputItem: any;
+    mode: string;
 }
 
 const Management_Employees_ResearchMajor_ChildInput: React.FC<Props> = (props: Props) => {

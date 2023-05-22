@@ -4,10 +4,12 @@ import { Card, Col, Row } from 'antd';
 import Button_Normal from '../../common/Button_Normal';
 import Input_Text from '../../common/Input_Text';
 import Dialog_Warning from '../../common/Dialog_Warning';
-
+import { MODE } from '../../../constant/constant';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
+    childInputItem: any;
+    mode: string;
 }
 
 const Management_Employees_WorkingRole_ChildInput: React.FC<Props> = (props: Props) => {

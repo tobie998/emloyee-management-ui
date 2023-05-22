@@ -7,7 +7,6 @@ interface Props {
 
 const ProtectRoute: React.FC<Props> = (props: Props) => {
     const token = sessionStorage.getItem('Token');
-    console.log(token);
 
     if (!token) {
         return <Navigate to="/login" replace />;

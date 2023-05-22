@@ -9,24 +9,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getEmployee } from '../../store/employees/employee/employeeSlice';
 import Management_Employees_Employee_Table from '../../components/Management_Employees/Employee/Management_Employees_Employee_Table';
 import Management_Employees_Employee_ChildInput from '../../components/Management_Employees/Employee/Management_Employees_Employee_ChildInput';
+import { MODE } from '../../constant/constant';
 
 const Management_Employees_Employee: React.FC = () => {
     const [isChildInputOpen, setIsChildInputOpen] = useState(false);
-    const [data, setData] = useState([]);
+    const [searchedText, setSearchedText] = useState('');
+    const [dataTable, setDataTable] = useState([]);
     const dispatch = useDispatch();
-    const employeeList = useSelector((state: any) => state.employee);
+    const employeeList = useSelector((state: any) => state.employee.employeeList);
     const [childInputItem, setChildInputItem] = useState({});
-    const [childMode, setChildMode] = useState('add');
+    const [childMode, setChildMode] = useState(MODE.ADD);
 
     useEffect(() => {
         if (employeeList) {
-            const dataTable = employeeList.employeeDetailList.map((item: any, index: any) => {
-                return { ...item, key: index + 1, gioitinh: item.gioitinh ? 'nam' : 'nữ' };
+            const dataTable = employeeList.map((item: any, index: any) => {
+                return { ...item, key: index + 1, gioitinh: item.gioitinh ? true : false };
             });
-            setData(dataTable);
+            setDataTable(dataTable);
         }
-
-        // console.log(employeeList);
     }, [employeeList]);
 
     const handleReset = () => {
@@ -38,25 +38,28 @@ const Management_Employees_Employee: React.FC = () => {
         console.log('clear');
     };
 
-    const handleAdd = () => {
-        console.log('add');
-        setChildMode('add');
-        setIsChildInputOpen(true);
+    const onSearch = (value: any) => {
+        console.log(value);
+        setSearchedText(value);
     };
 
-    const onSearch = (value: string) => console.log(value);
+    const handleAdd = () => {
+        console.log('add');
+        setChildMode(MODE.ADD);
+        setIsChildInputOpen(true);
+    };
 
     const handleEdit = (record: any) => {
         console.log('edit', record);
         setChildInputItem(record);
-        setChildMode('edit');
+        setChildMode(MODE.EDIT);
         setIsChildInputOpen(true);
     };
 
     const handleInfo = (record: any) => {
-        console.log('info', record);
+        console.log('info', record.macanbo);
         setChildInputItem(record);
-        setChildMode('info');
+        setChildMode(MODE.INFO);
         setIsChildInputOpen(true);
     };
 
@@ -90,6 +93,7 @@ const Management_Employees_Employee: React.FC = () => {
                     <Search
                         placeholder="search input"
                         onSearch={onSearch}
+                        onChange={(e: any) => setSearchedText(e.target.value)}
                         suffix={<SearchOutlined className="text-lg" />}
                         className="w-full"
                     />
@@ -103,7 +107,8 @@ const Management_Employees_Employee: React.FC = () => {
             <Row>
                 <Col span={24}>
                     <Management_Employees_Employee_Table
-                        data={data}
+                        dataTable={dataTable}
+                        searchedText={searchedText}
                         onEdit={handleEdit}
                         onInfo={(event: any) => handleInfo(event)}
                     />

@@ -1,10 +1,10 @@
 import axios from '../../../plugins/axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { API_EMPLOYEE } from '../../../constant/api';
+import { API_AWARD } from '../../../constant/api';
 
-export const getEmployee: any = createAsyncThunk('employee/getEmployee', async () => {
+export const getAward: any = createAsyncThunk('award/getAward', async () => {
     try {
-        const response = await axios.get(API_EMPLOYEE);
+        const response = await axios.get(API_AWARD);
         console.log(response);
         return response.data;
     } catch (err) {
@@ -13,9 +13,9 @@ export const getEmployee: any = createAsyncThunk('employee/getEmployee', async (
     }
 });
 
-export const getEmployeeByID: any = createAsyncThunk('employee/getEmployeeByID', async (macanbo: any) => {
+export const getAwardByID: any = createAsyncThunk('award/getAwardByID', async (magiaithuong: any) => {
     try {
-        const response = await axios.get(`${API_EMPLOYEE}/${macanbo}`);
+        const response = await axios.get(`${API_AWARD}/${magiaithuong}`);
         console.log(response);
         return response.data;
     } catch (err) {
@@ -24,9 +24,9 @@ export const getEmployeeByID: any = createAsyncThunk('employee/getEmployeeByID',
     }
 });
 
-export const postEmployee: any = createAsyncThunk('employee/postEmployee', async (data: any) => {
+export const postAward: any = createAsyncThunk('award/postAward', async (data: any) => {
     try {
-        const response = await axios.post(API_EMPLOYEE, data);
+        const response = await axios.post(API_AWARD, data);
         console.log(response);
         return response.data;
     } catch (err) {
@@ -35,12 +35,12 @@ export const postEmployee: any = createAsyncThunk('employee/postEmployee', async
     }
 });
 
-export const putEmployee: any = createAsyncThunk('employee/putEmployee', async (data: any) => {
-    const { macanbo } = data;
+export const putAward: any = createAsyncThunk('award/putAward', async (data: any) => {
+    const { magiaithuong } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_EMPLOYEE}/${macanbo}`,
+            url: `${API_AWARD}/${magiaithuong}`,
             data: data,
         });
         console.log(response);
@@ -51,11 +51,11 @@ export const putEmployee: any = createAsyncThunk('employee/putEmployee', async (
     }
 });
 
-export const deleteEmployee: any = createAsyncThunk('employee/deleteEmployee', async (macanbo: any) => {
+export const deleteAward: any = createAsyncThunk('award/deleteAward', async (magiaithuong: any) => {
     try {
         const response = await axios({
             method: 'DELETE',
-            url: `${API_EMPLOYEE}/${macanbo}`,
+            url: `${API_AWARD}/${magiaithuong}`,
         });
         console.log(response);
         return response.data;
@@ -65,85 +65,85 @@ export const deleteEmployee: any = createAsyncThunk('employee/deleteEmployee', a
     }
 });
 
-interface EmployeeDetails {
-    employeeList: [];
-    employeeListByID: [];
+interface Award {
+    awardList: [];
+    awardListByID: [];
     error: string;
     loading: boolean;
 }
 
-const initialState: EmployeeDetails = {
-    employeeList: [],
-    employeeListByID: [],
+const initialState: Award = {
+    awardList: [],
+    awardListByID: [],
     error: '',
     loading: false,
 };
 
-const employeeSlice = createSlice({
-    name: 'employee',
+const awardSlice = createSlice({
+    name: 'award',
     initialState,
     reducers: {},
     extraReducers: {
         // GET
-        [getEmployee.pending]: (state, action) => {
+        [getAward.pending]: (state, action) => {
             state.loading = true;
         },
-        [getEmployee.fulfilled]: (state, action) => {
+        [getAward.fulfilled]: (state, action) => {
             console.log(action);
             state.loading = false;
-            state.employeeList = action.payload;
-            console.log(state.employeeList);
+            state.awardList = action.payload;
+            console.log(state.awardList);
         },
-        [getEmployee.rejected]: (state, action) => {
+        [getAward.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.message;
         },
 
         // GET BY ID
-        [getEmployeeByID.pending]: (state, action) => {
+        [getAwardByID.pending]: (state, action) => {
             state.loading = true;
         },
-        [getEmployeeByID.fulfilled]: (state, action) => {
+        [getAwardByID.fulfilled]: (state, action) => {
             console.log(action);
             state.loading = false;
-            state.employeeListByID = action.payload;
-            console.log(state.employeeListByID);
+            state.awardListByID = action.payload;
+            console.log(state.awardListByID);
         },
-        [getEmployeeByID.rejected]: (state, action) => {
+        [getAwardByID.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.message;
         },
 
         // POST
-        [postEmployee.pending]: (state, action) => {
+        [postAward.pending]: (state, action) => {
             state.loading = true;
         },
-        [postEmployee.fulfilled]: (state, action) => {
+        [postAward.fulfilled]: (state, action) => {
             console.log(action);
             state.loading = false;
             // state.employeeDetailList = action.payload;
-            console.log(state.employeeList);
+            console.log(state.awardList);
         },
-        [postEmployee.rejected]: (state, action) => {
+        [postAward.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.message;
         },
 
         // PUT
-        [putEmployee.pending]: (state, action) => {
+        [putAward.pending]: (state, action) => {
             state.loading = true;
         },
-        [putEmployee.fulfilled]: (state, action) => {
+        [putAward.fulfilled]: (state, action) => {
             console.log(action);
             state.loading = false;
             // state.employeeDetailList = action.payload;
-            console.log(state.employeeList);
+            console.log(state.awardList);
         },
-        [putEmployee.rejected]: (state, action) => {
+        [putAward.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.message;
         },
     },
 });
 
-export default employeeSlice.reducer;
+export default awardSlice.reducer;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Card, Col, Divider, RadioChangeEvent, Row } from 'antd';
 import Overlay from '../../../layout/Overlay';
 import Input_Text from '../../common/Input_Text';
@@ -10,8 +10,9 @@ import Input_Number from '../../common/Input_Number';
 import Button_Normal from '../../common/Button_Normal';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import dayjs from 'dayjs';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteEmployee, postEmployee, putEmployee } from '../../../store/employees/employee/employeeSlice';
+import { MODE } from '../../../constant/constant';
 
 interface Props {
     onClickOK: any;
@@ -22,21 +23,26 @@ interface Props {
 
 const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props) => {
     const { childInputItem, mode } = props;
-    const dispatch = useDispatch();
+    const { macanbo } = childInputItem;
+    console.log(macanbo);
 
-    const [employeeID, setEmployeeID] = useState(mode !== 'add' ? childInputItem.macanbo : '');
-    const [employeeName, setEmployeeName] = useState(mode !== 'add' ? childInputItem.hoten : '');
-    const [employeeSex, setEmployeeSex] = useState(mode !== 'add' ? childInputItem.gioitinh : '');
-    const [employeeDOB, setEmployeeDOB] = useState(mode !== 'add' ? childInputItem.namsinh : '');
-    const [academicRank, setAcademicRank] = useState(mode !== 'add' ? childInputItem.hocham : '');
-    const [academicRankYear, setAcademicRankYear] = useState(mode !== 'add' ? childInputItem.namhocham : '');
-    const [degree, setDegree] = useState(mode !== 'add' ? childInputItem.hocvi : '');
-    const [degreeYear, setDegreeYear] = useState(mode !== 'add' ? childInputItem.namhocvi : '');
-    const [personalAddress, setPersonalAddress] = useState(mode !== 'add' ? childInputItem.diachinharieng : '');
-    const [personalPhone, setPersonalPhone] = useState(mode !== 'add' ? childInputItem.dienthoainharieng : 0);
-    const [officialPhone, setOfficialPhone] = useState(mode !== 'add' ? childInputItem.dienthoaicoquan : '');
-    const [mobile, setMobile] = useState(mode !== 'add' ? childInputItem.mobile : '');
-    const [email, setEmail] = useState(mode !== 'add' ? childInputItem.email : '');
+    const dispatch = useDispatch();
+    const employeeListByID = useSelector((state: any) => state.employee.employeeListByID);
+    console.log('employeeListByID', employeeListByID);
+
+    const [employeeID, setEmployeeID] = useState(mode !== MODE.ADD ? childInputItem.macanbo : '');
+    const [employeeName, setEmployeeName] = useState(mode !== MODE.ADD ? childInputItem.hoten : '');
+    const [employeeSex, setEmployeeSex] = useState(mode !== MODE.ADD ? childInputItem.gioitinh : '');
+    const [employeeDOB, setEmployeeDOB] = useState(mode !== MODE.ADD ? childInputItem.namsinh : '');
+    const [academicRank, setAcademicRank] = useState(mode !== MODE.ADD ? childInputItem.hocham : '');
+    const [academicRankYear, setAcademicRankYear] = useState(mode !== MODE.ADD ? childInputItem.namhocham : '');
+    const [degree, setDegree] = useState(mode !== MODE.ADD ? childInputItem.hocvi : '');
+    const [degreeYear, setDegreeYear] = useState(mode !== MODE.ADD ? childInputItem.namhocvi : '');
+    const [personalAddress, setPersonalAddress] = useState(mode !== MODE.ADD ? childInputItem.diachinharieng : '');
+    const [personalPhone, setPersonalPhone] = useState(mode !== MODE.ADD ? childInputItem.dienthoainharieng : 0);
+    const [officialPhone, setOfficialPhone] = useState(mode !== MODE.ADD ? childInputItem.dienthoaicoquan : '');
+    const [mobile, setMobile] = useState(mode !== MODE.ADD ? childInputItem.mobile : '');
+    const [email, setEmail] = useState(mode !== MODE.ADD ? childInputItem.email : '');
     const [researchCategory, setResearchCategory] = useState('');
     const [titleText, setTitleText] = useState('');
 
@@ -44,20 +50,25 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
     const [messageID, setMessageID] = useState('');
     const [messageContent, setMessageContent] = useState('');
 
+    // const handleGetListByID = useCallback(async () => {
+    //     await dispatch(getEmployeeByID(macanbo));
+    // }, []);
+
+    // useEffect(() => {
+    //     handleGetListByID();
+    // }, [handleGetListByID]);
+
     const handleDelete = () => {
-        console.log('delete');
         setMessageID('DELETE');
         setMessageContent('Xóa cán bộ?');
         setIsOpenWarningDialog(true);
     };
 
     const handleCancel = () => {
-        console.log('cancel');
         props.onClickCancel();
     };
 
     const handleValidate = () => {
-        console.log('validate');
         if (!employeeID) {
             setIsOpenWarningDialog(true);
             setMessageID('ERROR');
@@ -65,12 +76,11 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
             return;
         }
         setIsOpenWarningDialog(true);
-        setMessageID(mode == 'add' ? 'ADD' : 'EDIT');
-        setMessageContent(mode == 'add' ? 'Thêm mới?' : 'Sửa thông tin cán bộ?');
+        setMessageID(mode == MODE.ADD ? MODE.ADD : MODE.EDIT);
+        setMessageContent(mode == MODE.ADD ? 'Thêm mới?' : 'Sửa thông tin cán bộ?');
     };
 
     const handleCancelWarningDialog = () => {
-        console.log('close dialog');
         setIsOpenWarningDialog(false);
     };
 
@@ -82,8 +92,8 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
             gioitinh: employeeSex == 'nam',
             hocham: academicRank,
             hocvi: degree,
-            namhocvi: degreeYear ? dayjs(degreeYear, 'YYYY').year() : '',
-            namhocham: academicRankYear ? dayjs(academicRankYear, 'YYYY').year() : '',
+            namhocvi: degreeYear ? parseInt(degreeYear) : '',
+            namhocham: academicRankYear ? parseInt(academicRankYear) : '',
             diachinharieng: personalAddress,
             dienthoainharieng: personalPhone,
             dienthoaicoquan: officialPhone,
@@ -93,7 +103,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
             bacluong: '',
             luongcoban: 2000000,
         };
-        if (messageID == 'ADD') {
+        if (messageID == MODE.ADD) {
             console.log(employeeObj);
             await dispatch(postEmployee(employeeObj));
             props.onClickOK();
@@ -119,13 +129,13 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
 
     useEffect(() => {
         switch (mode) {
-            case 'add':
+            case MODE.ADD:
                 setTitleText('Thêm mới');
                 break;
-            case 'edit':
+            case MODE.EDIT:
                 setTitleText('Sửa');
                 break;
-            case 'info':
+            case MODE.INFO:
                 setTitleText('Thông tin');
                 break;
             default:
@@ -159,7 +169,10 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                                 </Col>
 
                                 <Col span={11}>
-                                    <Button_Normal label="Thêm mới" onClick={handleValidate}></Button_Normal>
+                                    <Button_Normal
+                                        label={mode == MODE.ADD ? 'Thêm mới' : 'Sửa'}
+                                        onClick={handleValidate}
+                                    ></Button_Normal>
                                 </Col>
                             </Row>
                         </Col>
@@ -173,7 +186,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             value={employeeID}
                             onChange={(e: any) => setEmployeeID(e.target.value)}
                             onBlur={() => console.log('onBlur')}
-                            disabled={mode == 'edit'}
+                            disabled={mode == (MODE.EDIT || MODE.INFO)}
                         />
                     </Col>
                     <Col span={6}>
@@ -182,6 +195,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             value={employeeName}
                             onChange={(e: any) => setEmployeeName(e.target.value)}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -189,9 +203,9 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                         <Input_DatePicker
                             label="Năm sinh"
                             value={employeeDOB}
-                            picker="year"
-                            onChange={(date: any, dateString: any) => setEmployeeDOB(date)}
+                            onChange={(date: any, dateString: any) => setEmployeeDOB(dateString)}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -201,9 +215,10 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             value={employeeSex}
                             onChange={(e: RadioChangeEvent) => setEmployeeSex(e.target.value)}
                             radioValue={[
-                                { name: 'Name', value: 'nam' },
-                                { name: 'Nữ', value: 'nữ' },
+                                { name: 'Name', value: true },
+                                { name: 'Nữ', value: false },
                             ]}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
                 </Row>
@@ -215,6 +230,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             value={academicRank}
                             onChange={(e: any) => setAcademicRank(e.target.value)}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -223,8 +239,12 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             label="Năm học hàm"
                             value={academicRankYear}
                             picker="year"
-                            onChange={(date: any, dateString: any) => setAcademicRankYear(date)}
+                            onChange={(date: any, dateString: any) => {
+                                console.log(dateString);
+                                setAcademicRankYear(dateString);
+                            }}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -234,6 +254,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             value={degree}
                             onChange={(e: any) => setDegree(e.target.value)}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -242,8 +263,9 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             label="Năm đạt học vị"
                             value={degreeYear}
                             picker="year"
-                            onChange={(date: any, dateString: any) => setDegreeYear(date)}
+                            onChange={(date: any, dateString: any) => setDegreeYear(dateString)}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
                 </Row>
@@ -262,6 +284,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             }}
                             onBlur={() => console.log('onBlur')}
                             options={researchCategoryList}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -274,6 +297,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             }}
                             onBlur={() => console.log('onBlur')}
                             options={researchCategoryList}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
                 </Row>
@@ -287,6 +311,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             value={personalAddress}
                             onChange={(e: any) => setPersonalAddress(e.target.value)}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -296,6 +321,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             value={personalPhone}
                             onChange={(value: any) => setPersonalPhone(value)}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -305,6 +331,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             value={officialPhone}
                             onChange={(value: any) => setOfficialPhone(value)}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -316,6 +343,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             value={mobile}
                             onChange={(value: any) => setMobile(value)}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -325,6 +353,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             value={email}
                             onChange={(e: any) => setEmail(e.target.value)}
                             onBlur={() => console.log('onBlur')}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
 
@@ -337,6 +366,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             }}
                             onBlur={() => console.log('onBlur')}
                             options={researchCategoryList}
+                            disabled={mode == MODE.INFO}
                         />
                     </Col>
                 </Row>

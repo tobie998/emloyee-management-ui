@@ -25,7 +25,7 @@ const SideBar: React.FC = () => {
                 { label: <Link to="/employees-reward">Khen thưởng</Link>, key: 23 },
                 { label: <Link to="/employees-punishment">Kỷ luật</Link>, key: 24 },
                 { label: <Link to="/employees-research-project">Đề tài KH&CN</Link>, key: 25 },
-                { label: <Link to="/employees-research-public-research">Công trình KH&CN</Link>, key: 26 },
+                { label: <Link to="/employees-practical-research">Công trình KH&CN được áp dụng</Link>, key: 26 },
             ],
         },
         {

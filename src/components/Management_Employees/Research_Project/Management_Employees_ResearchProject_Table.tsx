@@ -12,9 +12,12 @@ interface DataType {
 interface Props {
     onInfo: any;
     onEdit: any;
+    searchedText?: any;
+    dataTable: DataType[];
 }
 
 const Management_Employees_ResearchProject_Table: React.FC<Props> = (props: Props) => {
+    const { searchedText, dataTable } = props;
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
@@ -78,7 +81,7 @@ const Management_Employees_ResearchProject_Table: React.FC<Props> = (props: Prop
 
     return (
         <div>
-            <Table columns={columns} dataSource={data} scroll={{ y: 200 }} />;
+            <Table columns={columns} dataSource={dataTable} scroll={{ y: 200 }} />;
         </div>
     );
 };

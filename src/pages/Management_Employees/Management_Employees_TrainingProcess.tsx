@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button_Reset from '../../components/common/Button_Reset';
 import Button_Clear from '../../components/common/Button_Clear';
 import Search from 'antd/es/input/Search';
@@ -7,11 +7,31 @@ import Button_Add from '../../components/common/Button_Add';
 import { SearchOutlined } from '@ant-design/icons';
 import Management_Employees_TrainingProcess_Table from '../../components/Management_Employees/Training_Process/Management_Employees_TrainingProcess_Table';
 import Management_Employees_TrainingProcess_ChildInput from '../../components/Management_Employees/Training_Process/Management_Employees_TrainingProcess_ChildInput';
+import { useDispatch, useSelector } from 'react-redux';
+import { MODE } from '../../constant/constant';
+import { getTrainingProcess } from '../../store/employees/employee/trainingProcessSlice';
 
 const Management_Employees_TrainingProcess = () => {
     const [isChildInputOpen, setIsChildInputOpen] = useState(false);
+    const [searchedText, setSearchedText] = useState('');
+    const [dataTable, setDataTable] = useState([]);
+    const dispatch = useDispatch();
+    const trainingProcessList = useSelector((state: any) => state.trainingProcess.trainingProcessList);
+    const [childInputItem, setChildInputItem] = useState({});
+    const [childMode, setChildMode] = useState(MODE.ADD);
+
+    useEffect(() => {
+        if (trainingProcessList) {
+            // const dataTable = givenDegreeList.map((item: any, index: any) => {
+            //     return { ...item, key: index + 1, gioitinh: item.gioitinh ? true : false };
+            // });
+            setDataTable(trainingProcessList);
+        }
+    }, [trainingProcessList]);
+    
     const handleReset = () => {
         console.log('reset');
+        getTrainingProcessList();
     };
 
     const handleClear = () => {
@@ -21,16 +41,21 @@ const Management_Employees_TrainingProcess = () => {
     const handleAdd = () => {
         console.log('add');
         setIsChildInputOpen(true);
+        setChildMode(MODE.ADD);
     };
 
     const onSearch = (value: string) => console.log(value);
 
     const handleEdit = (record: any) => {
-        console.log('edit', record);
+        setChildInputItem(record);
+        setChildMode(MODE.EDIT);
+        setIsChildInputOpen(true);
     };
 
     const handleInfo = (record: any) => {
-        console.log('info', record);
+        setChildInputItem(record);
+        setChildMode(MODE.INFO);
+        setIsChildInputOpen(true);
     };
 
     const handleClickCancel = () => {
@@ -39,6 +64,11 @@ const Management_Employees_TrainingProcess = () => {
 
     const handleClickOk = () => {
         setIsChildInputOpen(false);
+        getTrainingProcessList();
+    };
+
+    const getTrainingProcessList = () => {
+        dispatch(getTrainingProcess());
     };
     return (
         <div>
@@ -70,6 +100,8 @@ const Management_Employees_TrainingProcess = () => {
             <Row>
                 <Col span={24}>
                     <Management_Employees_TrainingProcess_Table
+                        dataTable={dataTable}
+                        searchedText={searchedText}
                         onEdit={handleEdit}
                         onInfo={(event: any) => handleInfo(event)}
                     />
@@ -80,6 +112,8 @@ const Management_Employees_TrainingProcess = () => {
                 <Management_Employees_TrainingProcess_ChildInput
                     onClickCancel={handleClickCancel}
                     onClickOK={handleClickOk}
+                    mode={childMode}
+                    childInputItem={childInputItem}
                 />
             ) : (
                 ''

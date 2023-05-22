@@ -5,19 +5,21 @@ import Button_Normal from '../../common/Button_Normal';
 import Input_Text from '../../common/Input_Text';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import Input_Number from '../../common/Input_Number';
-
+import { MODE } from '../../../constant/constant';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
+    childInputItem: any;
+    mode: string;
 }
 
 const Management_Employees_Unit_ChildInput: React.FC<Props> = (props: Props) => {
     const [unitID, setUnitID] = useState('');
     const [unitName, setUnitName] = useState('');
     const [unitAddress, setUnitAddress] = useState('');
-    const [unitFax, setUnitFax] = useState('');
+    const [unitFax, setUnitFax] = useState(0);
     const [unitLeader, setUnitLeader] = useState('');
-    const [unitPhone, setUnitPhone] = useState('');
+    const [unitPhone, setUnitPhone] = useState(0);
     const [unitWebsite, setUnitWebsite] = useState('');
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
 

@@ -1,10 +1,10 @@
 import axios from '../../../plugins/axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { API_EMPLOYEE } from '../../../constant/api';
+import { API_GIVEN_DEGREE } from '../../../constant/api';
 
-export const getEmployee: any = createAsyncThunk('employee/getEmployee', async () => {
+export const getGivenDegree: any = createAsyncThunk('givenDegree/getGivenDegree', async () => {
     try {
-        const response = await axios.get(API_EMPLOYEE);
+        const response = await axios.get(API_GIVEN_DEGREE);
         console.log(response);
         return response.data;
     } catch (err) {
@@ -13,9 +13,9 @@ export const getEmployee: any = createAsyncThunk('employee/getEmployee', async (
     }
 });
 
-export const getEmployeeByID: any = createAsyncThunk('employee/getEmployeeByID', async (macanbo: any) => {
+export const getGivenDegreeByID: any = createAsyncThunk('givenDegree/getGivenDegreeByID', async (mavanbang: any) => {
     try {
-        const response = await axios.get(`${API_EMPLOYEE}/${macanbo}`);
+        const response = await axios.get(`${API_GIVEN_DEGREE}/${mavanbang}`);
         console.log(response);
         return response.data;
     } catch (err) {
@@ -24,9 +24,9 @@ export const getEmployeeByID: any = createAsyncThunk('employee/getEmployeeByID',
     }
 });
 
-export const postEmployee: any = createAsyncThunk('employee/postEmployee', async (data: any) => {
+export const postGivenDegree: any = createAsyncThunk('givenDegree/postGivenDegree', async (data: any) => {
     try {
-        const response = await axios.post(API_EMPLOYEE, data);
+        const response = await axios.post(API_GIVEN_DEGREE, data);
         console.log(response);
         return response.data;
     } catch (err) {
@@ -35,12 +35,12 @@ export const postEmployee: any = createAsyncThunk('employee/postEmployee', async
     }
 });
 
-export const putEmployee: any = createAsyncThunk('employee/putEmployee', async (data: any) => {
-    const { macanbo } = data;
+export const putGivenDegree: any = createAsyncThunk('givenDegree/putGivenDegree', async (data: any) => {
+    const { mavanbang } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_EMPLOYEE}/${macanbo}`,
+            url: `${API_GIVEN_DEGREE}/${mavanbang}`,
             data: data,
         });
         console.log(response);
@@ -51,11 +51,11 @@ export const putEmployee: any = createAsyncThunk('employee/putEmployee', async (
     }
 });
 
-export const deleteEmployee: any = createAsyncThunk('employee/deleteEmployee', async (macanbo: any) => {
+export const deleteGivenDegree: any = createAsyncThunk('givenDegree/deleteGivenDegree', async (mavanbang: any) => {
     try {
         const response = await axios({
             method: 'DELETE',
-            url: `${API_EMPLOYEE}/${macanbo}`,
+            url: `${API_GIVEN_DEGREE}/${mavanbang}`,
         });
         console.log(response);
         return response.data;
@@ -65,85 +65,85 @@ export const deleteEmployee: any = createAsyncThunk('employee/deleteEmployee', a
     }
 });
 
-interface EmployeeDetails {
-    employeeList: [];
-    employeeListByID: [];
+interface GivenDegree {
+    givenDegreeList: [];
+    givenDegreeListByID: [];
     error: string;
     loading: boolean;
 }
 
-const initialState: EmployeeDetails = {
-    employeeList: [],
-    employeeListByID: [],
+const initialState: GivenDegree = {
+    givenDegreeList: [],
+    givenDegreeListByID: [],
     error: '',
     loading: false,
 };
 
-const employeeSlice = createSlice({
-    name: 'employee',
+const GivenDegreeSlice = createSlice({
+    name: 'givenDegree',
     initialState,
     reducers: {},
     extraReducers: {
         // GET
-        [getEmployee.pending]: (state, action) => {
+        [getGivenDegree.pending]: (state, action) => {
             state.loading = true;
         },
-        [getEmployee.fulfilled]: (state, action) => {
+        [getGivenDegree.fulfilled]: (state, action) => {
             console.log(action);
             state.loading = false;
-            state.employeeList = action.payload;
-            console.log(state.employeeList);
+            state.givenDegreeList = action.payload;
+            console.log(state.givenDegreeList);
         },
-        [getEmployee.rejected]: (state, action) => {
+        [getGivenDegree.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.message;
         },
 
         // GET BY ID
-        [getEmployeeByID.pending]: (state, action) => {
+        [getGivenDegreeByID.pending]: (state, action) => {
             state.loading = true;
         },
-        [getEmployeeByID.fulfilled]: (state, action) => {
+        [getGivenDegreeByID.fulfilled]: (state, action) => {
             console.log(action);
             state.loading = false;
-            state.employeeListByID = action.payload;
-            console.log(state.employeeListByID);
+            state.givenDegreeListByID = action.payload;
+            console.log(state.givenDegreeListByID);
         },
-        [getEmployeeByID.rejected]: (state, action) => {
+        [getGivenDegreeByID.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.message;
         },
 
         // POST
-        [postEmployee.pending]: (state, action) => {
+        [postGivenDegree.pending]: (state, action) => {
             state.loading = true;
         },
-        [postEmployee.fulfilled]: (state, action) => {
+        [postGivenDegree.fulfilled]: (state, action) => {
             console.log(action);
             state.loading = false;
             // state.employeeDetailList = action.payload;
-            console.log(state.employeeList);
+            console.log(state.givenDegreeList);
         },
-        [postEmployee.rejected]: (state, action) => {
+        [postGivenDegree.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.message;
         },
 
         // PUT
-        [putEmployee.pending]: (state, action) => {
+        [putGivenDegree.pending]: (state, action) => {
             state.loading = true;
         },
-        [putEmployee.fulfilled]: (state, action) => {
+        [putGivenDegree.fulfilled]: (state, action) => {
             console.log(action);
             state.loading = false;
             // state.employeeDetailList = action.payload;
-            console.log(state.employeeList);
+            console.log(state.givenDegreeList);
         },
-        [putEmployee.rejected]: (state, action) => {
+        [putGivenDegree.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.message;
         },
     },
 });
 
-export default employeeSlice.reducer;
+export default GivenDegreeSlice.reducer;

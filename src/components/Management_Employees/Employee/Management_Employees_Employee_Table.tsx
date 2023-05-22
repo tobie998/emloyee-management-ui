@@ -24,11 +24,12 @@ export interface DataType {
 interface Props {
     onInfo: any;
     onEdit: any;
-    data: DataType[];
+    searchedText?: any;
+    dataTable: DataType[];
 }
 
 const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
-    const { data } = props;
+    const { searchedText, dataTable } = props;
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
@@ -46,6 +47,10 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
             title: 'Họ và tên',
             dataIndex: 'hoten',
             key: 'hoten',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.hoten.includes(value);
+            },
             width: '150px',
         },
         {
@@ -69,7 +74,7 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
         {
             title: 'Học vị',
             key: 'hocvi',
-            dataIndex: 'degree',
+            dataIndex: 'hocvi',
             width: '120px',
         },
         {
@@ -122,7 +127,7 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
         },
     ];
 
-    return <Table columns={columns} dataSource={data} scroll={{ y: 200 }} />;
+    return <Table columns={columns} dataSource={dataTable} scroll={{ y: 200 }} />;
 };
 
 export default Management_Employees_Details_Table;

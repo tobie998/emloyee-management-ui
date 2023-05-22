@@ -5,16 +5,19 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    givenDegreeID: string;
-    givenDegreeName: string;
+    mavanbang: string;
+    tenvanbang: string;
 }
 
 interface Props {
     onInfo: any;
     onEdit: any;
+    searchedText?: any;
+    dataTable: DataType[];
 }
 
 const Management_Employees_GivenDegree_Table: React.FC<Props> = (props: Props) => {
+    const { searchedText, dataTable } = props;
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
@@ -24,14 +27,14 @@ const Management_Employees_GivenDegree_Table: React.FC<Props> = (props: Props) =
         },
         {
             title: 'Mã văn bằng',
-            dataIndex: 'givenDegreeID',
-            key: 'givenDegreeID',
+            dataIndex: 'mavanbang',
+            key: 'mavanbang',
             width: '200px',
         },
         {
             title: 'Tên văn bằng',
-            key: 'givenDegreeName',
-            dataIndex: 'givenDegreeName',
+            key: 'tenvanbang',
+            dataIndex: 'tenvanbang',
             width: '200px',
         },
         {
@@ -48,37 +51,9 @@ const Management_Employees_GivenDegree_Table: React.FC<Props> = (props: Props) =
         },
     ];
 
-    const data: DataType[] = [
-        {
-            key: '1',
-            givenDegreeID: 'VB00001',
-            givenDegreeName: 'Thạc sĩ',
-        },
-        {
-            key: '2',
-            givenDegreeID: 'VB00002',
-            givenDegreeName: 'Đại học',
-        },
-        {
-            key: '3',
-            givenDegreeID: 'VB00003',
-            givenDegreeName: 'Thạc sĩ',
-        },
-        {
-            key: '4',
-            givenDegreeID: 'VB00004',
-            givenDegreeName: 'Thạc sĩ',
-        },
-        {
-            key: '5',
-            givenDegreeID: 'VB00005',
-            givenDegreeName: 'Thạc sĩ',
-        },
-    ];
-
     return (
         <div>
-            <Table columns={columns} dataSource={data} scroll={{ y: 200 }} />;
+            <Table columns={columns} dataSource={dataTable} scroll={{ y: 200 }} />;
         </div>
     );
 };

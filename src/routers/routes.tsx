@@ -1,6 +1,6 @@
 import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import Management_EmployeesDetails from '../pages/Management_Employees/Management_Employees_Details';
+// import Management_Employees_Details from '../pages/Management_Employees/Management_Employees_Details';
 import Management_Employees_GivenDegree from '../pages/Management_Employees/Management_Employees_GivenDegree';
 import Management_Employees_Award from '../pages/Management_Employees/Management_Employees_Award';
 import Management_Employees_LanguageKnowledge from '../pages/Management_Employees/Management_Employees_LanguageKnowledge';
@@ -14,12 +14,12 @@ import Management_Employees_TeachingRole from '../pages/Management_Employees/Man
 import Management_Employees_TrainingProcess from '../pages/Management_Employees/Management_Employees_TrainingProcess';
 import Management_Employees_Unit from '../pages/Management_Employees/Management_Employees_Unit';
 import Management_Employees_WorkingRole from '../pages/Management_Employees/Management_Employees_WorkingRole';
-import Management_Employees_PublicResearch from '../pages/Management_Employees/Management_Employees_PublicResearch';
 import Management_ResearchEmployee from '../pages/Management_Research/Management_Research_Employee';
 
 import { handleHomeLoader } from '../pages/Home';
 import Management_Employees_Employee from '../pages/Management_Employees/Management_Employees_Employee';
 import Management_Employees_Details from '../pages/Management_Employees/Management_Employees_Details';
+import Management_Employees_PracticalResearch from '../pages/Management_Employees/Management_Employees_PracticalResearch';
 
 const Login = lazy(() => import('../pages/Login'));
 const Home = lazy(() => import('../pages/Home'));
@@ -94,8 +94,8 @@ const router = createBrowserRouter([
                 element: <Management_Employees_WorkingRole />,
             },
             {
-                path: 'employees-research-public-research',
-                element: <Management_Employees_PublicResearch />,
+                path: 'employees-practical-research',
+                element: <Management_Employees_PracticalResearch />,
             },
             { path: 'education' },
             { path: 'research-employee', element: <Management_ResearchEmployee /> },
