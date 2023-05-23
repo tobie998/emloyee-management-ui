@@ -44,11 +44,11 @@ export const postResearchAssessment: any = createAsyncThunk(
 export const putResearchAssessment: any = createAsyncThunk(
     'researchAssessment/putResearchAssessment',
     async (data: any) => {
-        const { mahinhthuchoidong } = data;
+        const { maHinhThucHoiDong } = data;
         try {
             const response = await axios({
                 method: 'PUT',
-                url: `${API_RESEARCH_ASSESSMENT}/${mahinhthuchoidong}`,
+                url: `${API_RESEARCH_ASSESSMENT}/${maHinhThucHoiDong}`,
                 data: data,
             });
             console.log(response);

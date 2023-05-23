@@ -39,11 +39,11 @@ export const postResearchCategory: any = createAsyncThunk('researchCategory/post
 });
 
 export const putResearchCategory: any = createAsyncThunk('researchCategory/putResearchCategory', async (data: any) => {
-    const { malinhvuc } = data;
+    const { maLinhVuc } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_RESEARCH_CATEGORY}/${malinhvuc}`,
+            url: `${API_RESEARCH_CATEGORY}/${maLinhVuc}`,
             data: data,
         });
         console.log(response);

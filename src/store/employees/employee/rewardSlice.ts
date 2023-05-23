@@ -36,11 +36,11 @@ export const postReward: any = createAsyncThunk('reward/postReward', async (data
 });
 
 export const putReward: any = createAsyncThunk('reward/putReward', async (data: any) => {
-    const { makhenthuong } = data;
+    const { maKhenThuong } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_REWARD}/${makhenthuong}`,
+            url: `${API_REWARD}/${maKhenThuong}`,
             data: data,
         });
         console.log(response);

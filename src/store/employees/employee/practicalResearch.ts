@@ -45,11 +45,11 @@ export const postPracticalResearch: any = createAsyncThunk(
 export const putPracticalResearch: any = createAsyncThunk(
     'PracticalResearch/putPracticalResearch',
     async (data: any) => {
-        const { macongtrinhnghiencuu, macanbo } = data;
+        const { maCongTrinhNghienCuu, maCanBo } = data;
         try {
             const response = await axios({
                 method: 'PUT',
-                url: `${API_PRACTICAL_RESEARCH}/${macongtrinhnghiencuu}/${macanbo}`,
+                url: `${API_PRACTICAL_RESEARCH}/${maCongTrinhNghienCuu}/${maCanBo}`,
                 data: data,
             });
             console.log(response);

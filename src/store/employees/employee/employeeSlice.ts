@@ -36,11 +36,11 @@ export const postEmployee: any = createAsyncThunk('employee/postEmployee', async
 });
 
 export const putEmployee: any = createAsyncThunk('employee/putEmployee', async (data: any) => {
-    const { macanbo } = data;
+    const { maCanBo } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_EMPLOYEE}/${macanbo}`,
+            url: `${API_EMPLOYEE}/${maCanBo}`,
             data: data,
         });
         console.log(response);

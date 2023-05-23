@@ -39,11 +39,11 @@ export const postPunishment: any = createAsyncThunk('punishment/postPunishment',
 });
 
 export const putPunishment: any = createAsyncThunk('punishment/putPunishment', async (data: any) => {
-    const { makyluat } = data;
+    const { maKyLuat } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_PUNISHMENT}/${makyluat}`,
+            url: `${API_PUNISHMENT}/${maKyLuat}`,
             data: data,
         });
         console.log(response);

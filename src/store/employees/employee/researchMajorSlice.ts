@@ -37,11 +37,11 @@ export const postResearchMajor: any = createAsyncThunk('researchMajor/postResear
 });
 
 export const putResearchMajor: any = createAsyncThunk('researchMajor/putResearchMajor', async (data: any) => {
-    const { malinhvuc, machuyennganh } = data;
+    const { maLinhVuc, maChuyenNganh } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_RESEARCH_MAJOR}/${malinhvuc}/${machuyennganh}`,
+            url: `${API_RESEARCH_MAJOR}/${maLinhVuc}/${maChuyenNganh}`,
             data: data,
         });
         console.log(response);
