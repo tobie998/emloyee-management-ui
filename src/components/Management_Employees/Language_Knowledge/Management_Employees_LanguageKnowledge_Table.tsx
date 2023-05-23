@@ -5,8 +5,8 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    languageID: string;
-    languageName: string;
+    maNgoaiNgu: string;
+    tenNgoaiNgu: string;
 }
 
 interface Props {
@@ -27,14 +27,18 @@ const Management_Employees_LanguageKnowledge_Table: React.FC<Props> = (props: Pr
         },
         {
             title: 'Mã ngoại ngữ',
-            dataIndex: 'languageID',
-            key: 'languageID',
+            dataIndex: 'maNgoaiNgu',
+            key: 'maNgoaiNgu',
             width: '200px',
         },
         {
             title: 'Tên ngoại ngữ',
-            key: 'languageName',
-            dataIndex: 'languageName',
+            key: 'tenNgoaiNgu',
+            dataIndex: 'tenNgoaiNgu',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.tenNgoaiNgu.includes(value);
+            },
             width: '200px',
         },
         {
@@ -48,34 +52,6 @@ const Management_Employees_LanguageKnowledge_Table: React.FC<Props> = (props: Pr
                     <EditOutlined className="text-main-color text-2xl" onClick={() => props.onEdit(record)} />
                 </Space>
             ),
-        },
-    ];
-
-    const data: DataType[] = [
-        {
-            key: '1',
-            languageID: 'VB00001',
-            languageName: 'Thạc sĩ',
-        },
-        {
-            key: '2',
-            languageID: 'VB00001',
-            languageName: 'Thạc sĩ',
-        },
-        {
-            key: '3',
-            languageID: 'VB00001',
-            languageName: 'Thạc sĩ',
-        },
-        {
-            key: '4',
-            languageID: 'VB00001',
-            languageName: 'Thạc sĩ',
-        },
-        {
-            key: '5',
-            languageID: 'VB00001',
-            languageName: 'Thạc sĩ',
         },
     ];
 

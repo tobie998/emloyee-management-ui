@@ -5,8 +5,8 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    maChucDanh: string;
-    tenChucDanh: string;
+    maCongTrinhKH: string;
+    loaiCongTrinhKH: string;
 }
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
     dataTable: DataType[];
 }
 
-const Management_Employees_TeachingRole_Table: React.FC<Props> = (props: Props) => {
+const Management_Employees_PublicResearch_Table: React.FC<Props> = (props: Props) => {
     const { searchedText, dataTable } = props;
     const columns: ColumnsType<DataType> = [
         {
@@ -26,18 +26,18 @@ const Management_Employees_TeachingRole_Table: React.FC<Props> = (props: Props) 
             dataIndex: 'key',
         },
         {
-            title: 'Mã chức danh',
-            dataIndex: 'maChucDanh',
-            key: 'maChucDanh',
+            title: 'Mã công trình KH&CN',
+            dataIndex: 'maCongTrinhKH',
+            key: 'maCongTrinhKH',
             width: '200px',
         },
         {
-            title: 'Tên chức danh',
-            key: 'tenChucDanh',
-            dataIndex: 'tenChucDanh',
+            title: 'Loại công trình KH&CN',
+            key: 'loaiCongTrinhKH',
+            dataIndex: 'loaiCongTrinhKH',
             filteredValue: [searchedText],
             onFilter: (value: any, record: any) => {
-                return record.tenChucDanh.includes(value);
+                return record.loaiCongTrinhKH.includes(value);
             },
             width: '200px',
         },
@@ -57,9 +57,9 @@ const Management_Employees_TeachingRole_Table: React.FC<Props> = (props: Props) 
 
     return (
         <div>
-            <Table columns={columns} dataSource={dataTable} scroll={{ y: 200 }} />
+            <Table columns={columns} dataSource={dataTable} scroll={{ y: 200 }} />;
         </div>
     );
 };
 
-export default Management_Employees_TeachingRole_Table;
+export default Management_Employees_PublicResearch_Table;

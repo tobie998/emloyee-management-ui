@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Overlay from '../../../layout/Overlay';
 import { Card, Col, Row } from 'antd';
 import Button_Normal from '../../common/Button_Normal';
 import Input_Text from '../../common/Input_Text';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import { MODE } from '../../../constant/constant';
+import { useDispatch } from 'react-redux';
+import { deleteGivenDegree, postGivenDegree, putGivenDegree } from '../../../store/employees/employee/givenDegreeSlice';
 
 interface Props {
     onClickOK: any;
@@ -14,11 +16,19 @@ interface Props {
 }
 
 const Management_Employees_GivenDegree_ChildInput: React.FC<Props> = (props: Props) => {
-    const [givenDegreeID, setGivenDegreeID] = useState('');
-    const [givenDegreeName, setGivenDegreeName] = useState('');
+    const { childInputItem, mode } = props;
+    const [givenDegreeID, setGivenDegreeID] = useState(mode !== MODE.ADD ? childInputItem.maVanBang : '');
+    const [givenDegreeName, setGivenDegreeName] = useState(mode !== MODE.ADD ? childInputItem.tenVanBang : '');
+
+    const [titleText, setTitleText] = useState('');
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
+    const [messageID, setMessageID] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+
+    const dispatch = useDispatch();
     const handleDelete = () => {
-        console.log('delete');
+        setMessageID('DELETE');
+        setMessageContent('Xóa văn bằng?');
         setIsOpenWarningDialog(true);
     };
 
@@ -28,8 +38,15 @@ const Management_Employees_GivenDegree_ChildInput: React.FC<Props> = (props: Pro
     };
 
     const handleValidate = () => {
-        console.log('validate');
+        if (!givenDegreeID) {
+            setIsOpenWarningDialog(true);
+            setMessageID('ERROR');
+            setMessageContent('Mã văn bằng chưa nhập');
+            return;
+        }
         setIsOpenWarningDialog(true);
+        setMessageID(mode == MODE.ADD ? MODE.ADD : MODE.EDIT);
+        setMessageContent(mode == MODE.ADD ? 'Thêm mới?' : 'Sửa văn bằng?');
     };
 
     const handleCancelWarningDialog = () => {
@@ -37,16 +54,46 @@ const Management_Employees_GivenDegree_ChildInput: React.FC<Props> = (props: Pro
         setIsOpenWarningDialog(false);
     };
 
-    const handleClickOk = () => {
-        console.log('click ok');
-        setIsOpenWarningDialog(false);
+    const handleClickOk = async () => {
+        const givenDegreeObj = {
+            maVanBang: givenDegreeID,
+            tenVanBang: givenDegreeName,
+        };
+        if (messageID == MODE.ADD) {
+            console.log(givenDegreeObj);
+            await dispatch(postGivenDegree(givenDegreeObj));
+            props.onClickOK();
+        } else if (messageID == 'EDIT') {
+            console.log(givenDegreeObj);
+            await dispatch(putGivenDegree(givenDegreeObj));
+            props.onClickOK();
+        } else if (messageID == 'DELETE') {
+            await dispatch(deleteGivenDegree(givenDegreeObj.maVanBang));
+            props.onClickOK();
+        }
 
-        props.onClickOK();
+        setIsOpenWarningDialog(false);
     };
+
+    useEffect(() => {
+        switch (mode) {
+            case MODE.ADD:
+                setTitleText('Thêm mới');
+                break;
+            case MODE.EDIT:
+                setTitleText('Sửa');
+                break;
+            case MODE.INFO:
+                setTitleText('Thông tin');
+                break;
+            default:
+                break;
+        }
+    }, [mode]);
     return (
         <Overlay>
             <Card
-                title="Văn bằng cán bộ [Thêm mới]"
+                title={`Văn bằng [${titleText}]`}
                 headStyle={{ background: '#006D75', color: 'white' }}
                 bodyStyle={{ overflowY: 'auto', height: 'inherit' }}
                 style={{ background: '#fff', width: '50%', height: 'fit-content', border: 'none' }}
@@ -98,7 +145,7 @@ const Management_Employees_GivenDegree_ChildInput: React.FC<Props> = (props: Pro
 
                 {isOpenWarningDialog ? (
                     <Dialog_Warning
-                        messageContent="Bạn muốn thêm mới?"
+                        messageContent={messageContent}
                         onCancel={handleCancelWarningDialog}
                         onClickOk={handleClickOk}
                     />

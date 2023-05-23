@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Overlay from '../../../layout/Overlay';
 import { Card, Col, Row } from 'antd';
 import Button_Normal from '../../common/Button_Normal';
 import Input_Text from '../../common/Input_Text';
 import Dialog_Warning from '../../common/Dialog_Warning';
+import { MODE } from '../../../constant/constant';
+import { useDispatch } from 'react-redux';
+import { deleteAward, postAward, putAward } from '../../../store/employees/employee/awardSlice';
 
 interface Props {
     onClickOK: any;
     onClickCancel: any;
+    childInputItem: any;
+    mode: string;
 }
 
 const Management_Employees_Award_ChildInput: React.FC<Props> = (props: Props) => {
-    const [awardID, setAwardID] = useState('');
-    const [form, setForm] = useState('');
+    const { childInputItem, mode } = props;
+    const [awardID, setAwardID] = useState(mode !== MODE.ADD ? childInputItem.maGiaiThuong : '');
+    const [form, setForm] = useState(mode !== MODE.ADD ? childInputItem.hinhThuc : '');
+    const [titleText, setTitleText] = useState('');
+
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
+    const [messageID, setMessageID] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+
+    const dispatch = useDispatch();
+
     const handleDelete = () => {
-        console.log('delete');
+        setMessageID('DELETE');
+        setMessageContent('Xóa giải thưởng?');
         setIsOpenWarningDialog(true);
     };
 
@@ -25,8 +39,15 @@ const Management_Employees_Award_ChildInput: React.FC<Props> = (props: Props) =>
     };
 
     const handleValidate = () => {
-        console.log('validate');
+        if (!awardID) {
+            setIsOpenWarningDialog(true);
+            setMessageID('ERROR');
+            setMessageContent('Mã giải thưởng chưa nhập');
+            return;
+        }
         setIsOpenWarningDialog(true);
+        setMessageID(mode == MODE.ADD ? MODE.ADD : MODE.EDIT);
+        setMessageContent(mode == MODE.ADD ? 'Thêm mới?' : 'Sửa giải thưởng?');
     };
 
     const handleCancelWarningDialog = () => {
@@ -34,16 +55,46 @@ const Management_Employees_Award_ChildInput: React.FC<Props> = (props: Props) =>
         setIsOpenWarningDialog(false);
     };
 
-    const handleClickOk = () => {
-        console.log('click ok');
-        setIsOpenWarningDialog(false);
+    const handleClickOk = async () => {
+        const awardObj = {
+            maGiaiThuong: awardID,
+            hinhThuc: form,
+        };
+        if (messageID == MODE.ADD) {
+            console.log(awardObj);
+            await dispatch(postAward(awardObj));
+            props.onClickOK();
+        } else if (messageID == 'EDIT') {
+            console.log(awardObj);
+            await dispatch(putAward(awardObj));
+            props.onClickOK();
+        } else if (messageID == 'DELETE') {
+            await dispatch(deleteAward(awardObj.maGiaiThuong));
+            props.onClickOK();
+        }
 
-        props.onClickOK();
+        setIsOpenWarningDialog(false);
     };
+
+    useEffect(() => {
+        switch (mode) {
+            case MODE.ADD:
+                setTitleText('Thêm mới');
+                break;
+            case MODE.EDIT:
+                setTitleText('Sửa');
+                break;
+            case MODE.INFO:
+                setTitleText('Thông tin');
+                break;
+            default:
+                break;
+        }
+    }, [mode]);
     return (
         <Overlay>
             <Card
-                title="Giải thưởng [Thêm mới]"
+                title={`Giải thưởng [${titleText}]`}
                 headStyle={{ background: '#006D75', color: 'white' }}
                 bodyStyle={{ overflowY: 'auto', height: 'inherit' }}
                 style={{ background: '#fff', width: '50%', height: 'fit-content', border: 'none' }}
@@ -95,7 +146,7 @@ const Management_Employees_Award_ChildInput: React.FC<Props> = (props: Props) =>
 
                 {isOpenWarningDialog ? (
                     <Dialog_Warning
-                        messageContent="Bạn muốn thêm mới?"
+                        messageContent={messageContent}
                         onCancel={handleCancelWarningDialog}
                         onClickOk={handleClickOk}
                     />

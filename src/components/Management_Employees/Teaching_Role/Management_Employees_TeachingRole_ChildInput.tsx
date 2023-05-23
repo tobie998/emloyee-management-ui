@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Overlay from '../../../layout/Overlay';
 import { Card, Col, Row } from 'antd';
 import Button_Normal from '../../common/Button_Normal';
 import Input_Text from '../../common/Input_Text';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import { MODE } from '../../../constant/constant';
+import { useDispatch } from 'react-redux';
+import {
+    deleteTeachingRole,
+    postTeachingRole,
+    putTeachingRole,
+} from '../../../store/employees/employee/teachingRoleSlice';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
@@ -13,12 +19,22 @@ interface Props {
 }
 
 const Management_Employees_TeachingRole_ChildInput: React.FC<Props> = (props: Props) => {
-    const [teachingRoleID, setTeachingRoleID] = useState('');
-    const [teachingRoleName, setTeachingRoleName] = useState('');
+    const { childInputItem, mode } = props;
+
+    const [teachingRoleID, setTeachingRoleID] = useState(mode !== MODE.ADD ? childInputItem.maChucDanh : '');
+    const [teachingRoleName, setTeachingRoleName] = useState(mode !== MODE.ADD ? childInputItem.tenChucDanh : '');
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
 
+    const dispatch = useDispatch();
+
+    const [titleText, setTitleText] = useState('');
+
+    const [messageID, setMessageID] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+
     const handleDelete = () => {
-        console.log('delete');
+        setMessageID('DELETE');
+        setMessageContent('Xóa chức danh?');
         setIsOpenWarningDialog(true);
     };
 
@@ -28,8 +44,15 @@ const Management_Employees_TeachingRole_ChildInput: React.FC<Props> = (props: Pr
     };
 
     const handleValidate = () => {
-        console.log('validate');
+        if (!teachingRoleID) {
+            setIsOpenWarningDialog(true);
+            setMessageID('ERROR');
+            setMessageContent('Mã chức danh chưa nhập');
+            return;
+        }
         setIsOpenWarningDialog(true);
+        setMessageID(mode == MODE.ADD ? MODE.ADD : MODE.EDIT);
+        setMessageContent(mode == MODE.ADD ? 'Thêm mới?' : 'Sửa chức danh?');
     };
 
     const handleCancelWarningDialog = () => {
@@ -37,16 +60,46 @@ const Management_Employees_TeachingRole_ChildInput: React.FC<Props> = (props: Pr
         setIsOpenWarningDialog(false);
     };
 
-    const handleClickOk = () => {
-        console.log('click ok');
-        setIsOpenWarningDialog(false);
+    const handleClickOk = async () => {
+        const teachingRoleObj = {
+            maChucDanh: teachingRoleID,
+            tenChucDanh: teachingRoleName,
+        };
+        if (messageID == MODE.ADD) {
+            console.log(teachingRoleObj);
+            await dispatch(postTeachingRole(teachingRoleObj));
+            props.onClickOK();
+        } else if (messageID == 'EDIT') {
+            console.log(teachingRoleObj);
+            await dispatch(putTeachingRole(teachingRoleObj));
+            props.onClickOK();
+        } else if (messageID == 'DELETE') {
+            await dispatch(deleteTeachingRole(teachingRoleObj.maChucDanh));
+            props.onClickOK();
+        }
 
-        props.onClickOK();
+        setIsOpenWarningDialog(false);
     };
+
+    useEffect(() => {
+        switch (mode) {
+            case MODE.ADD:
+                setTitleText('Thêm mới');
+                break;
+            case MODE.EDIT:
+                setTitleText('Sửa');
+                break;
+            case MODE.INFO:
+                setTitleText('Thông tin');
+                break;
+            default:
+                break;
+        }
+    }, [mode]);
     return (
         <Overlay>
             <Card
-                title="Khen thưởng [Thêm mới]"
+                title={`Chức danh [${titleText}]`}
                 headStyle={{ background: '#006D75', color: 'white' }}
                 bodyStyle={{ overflowY: 'auto', height: 'inherit' }}
                 style={{ background: '#fff', width: '50%', height: 'fit-content', border: 'none' }}
@@ -98,7 +151,7 @@ const Management_Employees_TeachingRole_ChildInput: React.FC<Props> = (props: Pr
 
                 {isOpenWarningDialog ? (
                     <Dialog_Warning
-                        messageContent="Bạn muốn thêm mới?"
+                        messageContent={messageContent}
                         onCancel={handleCancelWarningDialog}
                         onClickOk={handleClickOk}
                     />

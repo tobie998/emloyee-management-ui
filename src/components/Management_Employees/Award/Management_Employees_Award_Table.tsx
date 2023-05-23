@@ -5,16 +5,19 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    awardID: string;
-    form: string;
+    maGiaiThuong: string;
+    hinhThuc: string;
 }
 
 interface Props {
     onInfo: any;
     onEdit: any;
+    searchedText?: any;
+    dataTable: DataType[];
 }
 
 const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
+    const { searchedText, dataTable } = props;
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
@@ -24,14 +27,18 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
         },
         {
             title: 'Mã giải thưởng',
-            dataIndex: 'awardID',
-            key: 'awardID',
+            dataIndex: 'maGiaiThuong',
+            key: 'maGiaiThuong',
             width: '200px',
         },
         {
             title: 'Hình thức',
-            key: 'form',
-            dataIndex: 'form',
+            key: 'hinhThuc',
+            dataIndex: 'hinhThuc',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.hinhThuc.includes(value);
+            },
             width: '200px',
         },
         {
@@ -48,35 +55,7 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
         },
     ];
 
-    const data: DataType[] = [
-        {
-            key: '1',
-            awardID: 'GT0001',
-            form: 'Tiền mặt',
-        },
-        {
-            key: '2',
-            awardID: 'GT0002',
-            form: 'Tiền mặt',
-        },
-        {
-            key: '3',
-            awardID: 'GT0003',
-            form: 'Tiền mặt',
-        },
-        {
-            key: '4',
-            awardID: 'GT0004',
-            form: 'Tiền mặt',
-        },
-        {
-            key: '5',
-            awardID: 'GT0005',
-            form: 'Tiền mặt',
-        },
-    ];
-
-    return <Table columns={columns} dataSource={data} scroll={{ y: 200 }} />;
+    return <Table columns={columns} dataSource={dataTable} scroll={{ y: 200 }} />;
 };
 
 export default Management_Employees_Details_Table;

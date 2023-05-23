@@ -5,8 +5,8 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    workingRoleID: string;
-    workingRoleName: string;
+    maChucVu: string;
+    tenChucVu: string;
 }
 
 interface Props {
@@ -27,14 +27,18 @@ const Management_Employees_WorkingRole_Table: React.FC<Props> = (props: Props) =
         },
         {
             title: 'Mã chức vụ',
-            dataIndex: 'workingRoleID',
-            key: 'workingRoleID',
+            dataIndex: 'maChucVu',
+            key: 'maChucVu',
             width: '200px',
         },
         {
             title: 'Tên chức vụ',
-            key: 'workingRoleName',
-            dataIndex: 'workingRoleName',
+            key: 'tenChucVu',
+            dataIndex: 'tenChucVu',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.tenChucVu.includes(value);
+            },
             width: '200px',
         },
         {
@@ -48,34 +52,6 @@ const Management_Employees_WorkingRole_Table: React.FC<Props> = (props: Props) =
                     <EditOutlined className="text-main-color text-2xl" onClick={() => props.onEdit(record)} />
                 </Space>
             ),
-        },
-    ];
-
-    const data: DataType[] = [
-        {
-            key: '1',
-            workingRoleID: 'VB00001',
-            workingRoleName: 'Thạc sĩ',
-        },
-        {
-            key: '2',
-            workingRoleID: 'VB00001',
-            workingRoleName: 'Thạc sĩ',
-        },
-        {
-            key: '3',
-            workingRoleID: 'VB00001',
-            workingRoleName: 'Thạc sĩ',
-        },
-        {
-            key: '4',
-            workingRoleID: 'VB00001',
-            workingRoleName: 'Thạc sĩ',
-        },
-        {
-            key: '5',
-            workingRoleID: 'VB00001',
-            workingRoleName: 'Thạc sĩ',
         },
     ];
 

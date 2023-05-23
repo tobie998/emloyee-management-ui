@@ -6,11 +6,7 @@ import Input_Text from '../../common/Input_Text';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import { MODE } from '../../../constant/constant';
 import { useDispatch } from 'react-redux';
-import {
-    deleteLanguageKnowledge,
-    postLanguageKnowledge,
-    putLanguageKnowledge,
-} from '../../../store/employees/employee/languageKnowledgeSlice';
+import { deletePracticalResearch, postPracticalResearch, putPracticalResearch } from '../../../store/employees/employee/practicalResearch';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
@@ -18,10 +14,12 @@ interface Props {
     mode: string;
 }
 
-const Management_Employees_LanguageKnowledge_ChildInput: React.FC<Props> = (props: Props) => {
+const Management_Employees_PublicResearch_ChildInput: React.FC<Props> = (props: Props) => {
     const { childInputItem, mode } = props;
-    const [languageID, setLanguageID] = useState(mode !== MODE.ADD ? childInputItem.maNgoaiNgu : '');
-    const [languageName, setLanguageName] = useState(mode !== MODE.ADD ? childInputItem.tenNgoaiNgu : '');
+    const [publicResearchID, setPublicResearchID] = useState(mode !== MODE.ADD ? childInputItem.maCongTrinhKH : '');
+    const [publicResearchForm, setPublicResearchForm] = useState(
+        mode !== MODE.ADD ? childInputItem.loaiCongTrinhKH : '',
+    );
 
     const [titleText, setTitleText] = useState('');
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
@@ -31,7 +29,7 @@ const Management_Employees_LanguageKnowledge_ChildInput: React.FC<Props> = (prop
 
     const handleDelete = () => {
         setMessageID('DELETE');
-        setMessageContent('Xóa ngoại ngữ?');
+        setMessageContent('Xóa công trình KH&CN?');
         setIsOpenWarningDialog(true);
     };
 
@@ -41,15 +39,15 @@ const Management_Employees_LanguageKnowledge_ChildInput: React.FC<Props> = (prop
     };
 
     const handleValidate = () => {
-        if (!languageID) {
+        if (!publicResearchID) {
             setIsOpenWarningDialog(true);
             setMessageID('ERROR');
-            setMessageContent('Mã ngoại ngữ chưa nhập');
+            setMessageContent('Mã công trình KH&CN chưa nhập');
             return;
         }
         setIsOpenWarningDialog(true);
         setMessageID(mode == MODE.ADD ? MODE.ADD : MODE.EDIT);
-        setMessageContent(mode == MODE.ADD ? 'Thêm mới?' : 'Sửa ngoại ngữ?');
+        setMessageContent(mode == MODE.ADD ? 'Thêm mới?' : 'Sửa công trình KH&CN?');
     };
 
     const handleCancelWarningDialog = () => {
@@ -58,20 +56,20 @@ const Management_Employees_LanguageKnowledge_ChildInput: React.FC<Props> = (prop
     };
 
     const handleClickOk = async () => {
-        const languageKnowledgeObj = {
-            maNgoaiNgu: languageID,
-            tenNgoaiNgu: languageName,
+        const practicalResearchObj = {
+            maCongTrinhKH: publicResearchID,
+            loaiCongTrinhKH: publicResearchForm,
         };
         if (messageID == MODE.ADD) {
-            console.log(languageKnowledgeObj);
-            await dispatch(postLanguageKnowledge(languageKnowledgeObj));
+            console.log(practicalResearchObj);
+            await dispatch(postPracticalResearch(practicalResearchObj));
             props.onClickOK();
         } else if (messageID == 'EDIT') {
-            console.log(languageKnowledgeObj);
-            await dispatch(putLanguageKnowledge(languageKnowledgeObj));
+            console.log(practicalResearchObj);
+            await dispatch(putPracticalResearch(practicalResearchObj));
             props.onClickOK();
         } else if (messageID == 'DELETE') {
-            await dispatch(deleteLanguageKnowledge(languageKnowledgeObj.maNgoaiNgu));
+            await dispatch(deletePracticalResearch(practicalResearchObj.maCongTrinhKH));
             props.onClickOK();
         }
 
@@ -96,7 +94,7 @@ const Management_Employees_LanguageKnowledge_ChildInput: React.FC<Props> = (prop
     return (
         <Overlay>
             <Card
-                title={`Trình độ ngoại ngữ [${titleText}]`}
+                title={`Công trình KH&CN [${titleText}]`}
                 headStyle={{ background: '#006D75', color: 'white' }}
                 bodyStyle={{ overflowY: 'auto', height: 'inherit' }}
                 style={{ background: '#fff', width: '50%', height: 'fit-content', border: 'none' }}
@@ -129,18 +127,18 @@ const Management_Employees_LanguageKnowledge_ChildInput: React.FC<Props> = (prop
                 <Row gutter={[32, 0]} className="mb-5">
                     <Col span={6}>
                         <Input_Text
-                            label="Mã văn bằng"
-                            value={languageID}
-                            onChange={(e: any) => setLanguageID(e.target.value)}
+                            label="Mã công trình KH&CN"
+                            value={publicResearchID}
+                            onChange={(e: any) => setPublicResearchID(e.target.value)}
                             onBlur={() => console.log('onBlur')}
                         />
                     </Col>
 
                     <Col span={6}>
                         <Input_Text
-                            label="Tên văn bằng"
-                            value={languageName}
-                            onChange={(e: any) => setLanguageName(e.target.value)}
+                            label="Tên công trình KH&CN"
+                            value={publicResearchForm}
+                            onChange={(e: any) => setPublicResearchForm(e.target.value)}
                             onBlur={() => console.log('onBlur')}
                         />
                     </Col>
@@ -148,7 +146,7 @@ const Management_Employees_LanguageKnowledge_ChildInput: React.FC<Props> = (prop
 
                 {isOpenWarningDialog ? (
                     <Dialog_Warning
-                        messageContent={messageContent}
+                        messageContent="Bạn muốn thêm mới?"
                         onCancel={handleCancelWarningDialog}
                         onClickOk={handleClickOk}
                     />
@@ -160,4 +158,4 @@ const Management_Employees_LanguageKnowledge_ChildInput: React.FC<Props> = (prop
     );
 };
 
-export default Management_Employees_LanguageKnowledge_ChildInput;
+export default Management_Employees_PublicResearch_ChildInput;

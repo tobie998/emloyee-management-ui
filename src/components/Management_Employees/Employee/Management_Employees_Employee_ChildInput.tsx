@@ -27,22 +27,25 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
     console.log(macanbo);
 
     const dispatch = useDispatch();
-    const employeeListByID = useSelector((state: any) => state.employee.employeeListByID);
-    console.log('employeeListByID', employeeListByID);
+    // const employeeListByID = useSelector((state: any) => state.employee.employeeListByID);
+    // console.log('employeeListByID', employeeListByID);
 
-    const [employeeID, setEmployeeID] = useState(mode !== MODE.ADD ? childInputItem.macanbo : '');
-    const [employeeName, setEmployeeName] = useState(mode !== MODE.ADD ? childInputItem.hoten : '');
-    const [employeeSex, setEmployeeSex] = useState(mode !== MODE.ADD ? childInputItem.gioitinh : '');
-    const [employeeDOB, setEmployeeDOB] = useState(mode !== MODE.ADD ? childInputItem.namsinh : '');
-    const [academicRank, setAcademicRank] = useState(mode !== MODE.ADD ? childInputItem.hocham : '');
-    const [academicRankYear, setAcademicRankYear] = useState(mode !== MODE.ADD ? childInputItem.namhocham : '');
-    const [degree, setDegree] = useState(mode !== MODE.ADD ? childInputItem.hocvi : '');
-    const [degreeYear, setDegreeYear] = useState(mode !== MODE.ADD ? childInputItem.namhocvi : '');
-    const [personalAddress, setPersonalAddress] = useState(mode !== MODE.ADD ? childInputItem.diachinharieng : '');
-    const [personalPhone, setPersonalPhone] = useState(mode !== MODE.ADD ? childInputItem.dienthoainharieng : 0);
-    const [officialPhone, setOfficialPhone] = useState(mode !== MODE.ADD ? childInputItem.dienthoaicoquan : '');
+    const [employeeID, setEmployeeID] = useState(mode !== MODE.ADD ? childInputItem.maCanBo : '');
+    const [employeeName, setEmployeeName] = useState(mode !== MODE.ADD ? childInputItem.hoTen : '');
+    const [employeeSex, setEmployeeSex] = useState(mode !== MODE.ADD ? childInputItem.gioiTinh : '');
+    const [employeeDOB, setEmployeeDOB] = useState(mode !== MODE.ADD ? childInputItem.namSinh : '');
+    const [academicRank, setAcademicRank] = useState(mode !== MODE.ADD ? childInputItem.hocHam : '');
+    const [academicRankYear, setAcademicRankYear] = useState(mode !== MODE.ADD ? childInputItem.namHocHam : '');
+    const [degree, setDegree] = useState(mode !== MODE.ADD ? childInputItem.hocVi : '');
+    const [degreeYear, setDegreeYear] = useState(mode !== MODE.ADD ? childInputItem.namHocVi : '');
+    const [personalAddress, setPersonalAddress] = useState(mode !== MODE.ADD ? childInputItem.diaChiNhaRieng : '');
+    const [personalPhone, setPersonalPhone] = useState(mode !== MODE.ADD ? childInputItem.dienThoaiNhaRieng : 0);
+    const [officialPhone, setOfficialPhone] = useState(mode !== MODE.ADD ? childInputItem.dienThoaiCoQuan : '');
     const [mobile, setMobile] = useState(mode !== MODE.ADD ? childInputItem.mobile : '');
     const [email, setEmail] = useState(mode !== MODE.ADD ? childInputItem.email : '');
+    const [workingRole, setWorkingRole] = useState(mode !== MODE.ADD ? childInputItem.maChucVu : '');
+    const [teachingRole, setTeachingRole] = useState(mode !== MODE.ADD ? childInputItem.maChucDanh : '');
+
     const [researchCategory, setResearchCategory] = useState('');
     const [titleText, setTitleText] = useState('');
 
@@ -86,22 +89,24 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
 
     const handleClickOk = async () => {
         const employeeObj = {
-            macanbo: employeeID,
-            hoten: employeeName,
-            namsinh: employeeDOB ? parseInt(dayjs(employeeDOB).format('YYYY-MM-DD').replace('-', '')) : '',
-            gioitinh: employeeSex == 'nam',
-            hocham: academicRank,
-            hocvi: degree,
-            namhocvi: degreeYear ? parseInt(degreeYear) : '',
-            namhocham: academicRankYear ? parseInt(academicRankYear) : '',
-            diachinharieng: personalAddress,
-            dienthoainharieng: personalPhone,
-            dienthoaicoquan: officialPhone,
+            maCanBo: employeeID,
+            hoTen: employeeName,
+            namSinh: employeeDOB ? parseInt(dayjs(employeeDOB).format('YYYY-MM-DD').replace('-', '')) : '',
+            gioiTinh: employeeSex == 'nam',
+            hocHam: academicRank,
+            hocVi: degree,
+            namHocVi: degreeYear ? parseInt(degreeYear) : '',
+            namHocHam: academicRankYear ? parseInt(academicRankYear) : '',
+            diaChiNhaRieng: personalAddress,
+            dienThoaiNhaRieng: personalPhone,
+            dienThoaiCoQuan: officialPhone,
             mobile: mobile,
             email: email,
-            madonvi: 1,
-            bacluong: '',
-            luongcoban: 2000000,
+            maChucVu: 1,
+            maChucDanh: 1,
+            maDonVi: 1,
+            bacLuong: '',
+            luongCoBan: 2000000,
         };
         if (messageID == MODE.ADD) {
             console.log(employeeObj);
@@ -277,7 +282,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                 <Row gutter={[32, 0]} className="mb-5">
                     <Col span={6}>
                         <Input_Select
-                            label="Lĩnh vực nghiên cứu"
+                            label="Chức vụ"
                             onChange={(value: string) => {
                                 console.log(value);
                                 setResearchCategory(value);
@@ -290,7 +295,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
 
                     <Col span={6}>
                         <Input_Select
-                            label="Chuyên ngành KH&CN"
+                            label="Chức danh"
                             onChange={(value: string) => {
                                 console.log(value);
                                 setResearchCategory(value);

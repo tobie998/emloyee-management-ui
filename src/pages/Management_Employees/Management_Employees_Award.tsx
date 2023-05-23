@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button_Reset from '../../components/common/Button_Reset';
 import Button_Clear from '../../components/common/Button_Clear';
 import Search from 'antd/es/input/Search';
@@ -7,11 +7,30 @@ import Button_Add from '../../components/common/Button_Add';
 import { SearchOutlined } from '@ant-design/icons';
 import Management_Employees_Award_Table from '../../components/Management_Employees/Award/Management_Employees_Award_Table';
 import Management_Employees_Award_ChildInput from '../../components/Management_Employees/Award/Management_Employees_Award_ChildInput';
+import { useDispatch, useSelector } from 'react-redux';
+import { MODE } from '../../constant/constant';
+import { getAward } from '../../store/employees/employee/awardSlice';
 
 const Management_Employees_Award = () => {
     const [isChildInputOpen, setIsChildInputOpen] = useState(false);
+    const [searchedText, setSearchedText] = useState('');
+    const [dataTable, setDataTable] = useState([]);
+    const dispatch = useDispatch();
+    const awardList = useSelector((state: any) => state.givenDegree.awardList);
+    const [childInputItem, setChildInputItem] = useState({});
+    const [childMode, setChildMode] = useState(MODE.ADD);
+
+    useEffect(() => {
+        if (awardList) {
+            const dataTable = awardList.map((item: any, index: any) => {
+                return { ...item, key: index + 1 };
+            });
+            setDataTable(dataTable);
+        }
+    }, [awardList]);
     const handleReset = () => {
         console.log('reset');
+        getAwardList();
     };
 
     const handleClear = () => {
@@ -39,6 +58,11 @@ const Management_Employees_Award = () => {
 
     const handleClickOk = () => {
         setIsChildInputOpen(false);
+        getAwardList();
+    };
+
+    const getAwardList = () => {
+        dispatch(getAward());
     };
 
     return (
@@ -70,12 +94,22 @@ const Management_Employees_Award = () => {
 
             <Row>
                 <Col span={24}>
-                    <Management_Employees_Award_Table onEdit={handleEdit} onInfo={(event: any) => handleInfo(event)} />
+                    <Management_Employees_Award_Table
+                        dataTable={dataTable}
+                        searchedText={searchedText}
+                        onEdit={handleEdit}
+                        onInfo={(event: any) => handleInfo(event)}
+                    />
                 </Col>
             </Row>
 
             {isChildInputOpen ? (
-                <Management_Employees_Award_ChildInput onClickCancel={handleClickCancel} onClickOK={handleClickOk} />
+                <Management_Employees_Award_ChildInput
+                    onClickCancel={handleClickCancel}
+                    onClickOK={handleClickOk}
+                    mode={childMode}
+                    childInputItem={childInputItem}
+                />
             ) : (
                 ''
             )}

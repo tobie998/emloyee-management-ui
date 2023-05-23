@@ -4,21 +4,24 @@ import Table, { ColumnsType } from 'antd/es/table';
 import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 export interface DataType {
-    key: string;
-    macanbo: string;
-    hoten: string;
-    namsinh: number;
-    gioitinh: string;
-    hocham: string;
-    hocvi: string;
-    namhocvi: string;
-    namhocham: string;
-    diachinharieng: string;
-    dienthoainharieng: string;
-    dienthoaicoquan: string;
+    maCanBo: string;
+    maDonVi: string;
+    hoTen: string;
+    namSinh: string;
+    gioiTinh: true;
+    hocHam: string;
+    hocVi: string;
+    namHocHam: number;
+    namHocVi: number;
+    diaChiNhaRieng: string;
+    dienThoaiNhaRieng: string;
+    dienThoaiCoQuan: string;
     mobile: string;
     email: string;
-    madonvi: string;
+    maChucVu: string;
+    maChucDanh: string;
+    bacLuong: string;
+    luongCoBan: 0;
 }
 
 interface Props {
@@ -39,60 +42,60 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
         },
         {
             title: 'Mã cán bộ',
-            key: 'macanbo',
-            dataIndex: 'macanbo',
+            key: 'maCanBo',
+            dataIndex: 'maCanBo',
             width: '150px',
         },
         {
             title: 'Họ và tên',
-            dataIndex: 'hoten',
-            key: 'hoten',
+            dataIndex: 'hoTen',
+            key: 'hoTen',
             filteredValue: [searchedText],
             onFilter: (value: any, record: any) => {
-                return record.hoten.includes(value);
+                return record.hoTen.includes(value);
             },
             width: '150px',
         },
         {
             title: 'Năm sinh',
-            dataIndex: 'namsinh',
-            key: 'namsinh',
+            dataIndex: 'namSinh',
+            key: 'namSinh',
             width: '100px',
         },
         {
             title: 'Giới tính',
-            dataIndex: 'gioitinh',
-            key: 'gioitinh',
+            dataIndex: 'gioiTinh',
+            key: 'gioiTinh',
             width: '100px',
         },
         {
             title: 'Học hàm',
-            key: 'hocham',
-            dataIndex: 'hocham',
+            key: 'hocHam',
+            dataIndex: 'hocHam',
             width: '120px',
         },
         {
             title: 'Học vị',
-            key: 'hocvi',
-            dataIndex: 'hocvi',
+            key: 'hocVi',
+            dataIndex: 'hocVi',
             width: '120px',
         },
         {
             title: 'Địa chỉ nhà riêng',
-            key: 'diachinharieng',
-            dataIndex: 'diachinharieng',
+            key: 'diaChiNhaRieng',
+            dataIndex: 'diaChiNhaRieng',
             width: '150px',
         },
         {
             title: 'Điện thoại nhà riêng',
-            key: 'dienthoainharieng',
-            dataIndex: 'dienthoainharieng',
+            key: 'dienThoaiNhaRieng',
+            dataIndex: 'dienThoaiNhaRieng',
             width: '180px',
         },
         {
             title: 'Điện thoại cơ quan',
-            key: 'dienthoaicoquan',
-            dataIndex: 'dienthoaicoquan',
+            key: 'dienThoaiCoQuan',
+            dataIndex: 'dienThoaiCoQuan',
             width: '180px',
         },
         {
@@ -108,9 +111,21 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
             width: '200px',
         },
         {
+            title: 'Chức vụ',
+            key: '"maChucVu"',
+            dataIndex: '"maChucVu"',
+            width: '120px',
+        },
+        {
+            title: 'Chức danh',
+            key: '"maChucDanh"',
+            dataIndex: '"maChucDanh"',
+            width: '200px',
+        },
+        {
             title: 'Tên đơn vị',
-            key: 'madonvi',
-            dataIndex: 'madonvi',
+            key: 'maDonVi',
+            dataIndex: 'maDonVi',
             width: '100px',
         },
         {
@@ -127,7 +142,7 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
         },
     ];
 
-    return <Table columns={columns} dataSource={dataTable} scroll={{ y: 200 }} />;
+    return <Table columns={columns} dataSource={dataTable} scroll={{ y: 200 }} />
 };
 
 export default Management_Employees_Details_Table;

@@ -22,13 +22,13 @@ const Management_Employees_TeachingRole = () => {
 
     useEffect(() => {
         if (teachingRoleList) {
-            // const dataTable = givenDegreeList.map((item: any, index: any) => {
-            //     return { ...item, key: index + 1, gioitinh: item.gioitinh ? true : false };
-            // });
-            setDataTable(teachingRoleList);
+            const dataTable = teachingRoleList.map((item: any, index: any) => {
+                return { ...item, key: index + 1 };
+            });
+            setDataTable(dataTable);
         }
     }, [teachingRoleList]);
-    
+
     const handleReset = () => {
         console.log('reset');
         getTeachingRoleList();

@@ -5,8 +5,8 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    mavanbang: string;
-    tenvanbang: string;
+    maVanBang: string;
+    tenVanBang: string;
 }
 
 interface Props {
@@ -27,14 +27,18 @@ const Management_Employees_GivenDegree_Table: React.FC<Props> = (props: Props) =
         },
         {
             title: 'Mã văn bằng',
-            dataIndex: 'mavanbang',
-            key: 'mavanbang',
+            dataIndex: 'maVanBang',
+            key: 'maVanBang',
             width: '200px',
         },
         {
             title: 'Tên văn bằng',
-            key: 'tenvanbang',
-            dataIndex: 'tenvanbang',
+            key: 'tenVanBang',
+            dataIndex: 'tenVanBang',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.hinhThuc.includes(value);
+            },
             width: '200px',
         },
         {
