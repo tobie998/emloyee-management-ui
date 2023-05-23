@@ -39,11 +39,11 @@ export const postLanguageKnowledge: any = createAsyncThunk('languageKnowledge/po
 });
 
 export const putLanguageKnowledge: any = createAsyncThunk('languageKnowledge/putLanguageKnowledge', async (data: any) => {
-    const { mangoaingu } = data;
+    const { maNgoaiNgu } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_LANGUAGE_KNOWLEDGE}/${mangoaingu}`,
+            url: `${API_LANGUAGE_KNOWLEDGE}/${maNgoaiNgu}`,
             data: data,
         });
         console.log(response);

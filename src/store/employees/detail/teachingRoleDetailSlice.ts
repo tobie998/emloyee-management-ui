@@ -41,11 +41,11 @@ export const postTeachingRoleDetail: any = createAsyncThunk('teachingRoleDetail/
 });
 
 export const putTeachingRoleDetail: any = createAsyncThunk('teachingRoleDetail/putTeachingRoleDetail', async (data: any) => {
-    const { machucdanh, macanbo } = data;
+    const { maChucDanh, maCanBo } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_TEACHING_ROLE_DETAIL}/${machucdanh}/${macanbo}`,
+            url: `${API_TEACHING_ROLE_DETAIL}/${maChucDanh}/${maCanBo}`,
             data: data,
         });
         console.log(response);

@@ -41,11 +41,11 @@ export const postPunishmentDetail: any = createAsyncThunk('punishmentDetail/post
 });
 
 export const putPunishmentDetail: any = createAsyncThunk('punishmentDetail/putPunishmentDetail', async (data: any) => {
-    const { makyluat, macanbo } = data;
+    const { maKyLuat, maCanBo } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_PUNISHMENT_DETAIL}/${makyluat}/${macanbo}`,
+            url: `${API_PUNISHMENT_DETAIL}/${maKyLuat}/${maCanBo}`,
             data: data,
         });
         console.log(response);

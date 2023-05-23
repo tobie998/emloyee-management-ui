@@ -37,11 +37,11 @@ export const postGivenDegreeDetail: any = createAsyncThunk('givenDegreeDetail/po
 });
 
 export const putGivenDegreeDetail: any = createAsyncThunk('givenDegreeDetail/putGivenDegreeDetail', async (data: any) => {
-    const { mavanbang, macanbo } = data;
+    const { maVanBang, maCanBo } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_GIVEN_DEGREE_DETAIL}/${mavanbang}/${macanbo}`,
+            url: `${API_GIVEN_DEGREE_DETAIL}/${maVanBang}/${maCanBo}`,
             data: data,
         });
         console.log(response);

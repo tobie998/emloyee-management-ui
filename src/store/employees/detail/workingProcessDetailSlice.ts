@@ -41,11 +41,11 @@ export const postWorkingProcessDetail: any = createAsyncThunk('workingProcessDet
 });
 
 export const putWorkingProcessDetail: any = createAsyncThunk('workingProcessDetail/putWorkingProcessDetail', async (data: any) => {
-    const { maquatrinhcongtac, macanbo } = data;
+    const { maQuaTrinhCongTac, maCanBo } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_WORKING_PROCESS}/${maquatrinhcongtac}/${macanbo}`,
+            url: `${API_WORKING_PROCESS}/${maQuaTrinhCongTac}/${maCanBo}`,
             data: data,
         });
         console.log(response);

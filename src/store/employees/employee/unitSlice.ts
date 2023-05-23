@@ -36,11 +36,11 @@ export const postUnit: any = createAsyncThunk('unit/postUnit', async (data: any)
 });
 
 export const putUnit: any = createAsyncThunk('unit/putUnit', async (data: any) => {
-    const { madonvi } = data;
+    const { maDonVi } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_UNIT}/${madonvi}`,
+            url: `${API_UNIT}/${maDonVi}`,
             data: data,
         });
         console.log(response);

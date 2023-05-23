@@ -39,11 +39,11 @@ export const postResearchProject: any = createAsyncThunk('researchProject/postRe
 });
 
 export const putResearchProject: any = createAsyncThunk('researchProject/putResearchProject', async (data: any) => {
-    const { madetai } = data;
+    const { maDeTai } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_RESEARCH_PROJECT}/${madetai}`,
+            url: `${API_RESEARCH_PROJECT}/${maDeTai}`,
             data: data,
         });
         console.log(response);

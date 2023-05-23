@@ -39,11 +39,11 @@ export const postTrainingProcess: any = createAsyncThunk('trainingProcess/postTr
 });
 
 export const putTrainingProcess: any = createAsyncThunk('trainingProcess/putTrainingProcess', async (data: any) => {
-    const { mabacdaotao } = data;
+    const { maBacDaoTao } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_TRAINING_PROCESS}/${mabacdaotao}`,
+            url: `${API_TRAINING_PROCESS}/${maBacDaoTao}`,
             data: data,
         });
         console.log(response);
