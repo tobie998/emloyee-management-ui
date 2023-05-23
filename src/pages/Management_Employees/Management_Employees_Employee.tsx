@@ -17,6 +17,7 @@ const Management_Employees_Employee: React.FC = () => {
     const [dataTable, setDataTable] = useState([]);
     const dispatch = useDispatch();
     const employeeList = useSelector((state: any) => state.employee.employeeList);
+    
     const [childInputItem, setChildInputItem] = useState({});
     const [childMode, setChildMode] = useState(MODE.ADD);
 

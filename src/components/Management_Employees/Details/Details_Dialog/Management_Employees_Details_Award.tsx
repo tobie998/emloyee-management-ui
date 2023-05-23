@@ -1,5 +1,5 @@
 import { Card, Col, Row, Space, Table } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button_Normal from '../../../common/Button_Normal';
 import Button_Reset from '../../../common/Button_Reset';
 import Button_Add from '../../../common/Button_Add';
@@ -12,6 +12,8 @@ import { researchCategoryList } from '../../../../constant/dummy';
 import Input_Text from '../../../common/Input_Text';
 import Input_DatePicker from '../../../common/Input_DatePicker';
 import Dialog_Warning from '../../../common/Dialog_Warning';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAwardDetail } from '../../../../store/employees/detail/awardDetailSlice';
 
 interface DataType {
     key: number;
@@ -26,6 +28,7 @@ interface Props {
     onCancel: any;
     onClickOk: any;
     dialogTitle: string;
+    childInputItem: any;
 }
 
 interface childInputProps {
@@ -39,7 +42,11 @@ const Award_ChildInput: React.FC<childInputProps> = (props: childInputProps) => 
     const { mode, childInputItem } = props;
     console.log(childInputItem);
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
-    const [researchCategory, setResearchCategory] = useState('');
+    const [award, setAward] = useState('');
+    const [form, setForm] = useState('');
+
+    const awardList = useSelector((state: any) => state.award.awardList);
+    console.log(awardList);
 
     const handleDelete = () => {
         console.log('delete');
@@ -92,11 +99,12 @@ const Award_ChildInput: React.FC<childInputProps> = (props: childInputProps) => 
                     <Col span={8}>
                         <Input_Text
                             label="Mã cán bộ"
-                            value={`employeeName`}
+                            value={childInputItem}
                             onChange={() => {
                                 console.log('abcd');
                             }}
                             onBlur={() => console.log('onBlur')}
+                            disabled={true}
                         />
                     </Col>
 
@@ -105,10 +113,10 @@ const Award_ChildInput: React.FC<childInputProps> = (props: childInputProps) => 
                             label="Mã giải thưởng"
                             onChange={(value: string) => {
                                 console.log(value);
-                                setResearchCategory(value);
+                                setAward(value);
                             }}
                             onBlur={() => console.log('onBlur')}
-                            options={researchCategoryList}
+                            options={awardList}
                         />
                     </Col>
 
@@ -117,7 +125,7 @@ const Award_ChildInput: React.FC<childInputProps> = (props: childInputProps) => 
                             label="Hình thức"
                             onChange={(value: string) => {
                                 console.log(value);
-                                setResearchCategory(value);
+                                setForm(value);
                             }}
                             onBlur={() => console.log('onBlur')}
                             options={researchCategoryList}
@@ -162,10 +170,23 @@ const Award_ChildInput: React.FC<childInputProps> = (props: childInputProps) => 
 };
 
 const Management_Employees_Details_Award: React.FC<Props> = (props: Props) => {
-    const { dialogTitle } = props;
+    const { dialogTitle, childInputItem } = props;
+    console.log(childInputItem)
     const [isOpenChildInput, setIsOpenChildInput] = useState(false);
-    const [childInputItem, setChildInputItem] = useState({});
+    const [childItem, setChildItem] = useState({});
+    const [dataTable, setDataTable] = useState([]);
 
+    const dispatch = useDispatch();
+    const awardDetailList = useSelector((state: any) => state.awardDetail.awardDetailList);
+
+    useEffect(() => {
+        if (awardDetailList) {
+            const dataTable = awardDetailList.map((item: any, index: any) => {
+                return { ...item, key: index + 1 };
+            });
+            setDataTable(dataTable);
+        }
+    }, [awardDetailList]);
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
@@ -214,14 +235,14 @@ const Management_Employees_Details_Award: React.FC<Props> = (props: Props) => {
                         className="text-main-color text-xl"
                         onClick={() => {
                             setIsOpenChildInput(true);
-                            setChildInputItem(record);
+                            setChildItem(record);
                         }}
                     />
                     <EditOutlined
                         className="text-main-color text-xl"
                         onClick={() => {
                             setIsOpenChildInput(true);
-                            setChildInputItem(record);
+                            setChildItem(record);
                         }}
                     />
                 </Space>
@@ -229,56 +250,18 @@ const Management_Employees_Details_Award: React.FC<Props> = (props: Props) => {
         },
     ];
 
-    const data: DataType[] = [
-        {
-            key: 1,
-            employeeID: 'CB0001',
-            awardID: 'GT0001',
-            form: 'Tiền mặt',
-            content: 'abcd',
-            year: 2023,
-        },
-        {
-            key: 2,
-            employeeID: 'CB0002',
-            awardID: 'GT0001',
-            form: 'Tiền mặt',
-            content: 'abcd',
-            year: 2023,
-        },
-        {
-            key: 3,
-            employeeID: 'CB0003',
-            awardID: 'GT0001',
-            form: 'Tiền mặt',
-            content: 'abcd',
-            year: 2023,
-        },
-        {
-            key: 4,
-            employeeID: 'CB0004',
-            awardID: 'GT0001',
-            form: 'Tiền mặt',
-            content: 'abcd',
-            year: 2023,
-        },
-        {
-            key: 5,
-            employeeID: 'CB0005',
-            awardID: 'GT0001',
-            form: 'Tiền mặt',
-            content: 'abcd',
-            year: 2023,
-        },
-    ];
-
     const handleReset = () => {
         console.log('reset');
+        getAwardList();
     };
 
     const handleAdd = () => {
         console.log('clear');
         setIsOpenChildInput(true);
+    };
+
+    const getAwardList = () => {
+        dispatch(getAwardDetail());
     };
 
     const onSearch = (value: string) => console.log(value);
@@ -333,7 +316,7 @@ const Management_Employees_Details_Award: React.FC<Props> = (props: Props) => {
 
                 <Row>
                     <Col span={24}>
-                        <Table columns={columns} dataSource={data} scroll={{ y: 100 }} size="small" />;
+                        <Table columns={columns} dataSource={dataTable} scroll={{ y: 100 }} size="small" />;
                     </Col>
                 </Row>
 

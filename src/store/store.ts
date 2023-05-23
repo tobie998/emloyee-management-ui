@@ -16,9 +16,13 @@ import TrainingProcessReducer from './employees/employee/trainingProcessSlice';
 import UnitReducer from './employees/employee/unitSlice';
 import WorkingRoleReducer from './employees/employee/workingRoleSlice';
 
+// detail
+import AwardDetailReducer from './employees/detail/awardDetailSlice';
 const store = configureStore({
     reducer: {
         auth: AuthReducer,
+
+        // employee
         employee: EmployeeReducer,
         award: AwardReducer,
         givenDegree: GivenDegreeReducer,
@@ -34,6 +38,9 @@ const store = configureStore({
         trainingProcess: TrainingProcessReducer,
         unit: UnitReducer,
         workingRole: WorkingRoleReducer,
+
+        // detail
+        awardDetail: AwardDetailReducer,
     },
 });
 

@@ -4,20 +4,24 @@ import Table, { ColumnsType } from 'antd/es/table';
 import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 export interface DataType {
-    key: string;
-    macanbo: string;
-    hoten: string;
-    namsinh: number;
-    gioitinh: string;
-    hocham: string;
-    hocvi: string;
-    namhocvi: string;
-    namhocham: string;
-    diachinharieng: string;
-    dienthoainharieng: string;
-    dienthoaicoquan: string;
+    maCanBo: string;
+    maDonVi: string;
+    hoTen: string;
+    namSinh: string;
+    gioiTinh: true;
+    hocHam: string;
+    hocVi: string;
+    namHocHam: number;
+    namHocVi: number;
+    diaChiNhaRieng: string;
+    dienThoaiNhaRieng: string;
+    dienThoaiCoQuan: string;
     mobile: string;
-    unit: string;
+    email: string;
+    maChucVu: string;
+    maChucDanh: string;
+    bacLuong: string;
+    luongCoBan: 0;
 }
 
 interface Props {
@@ -37,56 +41,56 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
         },
         {
             title: 'Mã cán bộ',
-            key: 'macanbo',
-            dataIndex: 'macanbo',
+            key: 'maCanBo',
+            dataIndex: 'maCanBo',
             width: '150px',
         },
         {
             title: 'Họ và tên',
-            dataIndex: 'hoten',
-            key: 'hoten',
+            dataIndex: 'hoTen',
+            key: 'hoTen',
             width: '150px',
         },
         {
             title: 'Năm sinh',
-            dataIndex: 'namsinh',
-            key: 'namsinh',
+            dataIndex: 'namSinh',
+            key: 'namSinh',
             width: '100px',
         },
         {
             title: 'Giới tính',
-            dataIndex: 'gioitinh',
-            key: 'gioitinh',
+            dataIndex: 'gioiTinh',
+            key: 'gioiTinh',
             width: '100px',
         },
         {
             title: 'Học hàm',
-            key: 'hocham',
-            dataIndex: 'hocham',
+            key: 'hocHam',
+            dataIndex: 'hocHam',
             width: '120px',
         },
         {
             title: 'Học vị',
-            key: 'hocvi',
-            dataIndex: 'degree',
+            key: 'hocVi',
+            dataIndex: 'hocVi',
             width: '120px',
         },
         {
             title: 'Địa chỉ nhà riêng',
-            key: 'diachinharieng',
-            dataIndex: 'diachinharieng',
+            key: 'diaChiNhaRieng',
+            dataIndex: 'diaChiNhaRieng',
             width: '150px',
         },
         {
             title: 'Điện thoại nhà riêng',
-            key: 'dienthoainharieng',
-            dataIndex: 'dienthoainharieng',
+            key: 'dienThoaiNhaRieng',
+            dataIndex: 'dienThoaiNhaRieng',
             width: '180px',
         },
         {
             title: 'Điện thoại cơ quan',
-            key: 'dienthoaicoquan',
-            dataIndex: 'dienthoaicoquan',
+            key: 'dienThoaiCoQuan',
+            dataIndex: 'dienThoaiCoQuan',
             width: '180px',
         },
         {
@@ -97,8 +101,8 @@ const Management_Employees_Details_Table: React.FC<Props> = (props: Props) => {
         },
         {
             title: 'Tên đơn vị',
-            key: 'unit',
-            dataIndex: 'unit',
+            key: 'maDonVi',
+            dataIndex: 'maDonVi',
             width: '100px',
         },
         {

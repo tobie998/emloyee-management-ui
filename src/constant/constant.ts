@@ -1,5 +1,5 @@
 export const MODE = {
     ADD: 'ADD',
-    EDIT: MODE.EDIT,
+    EDIT: 'EDIT',
     INFO: 'INFO',
 };

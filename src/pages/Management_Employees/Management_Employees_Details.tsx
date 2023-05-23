@@ -9,19 +9,20 @@ import Management_Employees_Details_Table from '../../components/Management_Empl
 import Management_Employees_Details_ChildInput from '../../components/Management_Employees/Details/Management_Employees_Details_ChildInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployee } from '../../store/employees/employee/employeeSlice';
+import { MODE } from '../../constant/constant';
 
 const Management_Employees_Details: React.FC = () => {
     const [isChildInputOpen, setIsChildInputOpen] = useState(false);
     const [data, setData] = useState([]);
     const dispatch = useDispatch();
-    const employeeList = useSelector((state: any) => state.employee);
+    const employeeList = useSelector((state: any) => state.employee.employeeList);
     const [childInputItem, setChildInputItem] = useState({});
     const [childMode, setChildMode] = useState('add');
 
     useEffect(() => {
         if (employeeList) {
-            const dataTable = employeeList.employeeDetailList.map((item: any, index: any) => {
-                return { ...item, key: index + 1, gioitinh: item.gioitinh ? 'nam' : 'nữ' };
+            const dataTable = employeeList.map((item: any, index: any) => {
+                return { ...item, key: index + 1, gioitinh: item.gioitinh ? true : false };
             });
             setData(dataTable);
         }
@@ -41,7 +42,6 @@ const Management_Employees_Details: React.FC = () => {
     const onSearch = (value: string) => console.log(value);
 
     const handleEdit = (record: any) => {
-        console.log(MODE.EDIT, record);
         setChildInputItem(record);
         setChildMode(MODE.EDIT);
         setIsChildInputOpen(true);

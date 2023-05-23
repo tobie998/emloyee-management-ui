@@ -36,11 +36,11 @@ export const postWorkingRole: any = createAsyncThunk('workingRole/postWorkingRol
 });
 
 export const putWorkingRole: any = createAsyncThunk('workingRole/putWorkingRole', async (data: any) => {
-    const { madonvi } = data;
+    const { maChucVu } = data;
     try {
         const response = await axios({
             method: 'PUT',
-            url: `${API_WORKING_ROLE}/${madonvi}`,
+            url: `${API_WORKING_ROLE}/${maChucVu}`,
             data: data,
         });
         console.log(response);
@@ -51,11 +51,11 @@ export const putWorkingRole: any = createAsyncThunk('workingRole/putWorkingRole'
     }
 });
 
-export const deleteWorkingRole: any = createAsyncThunk('workingRole/deleteWorkingRole', async (madonvi: any) => {
+export const deleteWorkingRole: any = createAsyncThunk('workingRole/deleteWorkingRole', async (maChucVu: any) => {
     try {
         const response = await axios({
             method: 'DELETE',
-            url: `${API_WORKING_ROLE}/${madonvi}`,
+            url: `${API_WORKING_ROLE}/${maChucVu}`,
         });
         console.log(response);
         return response.data;

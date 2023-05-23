@@ -23,12 +23,36 @@ interface Props {
 
 const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props) => {
     const { childInputItem, mode } = props;
-    const { macanbo } = childInputItem;
-    console.log(macanbo);
+    const { maCanBo } = childInputItem;
+    console.log(maCanBo);
 
     const dispatch = useDispatch();
     // const employeeListByID = useSelector((state: any) => state.employee.employeeListByID);
     // console.log('employeeListByID', employeeListByID);
+    const teachingRoleList = useSelector((state: any) => state.teachingRole.teachingRoleList);
+    const workingRoleList = useSelector((state: any) => state.workingRole.workingRoleList);
+    const unitList = useSelector((state: any) => state.unit.unitList);
+
+    const teachingRoleSelect = teachingRoleList.map((item: any) => {
+        return {
+            label: item.tenChucDanh,
+            value: item.maChucDanh,
+        };
+    });
+
+    const workingRoleSelect = workingRoleList.map((item: any) => {
+        return {
+            label: item.tenChucVu,
+            value: item.maChucVu,
+        };
+    });
+
+    const unitSelect = unitList.map((item: any) => {
+        return {
+            label: item.tenDonVi,
+            value: item.maDonVi,
+        };
+    });
 
     const [employeeID, setEmployeeID] = useState(mode !== MODE.ADD ? childInputItem.maCanBo : '');
     const [employeeName, setEmployeeName] = useState(mode !== MODE.ADD ? childInputItem.hoTen : '');
@@ -45,6 +69,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
     const [email, setEmail] = useState(mode !== MODE.ADD ? childInputItem.email : '');
     const [workingRole, setWorkingRole] = useState(mode !== MODE.ADD ? childInputItem.maChucVu : '');
     const [teachingRole, setTeachingRole] = useState(mode !== MODE.ADD ? childInputItem.maChucDanh : '');
+    const [unit, setUnit] = useState(mode !== MODE.ADD ? childInputItem.maDonVi : '');
 
     const [researchCategory, setResearchCategory] = useState('');
     const [titleText, setTitleText] = useState('');
@@ -52,14 +77,6 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
     const [messageID, setMessageID] = useState('');
     const [messageContent, setMessageContent] = useState('');
-
-    // const handleGetListByID = useCallback(async () => {
-    //     await dispatch(getEmployeeByID(macanbo));
-    // }, []);
-
-    // useEffect(() => {
-    //     handleGetListByID();
-    // }, [handleGetListByID]);
 
     const handleDelete = () => {
         setMessageID('DELETE');
@@ -102,9 +119,9 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
             dienThoaiCoQuan: officialPhone,
             mobile: mobile,
             email: email,
-            maChucVu: 1,
-            maChucDanh: 1,
-            maDonVi: 1,
+            maChucVu: workingRole,
+            maChucDanh: teachingRole,
+            maDonVi: unit,
             bacLuong: '',
             luongCoBan: 2000000,
         };
@@ -123,14 +140,6 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
 
         setIsOpenWarningDialog(false);
     };
-
-    // const handleCancelDetailDialog = () => {
-    //     console.log('cancel detail dialog');
-    // };
-
-    // const handleOkDetailDialog = () => {
-    //     console.log('ok detail dialog');
-    // };
 
     useEffect(() => {
         switch (mode) {
@@ -285,10 +294,10 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             label="Chức vụ"
                             onChange={(value: string) => {
                                 console.log(value);
-                                setResearchCategory(value);
+                                setWorkingRole(value);
                             }}
                             onBlur={() => console.log('onBlur')}
-                            options={researchCategoryList}
+                            options={workingRoleSelect}
                             disabled={mode == MODE.INFO}
                         />
                     </Col>
@@ -298,10 +307,10 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             label="Chức danh"
                             onChange={(value: string) => {
                                 console.log(value);
-                                setResearchCategory(value);
+                                setTeachingRole(value);
                             }}
                             onBlur={() => console.log('onBlur')}
-                            options={researchCategoryList}
+                            options={teachingRoleSelect}
                             disabled={mode == MODE.INFO}
                         />
                     </Col>
@@ -367,10 +376,10 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
                             label="Mã đơn vị"
                             onChange={(value: string) => {
                                 console.log(value);
-                                setResearchCategory(value);
+                                setUnit(value);
                             }}
                             onBlur={() => console.log('onBlur')}
-                            options={researchCategoryList}
+                            options={unitSelect}
                             disabled={mode == MODE.INFO}
                         />
                     </Col>
