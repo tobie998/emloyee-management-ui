@@ -69,7 +69,7 @@ const Management_Employees_TeachingRole_ChildInput: React.FC<Props> = (props: Pr
             console.log(teachingRoleObj);
             await dispatch(postTeachingRole(teachingRoleObj));
             props.onClickOK();
-        } else if (messageID == 'EDIT') {
+        } else if (messageID == MODE.EDIT) {
             console.log(teachingRoleObj);
             await dispatch(putTeachingRole(teachingRoleObj));
             props.onClickOK();

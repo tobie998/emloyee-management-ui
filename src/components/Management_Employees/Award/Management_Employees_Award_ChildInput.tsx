@@ -64,7 +64,7 @@ const Management_Employees_Award_ChildInput: React.FC<Props> = (props: Props) =>
             console.log(awardObj);
             await dispatch(postAward(awardObj));
             props.onClickOK();
-        } else if (messageID == 'EDIT') {
+        } else if (messageID == MODE.EDIT) {
             console.log(awardObj);
             await dispatch(putAward(awardObj));
             props.onClickOK();

@@ -5,13 +5,13 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    unitID: string;
-    unitName: string;
-    unitAddress: string;
-    unitFax: number;
-    unitLeader: string;
-    unitPhone: number;
-    unitWebsite: string;
+    maDonVi: string;
+    tenDonVi: string;
+    diaChi: string;
+    fax: number;
+    nguoiDungDau: string;
+    dienThoai: number;
+    website: string;
 }
 
 interface Props {
@@ -32,38 +32,48 @@ const Management_Employees_Unit_Table: React.FC<Props> = (props: Props) => {
         },
         {
             title: 'Mã đơn vị',
-            dataIndex: 'unitID',
-            key: 'unitID',
+            dataIndex: 'maDonVi',
+            key: 'maDonVi',
+            width: '200px',
+        },
+        {
+            title: 'Tên đơn vị',
+            dataIndex: 'tenDonVi',
+            key: 'tenDonVi',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.tenDonVi.includes(value);
+            },
             width: '200px',
         },
         {
             title: 'Địa chỉ',
-            key: 'unitAddress',
-            dataIndex: 'unitAddress',
+            key: 'diaChi',
+            dataIndex: 'diaChi',
             width: '200px',
         },
         {
             title: 'Fax',
-            key: 'unitFax',
-            dataIndex: 'unitFax',
+            key: 'fax',
+            dataIndex: 'fax',
             width: '200px',
         },
         {
             title: 'Người đứng đầu',
-            key: 'unitLeader',
-            dataIndex: 'unitLeader',
+            key: 'nguoiDungDau',
+            dataIndex: 'nguoiDungDau',
             width: '200px',
         },
         {
             title: 'Điện thoại',
-            key: 'unitPhone',
-            dataIndex: 'unitPhone',
+            key: 'dienThoai',
+            dataIndex: 'dienThoai',
             width: '200px',
         },
         {
             title: 'Website',
-            key: 'unitWebsite',
-            dataIndex: 'unitWebsite',
+            key: 'website',
+            dataIndex: 'website',
             width: '200px',
         },
         {
@@ -77,59 +87,6 @@ const Management_Employees_Unit_Table: React.FC<Props> = (props: Props) => {
                     <EditOutlined className="text-main-color text-2xl" onClick={() => props.onEdit(record)} />
                 </Space>
             ),
-        },
-    ];
-
-    const data: DataType[] = [
-        {
-            key: '1',
-            unitID: 'VB00001',
-            unitName: 'Thạc sĩ',
-            unitAddress: 'string',
-            unitFax: 123,
-            unitLeader: 'string',
-            unitPhone: 123,
-            unitWebsite: 'string',
-        },
-        {
-            key: '2',
-            unitID: 'VB00001',
-            unitName: 'Thạc sĩ',
-            unitAddress: 'string',
-            unitFax: 123,
-            unitLeader: 'string',
-            unitPhone: 123,
-            unitWebsite: 'string',
-        },
-        {
-            key: '3',
-            unitID: 'VB00001',
-            unitName: 'Thạc sĩ',
-            unitAddress: 'string',
-            unitFax: 123,
-            unitLeader: 'string',
-            unitPhone: 123,
-            unitWebsite: 'string',
-        },
-        {
-            key: '4',
-            unitID: 'VB00001',
-            unitName: 'Thạc sĩ',
-            unitAddress: 'string',
-            unitFax: 123,
-            unitLeader: 'string',
-            unitPhone: 123,
-            unitWebsite: 'string',
-        },
-        {
-            key: '5',
-            unitID: 'VB00001',
-            unitName: 'Thạc sĩ',
-            unitAddress: 'string',
-            unitFax: 123,
-            unitLeader: 'string',
-            unitPhone: 123,
-            unitWebsite: 'string',
         },
     ];
 

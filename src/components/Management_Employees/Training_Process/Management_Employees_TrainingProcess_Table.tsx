@@ -5,8 +5,8 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    trainingProcessID: string;
-    trainingProcessName: string;
+    maBacDaoTao: string;
+    bacDaoTao: string;
 }
 
 interface Props {
@@ -27,14 +27,18 @@ const Management_Employees_TrainingProcess_Table: React.FC<Props> = (props: Prop
         },
         {
             title: 'Mã quá trình đào tạo',
-            dataIndex: 'trainingProcessID',
-            key: 'trainingProcessID',
+            dataIndex: 'maBacDaoTao',
+            key: 'maBacDaoTao',
             width: '200px',
         },
         {
             title: 'Bậc đào tạo',
-            key: 'trainingProcessName',
-            dataIndex: 'trainingProcessName',
+            key: 'bacDaoTao',
+            dataIndex: 'bacDaoTao',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.bacDaoTao.includes(value);
+            },
             width: '200px',
         },
         {
@@ -48,34 +52,6 @@ const Management_Employees_TrainingProcess_Table: React.FC<Props> = (props: Prop
                     <EditOutlined className="text-main-color text-2xl" onClick={() => props.onEdit(record)} />
                 </Space>
             ),
-        },
-    ];
-
-    const data: DataType[] = [
-        {
-            key: '1',
-            trainingProcessID: 'VB00001',
-            trainingProcessName: 'Thạc sĩ',
-        },
-        {
-            key: '2',
-            trainingProcessID: 'VB00001',
-            trainingProcessName: 'Thạc sĩ',
-        },
-        {
-            key: '3',
-            trainingProcessID: 'VB00001',
-            trainingProcessName: 'Thạc sĩ',
-        },
-        {
-            key: '4',
-            trainingProcessID: 'VB00001',
-            trainingProcessName: 'Thạc sĩ',
-        },
-        {
-            key: '5',
-            trainingProcessID: 'VB00001',
-            trainingProcessName: 'Thạc sĩ',
         },
     ];
 

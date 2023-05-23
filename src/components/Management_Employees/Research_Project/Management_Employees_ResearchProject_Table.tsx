@@ -5,8 +5,8 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    researchProjectID: string;
-    researchProjectName: string;
+    maDeTai: string;
+    tenDeTai: string;
 }
 
 interface Props {
@@ -27,14 +27,18 @@ const Management_Employees_ResearchProject_Table: React.FC<Props> = (props: Prop
         },
         {
             title: 'Mã đề tài',
-            dataIndex: 'researchProjectID',
-            key: 'researchProjectID',
+            dataIndex: 'maDeTai',
+            key: 'maDeTai',
             width: '200px',
         },
         {
             title: 'Tên đề tài',
-            key: 'researchProjectName',
-            dataIndex: 'researchProjectName',
+            key: 'tenDeTai',
+            dataIndex: 'tenDeTai',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.tenDeTai.includes(value);
+            },
             width: '200px',
         },
         {
@@ -48,34 +52,6 @@ const Management_Employees_ResearchProject_Table: React.FC<Props> = (props: Prop
                     <EditOutlined className="text-main-color text-2xl" onClick={() => props.onEdit(record)} />
                 </Space>
             ),
-        },
-    ];
-
-    const data: DataType[] = [
-        {
-            key: '1',
-            researchProjectID: 'VB00001',
-            researchProjectName: 'Thạc sĩ',
-        },
-        {
-            key: '2',
-            researchProjectID: 'VB00001',
-            researchProjectName: 'Thạc sĩ',
-        },
-        {
-            key: '3',
-            researchProjectID: 'VB00001',
-            researchProjectName: 'Thạc sĩ',
-        },
-        {
-            key: '4',
-            researchProjectID: 'VB00001',
-            researchProjectName: 'Thạc sĩ',
-        },
-        {
-            key: '5',
-            researchProjectID: 'VB00001',
-            researchProjectName: 'Thạc sĩ',
         },
     ];
 

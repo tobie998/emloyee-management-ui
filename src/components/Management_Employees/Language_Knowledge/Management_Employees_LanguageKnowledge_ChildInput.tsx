@@ -66,7 +66,7 @@ const Management_Employees_LanguageKnowledge_ChildInput: React.FC<Props> = (prop
             console.log(languageKnowledgeObj);
             await dispatch(postLanguageKnowledge(languageKnowledgeObj));
             props.onClickOK();
-        } else if (messageID == 'EDIT') {
+        } else if (messageID == MODE.EDIT) {
             console.log(languageKnowledgeObj);
             await dispatch(putLanguageKnowledge(languageKnowledgeObj));
             props.onClickOK();

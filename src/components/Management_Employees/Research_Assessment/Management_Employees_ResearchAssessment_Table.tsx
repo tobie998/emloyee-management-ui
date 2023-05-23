@@ -5,8 +5,8 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    researchAssessmentID: string;
-    researchAssessmentName: string;
+    maHinhThucHoiDong: string;
+    hinhThucHoiDong: string;
 }
 
 interface Props {
@@ -27,14 +27,18 @@ const Management_Employees_ResearchAssessment_Table: React.FC<Props> = (props: P
         },
         {
             title: 'Mã hình thức hội đồng',
-            dataIndex: 'researchAssessmentID',
-            key: 'researchAssessmentID',
+            dataIndex: 'maHinhThucHoiDong',
+            key: 'maHinhThucHoiDong',
             width: '200px',
         },
         {
             title: 'Hình thức hội đồng',
-            key: 'researchAssessmentName',
-            dataIndex: 'researchAssessmentName',
+            key: 'hinhThucHoiDong',
+            dataIndex: 'hinhThucHoiDong',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.hinhThucHoiDong.includes(value);
+            },
             width: '200px',
         },
         {
@@ -48,34 +52,6 @@ const Management_Employees_ResearchAssessment_Table: React.FC<Props> = (props: P
                     <EditOutlined className="text-main-color text-2xl" onClick={() => props.onEdit(record)} />
                 </Space>
             ),
-        },
-    ];
-
-    const data: DataType[] = [
-        {
-            key: '1',
-            researchAssessmentID: 'VB00001',
-            researchAssessmentName: 'Thạc sĩ',
-        },
-        {
-            key: '2',
-            researchAssessmentID: 'VB00001',
-            researchAssessmentName: 'Thạc sĩ',
-        },
-        {
-            key: '3',
-            researchAssessmentID: 'VB00001',
-            researchAssessmentName: 'Thạc sĩ',
-        },
-        {
-            key: '4',
-            researchAssessmentID: 'VB00001',
-            researchAssessmentName: 'Thạc sĩ',
-        },
-        {
-            key: '5',
-            researchAssessmentID: 'VB00001',
-            researchAssessmentName: 'Thạc sĩ',
         },
     ];
 

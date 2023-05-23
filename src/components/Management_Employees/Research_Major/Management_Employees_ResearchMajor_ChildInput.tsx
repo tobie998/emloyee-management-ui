@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Overlay from '../../../layout/Overlay';
 import { Card, Col, Row } from 'antd';
 import Button_Normal from '../../common/Button_Normal';
@@ -7,6 +7,12 @@ import Dialog_Warning from '../../common/Dialog_Warning';
 import Input_Select from '../../common/Input_Select';
 import { researchCategoryList } from '../../../constant/dummy';
 import { MODE } from '../../../constant/constant';
+import { useDispatch } from 'react-redux';
+import {
+    deleteResearchMajor,
+    postResearchMajor,
+    putResearchMajor,
+} from '../../../store/employees/employee/researchMajorSlice';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
@@ -15,13 +21,20 @@ interface Props {
 }
 
 const Management_Employees_ResearchMajor_ChildInput: React.FC<Props> = (props: Props) => {
-    const [researchMajorID, setResearchMajorID] = useState('');
-    const [researchMajorName, setResearchMajorName] = useState('');
-    const [researchCategory, setResearchCategory] = useState('');
+    const { childInputItem, mode } = props;
+
+    const [researchMajorID, setResearchMajorID] = useState(mode !== MODE.ADD ? childInputItem.machuyennganh : '');
+    const [researchMajorName, setResearchMajorName] = useState(mode !== MODE.ADD ? childInputItem.tenchuyennganh : '');
+    const [researchCategory, setResearchCategory] = useState(mode !== MODE.ADD ? childInputItem.malinhvuc : '');
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
 
+    const [titleText, setTitleText] = useState('');
+    const [messageID, setMessageID] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+    const dispatch = useDispatch();
     const handleDelete = () => {
-        console.log('delete');
+        setMessageID('DELETE');
+        setMessageContent('Xóa chuyên ngành KH&CN?');
         setIsOpenWarningDialog(true);
     };
 
@@ -31,8 +44,15 @@ const Management_Employees_ResearchMajor_ChildInput: React.FC<Props> = (props: P
     };
 
     const handleValidate = () => {
-        console.log('validate');
+        if (!researchMajorID) {
+            setIsOpenWarningDialog(true);
+            setMessageID('ERROR');
+            setMessageContent('Mã chuyên ngành KH&CN chưa nhập');
+            return;
+        }
         setIsOpenWarningDialog(true);
+        setMessageID(mode == MODE.ADD ? MODE.ADD : MODE.EDIT);
+        setMessageContent(mode == MODE.ADD ? 'Thêm mới?' : 'Sửa chuyên ngành KH&CN?');
     };
 
     const handleCancelWarningDialog = () => {
@@ -40,16 +60,47 @@ const Management_Employees_ResearchMajor_ChildInput: React.FC<Props> = (props: P
         setIsOpenWarningDialog(false);
     };
 
-    const handleClickOk = () => {
-        console.log('click ok');
-        setIsOpenWarningDialog(false);
+    const handleClickOk = async () => {
+        const researchMajorObj = {
+            machuyennganh: researchMajorID,
+            matenchuyennganh: researchMajorName,
+            malinhvuc: researchCategory,
+        };
+        if (messageID == MODE.ADD) {
+            console.log(researchMajorObj);
+            await dispatch(postResearchMajor(researchMajorObj));
+            props.onClickOK();
+        } else if (messageID == MODE.EDIT) {
+            console.log(researchMajorObj);
+            await dispatch(putResearchMajor(researchMajorObj));
+            props.onClickOK();
+        } else if (messageID == 'DELETE') {
+            await dispatch(deleteResearchMajor(researchMajorObj.machuyennganh));
+            props.onClickOK();
+        }
 
-        props.onClickOK();
+        setIsOpenWarningDialog(false);
     };
+
+    useEffect(() => {
+        switch (mode) {
+            case MODE.ADD:
+                setTitleText('Thêm mới');
+                break;
+            case MODE.EDIT:
+                setTitleText('Sửa');
+                break;
+            case MODE.INFO:
+                setTitleText('Thông tin');
+                break;
+            default:
+                break;
+        }
+    }, [mode]);
     return (
         <Overlay>
             <Card
-                title="Kinh nghiệm KH&CN [Thêm mới]"
+                title={`Chuyên ngành KH&CN [${titleText}]`}
                 headStyle={{ background: '#006D75', color: 'white' }}
                 bodyStyle={{ overflowY: 'auto', height: 'inherit' }}
                 style={{ background: '#fff', width: '50%', height: 'fit-content', border: 'none' }}
@@ -112,7 +163,7 @@ const Management_Employees_ResearchMajor_ChildInput: React.FC<Props> = (props: P
 
                 {isOpenWarningDialog ? (
                     <Dialog_Warning
-                        messageContent="Bạn muốn thêm mới?"
+                        messageContent={messageContent}
                         onCancel={handleCancelWarningDialog}
                         onClickOk={handleClickOk}
                     />

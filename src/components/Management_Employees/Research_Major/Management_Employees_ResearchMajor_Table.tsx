@@ -5,9 +5,9 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    researchCategoryID: string;
-    researchMajorID: string;
-    researchMajorName: string;
+    machuyennganh: string;
+    malinhvuc: string;
+    tenchuyennganh: string;
 }
 
 interface Props {
@@ -28,20 +28,24 @@ const Management_Employees_ResearchMajor_Table: React.FC<Props> = (props: Props)
         },
         {
             title: 'Mã lĩnh vực',
-            dataIndex: 'researchCategoryID',
-            key: 'researchCategoryID',
+            dataIndex: 'malinhvuc',
+            key: 'malinhvuc',
             width: '200px',
         },
         {
             title: 'Mã chuyên ngành',
-            dataIndex: 'researchMajorID',
-            key: 'researchMajorID',
+            dataIndex: 'machuyennganh',
+            key: 'machuyennganh',
             width: '200px',
         },
         {
             title: 'Tên chuyên ngành',
-            key: 'researchMajorName',
-            dataIndex: 'researchMajorName',
+            key: 'tenchuyennganh',
+            dataIndex: 'tenchuyennganh',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.tenchuyennganh.includes(value);
+            },
             width: '200px',
         },
         {
@@ -55,39 +59,6 @@ const Management_Employees_ResearchMajor_Table: React.FC<Props> = (props: Props)
                     <EditOutlined className="text-main-color text-2xl" onClick={() => props.onEdit(record)} />
                 </Space>
             ),
-        },
-    ];
-
-    const data: DataType[] = [
-        {
-            key: '1',
-            researchCategoryID: 'VB00001',
-            researchMajorID: 'CN00001',
-            researchMajorName: 'CNTT',
-        },
-        {
-            key: '2',
-            researchCategoryID: 'VB00001',
-            researchMajorID: 'CN00001',
-            researchMajorName: 'CNTT',
-        },
-        {
-            key: '3',
-            researchCategoryID: 'VB00001',
-            researchMajorID: 'CN00001',
-            researchMajorName: 'CNTT',
-        },
-        {
-            key: '4',
-            researchCategoryID: 'VB00001',
-            researchMajorID: 'CN00001',
-            researchMajorName: 'CNTT',
-        },
-        {
-            key: '5',
-            researchCategoryID: 'VB00001',
-            researchMajorID: 'CN00001',
-            researchMajorName: 'CNTT',
         },
     ];
 

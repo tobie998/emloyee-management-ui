@@ -63,7 +63,7 @@ const Management_Employees_WorkingRole_ChildInput: React.FC<Props> = (props: Pro
             console.log(workingRoleObj);
             await dispatch(postWorkingRole(workingRoleObj));
             props.onClickOK();
-        } else if (messageID == 'EDIT') {
+        } else if (messageID == MODE.EDIT) {
             console.log(workingRoleObj);
             await dispatch(putWorkingRole(workingRoleObj));
             props.onClickOK();

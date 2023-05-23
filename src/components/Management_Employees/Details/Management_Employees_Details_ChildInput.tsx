@@ -115,7 +115,7 @@ const Management_Employees_Details_ChildInput: React.FC<Props> = (props: Props) 
             case 'add':
                 setTitleText('Thêm mới');
                 break;
-            case 'edit':
+            case MODE.EDIT:
                 setTitleText('Sửa');
                 break;
             case 'info':

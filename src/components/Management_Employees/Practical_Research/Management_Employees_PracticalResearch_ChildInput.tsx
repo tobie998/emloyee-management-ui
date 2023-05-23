@@ -6,7 +6,11 @@ import Input_Text from '../../common/Input_Text';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import { MODE } from '../../../constant/constant';
 import { useDispatch } from 'react-redux';
-import { deletePracticalResearch, postPracticalResearch, putPracticalResearch } from '../../../store/employees/employee/practicalResearch';
+import {
+    deletePracticalResearch,
+    postPracticalResearch,
+    putPracticalResearch,
+} from '../../../store/employees/employee/practicalResearch';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
@@ -64,7 +68,7 @@ const Management_Employees_PublicResearch_ChildInput: React.FC<Props> = (props: 
             console.log(practicalResearchObj);
             await dispatch(postPracticalResearch(practicalResearchObj));
             props.onClickOK();
-        } else if (messageID == 'EDIT') {
+        } else if (messageID == MODE.EDIT) {
             console.log(practicalResearchObj);
             await dispatch(putPracticalResearch(practicalResearchObj));
             props.onClickOK();
@@ -146,7 +150,7 @@ const Management_Employees_PublicResearch_ChildInput: React.FC<Props> = (props: 
 
                 {isOpenWarningDialog ? (
                     <Dialog_Warning
-                        messageContent="Bạn muốn thêm mới?"
+                        messageContent={messageContent}
                         onCancel={handleCancelWarningDialog}
                         onClickOk={handleClickOk}
                     />

@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Overlay from '../../../layout/Overlay';
 import { Card, Col, Row } from 'antd';
 import Button_Normal from '../../common/Button_Normal';
 import Input_Text from '../../common/Input_Text';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import { MODE } from '../../../constant/constant';
+import { useDispatch } from 'react-redux';
+import {
+    deleteResearchAssessment,
+    postResearchAssessment,
+    putResearchAssessment,
+} from '../../../store/employees/employee/researchAssessmentSlice';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
@@ -13,11 +19,24 @@ interface Props {
 }
 
 const Management_Employees_ResearchAssessment_ChildInput: React.FC<Props> = (props: Props) => {
-    const [researchAssessmentID, setResearchAssessmentID] = useState('');
-    const [researchAssessmentName, setResearchAssessmentName] = useState('');
+    const { childInputItem, mode } = props;
+
+    const [researchAssessmentID, setResearchAssessmentID] = useState(
+        mode !== MODE.ADD ? childInputItem.maHinhThucHoiDong : '',
+    );
+    const [researchAssessmentName, setResearchAssessmentName] = useState(
+        mode !== MODE.ADD ? childInputItem.hinhThucHoiDong : '',
+    );
+
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
+    const [titleText, setTitleText] = useState('');
+    const [messageID, setMessageID] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+    const dispatch = useDispatch();
+
     const handleDelete = () => {
-        console.log('delete');
+        setMessageID('DELETE');
+        setMessageContent('Xóa công trình KH&CN?');
         setIsOpenWarningDialog(true);
     };
 
@@ -27,8 +46,15 @@ const Management_Employees_ResearchAssessment_ChildInput: React.FC<Props> = (pro
     };
 
     const handleValidate = () => {
-        console.log('validate');
+        if (!researchAssessmentID) {
+            setIsOpenWarningDialog(true);
+            setMessageID('ERROR');
+            setMessageContent('Mã kinh nghiệm KH&CN chưa nhập');
+            return;
+        }
         setIsOpenWarningDialog(true);
+        setMessageID(mode == MODE.ADD ? MODE.ADD : MODE.EDIT);
+        setMessageContent(mode == MODE.ADD ? 'Thêm mới?' : 'Sửa kinh nghiệm KH&CN?');
     };
 
     const handleCancelWarningDialog = () => {
@@ -36,16 +62,46 @@ const Management_Employees_ResearchAssessment_ChildInput: React.FC<Props> = (pro
         setIsOpenWarningDialog(false);
     };
 
-    const handleClickOk = () => {
-        console.log('click ok');
-        setIsOpenWarningDialog(false);
+    const handleClickOk = async () => {
+        const researchAssessmentObj = {
+            maHinhThucHoiDong: researchAssessmentID,
+            hinhThucHoiDong: researchAssessmentName,
+        };
+        if (messageID == MODE.ADD) {
+            console.log(researchAssessmentObj);
+            await dispatch(postResearchAssessment(researchAssessmentObj));
+            props.onClickOK();
+        } else if (messageID == MODE.EDIT) {
+            console.log(researchAssessmentObj);
+            await dispatch(putResearchAssessment(researchAssessmentObj));
+            props.onClickOK();
+        } else if (messageID == 'DELETE') {
+            await dispatch(deleteResearchAssessment(researchAssessmentObj.maHinhThucHoiDong));
+            props.onClickOK();
+        }
 
-        props.onClickOK();
+        setIsOpenWarningDialog(false);
     };
+
+    useEffect(() => {
+        switch (mode) {
+            case MODE.ADD:
+                setTitleText('Thêm mới');
+                break;
+            case MODE.EDIT:
+                setTitleText('Sửa');
+                break;
+            case MODE.INFO:
+                setTitleText('Thông tin');
+                break;
+            default:
+                break;
+        }
+    }, [mode]);
     return (
         <Overlay>
             <Card
-                title="Kinh nghiệm KH&CN [Thêm mới]"
+                title={`Kinh nghiệm KH&CN [${titleText}]`}
                 headStyle={{ background: '#006D75', color: 'white' }}
                 bodyStyle={{ overflowY: 'auto', height: 'inherit' }}
                 style={{ background: '#fff', width: '50%', height: 'fit-content', border: 'none' }}
@@ -97,7 +153,7 @@ const Management_Employees_ResearchAssessment_ChildInput: React.FC<Props> = (pro
 
                 {isOpenWarningDialog ? (
                     <Dialog_Warning
-                        messageContent="Bạn muốn thêm mới?"
+                        messageContent={messageContent}
                         onCancel={handleCancelWarningDialog}
                         onClickOk={handleClickOk}
                     />

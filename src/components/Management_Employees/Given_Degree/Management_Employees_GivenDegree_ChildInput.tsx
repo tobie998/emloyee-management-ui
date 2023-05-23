@@ -63,7 +63,7 @@ const Management_Employees_GivenDegree_ChildInput: React.FC<Props> = (props: Pro
             console.log(givenDegreeObj);
             await dispatch(postGivenDegree(givenDegreeObj));
             props.onClickOK();
-        } else if (messageID == 'EDIT') {
+        } else if (messageID == MODE.EDIT) {
             console.log(givenDegreeObj);
             await dispatch(putGivenDegree(givenDegreeObj));
             props.onClickOK();

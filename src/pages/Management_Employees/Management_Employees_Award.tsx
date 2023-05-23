@@ -45,7 +45,7 @@ const Management_Employees_Award = () => {
     const onSearch = (value: string) => console.log(value);
 
     const handleEdit = (record: any) => {
-        console.log('edit', record);
+        console.log(MODE.EDIT, record);
     };
 
     const handleInfo = (record: any) => {

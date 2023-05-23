@@ -5,8 +5,8 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    researchCategoryID: string;
-    researchCategoryName: string;
+    maLinhVuc: string;
+    tenLinhVuc: string;
 }
 
 interface Props {
@@ -27,14 +27,18 @@ const Management_Employees_ResearchCategory_Table: React.FC<Props> = (props: Pro
         },
         {
             title: 'Mã lĩnh vực',
-            dataIndex: 'researchCategoryID',
-            key: 'researchCategoryID',
+            dataIndex: 'maLinhVuc',
+            key: 'maLinhVuc',
             width: '200px',
         },
         {
             title: 'Tên lĩnh vực',
-            key: 'researchCategoryName',
-            dataIndex: 'researchCategoryName',
+            key: 'tenLinhVuc',
+            dataIndex: 'tenLinhVuc',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.tenLinhVuc.includes(value);
+            },
             width: '200px',
         },
         {
@@ -48,34 +52,6 @@ const Management_Employees_ResearchCategory_Table: React.FC<Props> = (props: Pro
                     <EditOutlined className="text-main-color text-2xl" onClick={() => props.onEdit(record)} />
                 </Space>
             ),
-        },
-    ];
-
-    const data: DataType[] = [
-        {
-            key: '1',
-            researchCategoryID: 'VB00001',
-            researchCategoryName: 'Thạc sĩ',
-        },
-        {
-            key: '2',
-            researchCategoryID: 'VB00001',
-            researchCategoryName: 'Thạc sĩ',
-        },
-        {
-            key: '3',
-            researchCategoryID: 'VB00001',
-            researchCategoryName: 'Thạc sĩ',
-        },
-        {
-            key: '4',
-            researchCategoryID: 'VB00001',
-            researchCategoryName: 'Thạc sĩ',
-        },
-        {
-            key: '5',
-            researchCategoryID: 'VB00001',
-            researchCategoryName: 'Thạc sĩ',
         },
     ];
 

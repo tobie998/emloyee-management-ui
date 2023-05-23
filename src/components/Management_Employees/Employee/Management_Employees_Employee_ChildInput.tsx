@@ -112,7 +112,7 @@ const Management_Employees_Employee_ChildInput: React.FC<Props> = (props: Props)
             console.log(employeeObj);
             await dispatch(postEmployee(employeeObj));
             props.onClickOK();
-        } else if (messageID == 'EDIT') {
+        } else if (messageID == MODE.EDIT) {
             console.log(employeeObj);
             await dispatch(putEmployee(employeeObj));
             props.onClickOK();

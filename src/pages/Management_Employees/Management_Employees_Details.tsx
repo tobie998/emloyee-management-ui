@@ -41,9 +41,9 @@ const Management_Employees_Details: React.FC = () => {
     const onSearch = (value: string) => console.log(value);
 
     const handleEdit = (record: any) => {
-        console.log('edit', record);
+        console.log(MODE.EDIT, record);
         setChildInputItem(record);
-        setChildMode('edit');
+        setChildMode(MODE.EDIT);
         setIsChildInputOpen(true);
     };
 

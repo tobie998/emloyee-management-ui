@@ -50,7 +50,7 @@ const Management_Employees_Employee: React.FC = () => {
     };
 
     const handleEdit = (record: any) => {
-        console.log('edit', record);
+        console.log(MODE.EDIT, record);
         setChildInputItem(record);
         setChildMode(MODE.EDIT);
         setIsChildInputOpen(true);

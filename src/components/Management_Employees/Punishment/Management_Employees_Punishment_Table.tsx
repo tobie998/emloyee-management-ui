@@ -5,8 +5,8 @@ import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 interface DataType {
     key: string;
-    punishmentID: string;
-    punishmentName: string;
+    maKyLuat: string;
+    tenKyluat: string;
 }
 
 interface Props {
@@ -27,14 +27,18 @@ const Management_Employees_Punishment_Table: React.FC<Props> = (props: Props) =>
         },
         {
             title: 'Mã kỷ luật',
-            dataIndex: 'punishmentID',
-            key: 'punishmentID',
+            dataIndex: 'maKyLuat',
+            key: 'maKyLuat',
             width: '200px',
         },
         {
             title: 'Tên kỷ luật',
-            key: 'punishmentName',
-            dataIndex: 'punishmentName',
+            key: 'tenKyluat',
+            dataIndex: 'tenKyluat',
+            filteredValue: [searchedText],
+            onFilter: (value: any, record: any) => {
+                return record.tenKyluat.includes(value);
+            },
             width: '200px',
         },
         {
@@ -48,34 +52,6 @@ const Management_Employees_Punishment_Table: React.FC<Props> = (props: Props) =>
                     <EditOutlined className="text-main-color text-2xl" onClick={() => props.onEdit(record)} />
                 </Space>
             ),
-        },
-    ];
-
-    const data: DataType[] = [
-        {
-            key: '1',
-            punishmentID: 'VB00001',
-            punishmentName: 'Thạc sĩ',
-        },
-        {
-            key: '2',
-            punishmentID: 'VB00001',
-            punishmentName: 'Thạc sĩ',
-        },
-        {
-            key: '3',
-            punishmentID: 'VB00001',
-            punishmentName: 'Thạc sĩ',
-        },
-        {
-            key: '4',
-            punishmentID: 'VB00001',
-            punishmentName: 'Thạc sĩ',
-        },
-        {
-            key: '5',
-            punishmentID: 'VB00001',
-            punishmentName: 'Thạc sĩ',
         },
     ];
 

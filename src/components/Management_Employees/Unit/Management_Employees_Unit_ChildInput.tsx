@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Overlay from '../../../layout/Overlay';
 import { Card, Col, Row } from 'antd';
 import Button_Normal from '../../common/Button_Normal';
@@ -6,6 +6,8 @@ import Input_Text from '../../common/Input_Text';
 import Dialog_Warning from '../../common/Dialog_Warning';
 import Input_Number from '../../common/Input_Number';
 import { MODE } from '../../../constant/constant';
+import { useDispatch } from 'react-redux';
+import { deleteUnit, postUnit, putUnit } from '../../../store/employees/employee/unitSlice';
 interface Props {
     onClickOK: any;
     onClickCancel: any;
@@ -14,17 +16,25 @@ interface Props {
 }
 
 const Management_Employees_Unit_ChildInput: React.FC<Props> = (props: Props) => {
-    const [unitID, setUnitID] = useState('');
-    const [unitName, setUnitName] = useState('');
-    const [unitAddress, setUnitAddress] = useState('');
-    const [unitFax, setUnitFax] = useState(0);
-    const [unitLeader, setUnitLeader] = useState('');
-    const [unitPhone, setUnitPhone] = useState(0);
-    const [unitWebsite, setUnitWebsite] = useState('');
+    const { childInputItem, mode } = props;
+
+    const [unitID, setUnitID] = useState(mode !== MODE.ADD ? childInputItem.maDonVi : '');
+    const [unitName, setUnitName] = useState(mode !== MODE.ADD ? childInputItem.tenDonVi : '');
+    const [unitAddress, setUnitAddress] = useState(mode !== MODE.ADD ? childInputItem.diaChi : '');
+    const [unitFax, setUnitFax] = useState(mode !== MODE.ADD ? childInputItem.fax : '');
+    const [unitLeader, setUnitLeader] = useState(mode !== MODE.ADD ? childInputItem.nguoiDungDau : '');
+    const [unitPhone, setUnitPhone] = useState(mode !== MODE.ADD ? childInputItem.dienThoai : '');
+    const [unitWebsite, setUnitWebsite] = useState(mode !== MODE.ADD ? childInputItem.website : '');
     const [isOpenWarningDialog, setIsOpenWarningDialog] = useState(false);
 
+    const [titleText, setTitleText] = useState('');
+    const [messageID, setMessageID] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+    const dispatch = useDispatch();
+
     const handleDelete = () => {
-        console.log('delete');
+        setMessageID('DELETE');
+        setMessageContent('Xóa đơn vị');
         setIsOpenWarningDialog(true);
     };
 
@@ -34,8 +44,15 @@ const Management_Employees_Unit_ChildInput: React.FC<Props> = (props: Props) => 
     };
 
     const handleValidate = () => {
-        console.log('validate');
+        if (!unitID) {
+            setIsOpenWarningDialog(true);
+            setMessageID('ERROR');
+            setMessageContent('Mã đơn vị chưa nhập');
+            return;
+        }
         setIsOpenWarningDialog(true);
+        setMessageID(mode == MODE.ADD ? MODE.ADD : MODE.EDIT);
+        setMessageContent(mode == MODE.ADD ? 'Thêm mới?' : 'Sửa đơn vị?');
     };
 
     const handleCancelWarningDialog = () => {
@@ -43,16 +60,51 @@ const Management_Employees_Unit_ChildInput: React.FC<Props> = (props: Props) => 
         setIsOpenWarningDialog(false);
     };
 
-    const handleClickOk = () => {
-        console.log('click ok');
-        setIsOpenWarningDialog(false);
+    const handleClickOk = async () => {
+        const unitObj = {
+            maDonVi: 'string',
+            tenDonVi: 'string',
+            diaChi: 'string',
+            fax: 'string',
+            nguoiDungDau: 'string',
+            dienThoai: 'string',
+            website: 'string',
+        };
+        if (messageID == MODE.ADD) {
+            console.log(unitObj);
+            await dispatch(postUnit(unitObj));
+            props.onClickOK();
+        } else if (messageID == MODE.EDIT) {
+            console.log(unitObj);
+            await dispatch(putUnit(unitObj));
+            props.onClickOK();
+        } else if (messageID == 'DELETE') {
+            await dispatch(deleteUnit(unitObj.maDonVi));
+            props.onClickOK();
+        }
 
-        props.onClickOK();
+        setIsOpenWarningDialog(false);
     };
+
+    useEffect(() => {
+        switch (mode) {
+            case MODE.ADD:
+                setTitleText('Thêm mới');
+                break;
+            case MODE.EDIT:
+                setTitleText('Sửa');
+                break;
+            case MODE.INFO:
+                setTitleText('Thông tin');
+                break;
+            default:
+                break;
+        }
+    }, [mode]);
     return (
         <Overlay>
             <Card
-                title="Khen thưởng [Thêm mới]"
+                title={`Đơn vị [${titleText}]`}
                 headStyle={{ background: '#006D75', color: 'white' }}
                 bodyStyle={{ overflowY: 'auto', height: 'inherit' }}
                 style={{ background: '#fff', width: '50%', height: 'fit-content', border: 'none' }}
@@ -149,7 +201,7 @@ const Management_Employees_Unit_ChildInput: React.FC<Props> = (props: Props) => 
 
                 {isOpenWarningDialog ? (
                     <Dialog_Warning
-                        messageContent="Bạn muốn thêm mới?"
+                        messageContent={messageContent}
                         onCancel={handleCancelWarningDialog}
                         onClickOk={handleClickOk}
                     />
